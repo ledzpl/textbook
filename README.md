@@ -5,4 +5,3 @@
 
 - <a href="https://ledzpl.github.io/textbook/music">작곡을 위한 음악 이론</a>
 - <a href="https://ledzpl.github.io/textbook/philosophy">20세기 이후의 프랑스 철학</a>
-- <a href="https://ledzpl.github.io/textbook/hci-evolution.md">HCI</a>
