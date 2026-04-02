@@ -721,6 +721,342 @@ mark.search-hl.active {
     z-index: 150;
     box-shadow: var(--shadow);
 }
+
+/* ========== 북마크 & 메모 패널 ========== */
+.annotation-panel {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 320px;
+    height: 100vh;
+    background: var(--bg-card);
+    border-left: 1px solid var(--border);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 12px rgba(0,0,0,0.08);
+}
+.annotation-panel.open { right: 0; }
+
+.annotation-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-secondary);
+}
+.panel-tabs { display: flex; gap: 0.25rem; }
+.panel-tab {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-family: inherit;
+    transition: all 0.2s;
+}
+.panel-tab.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+.panel-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+.panel-close-btn:hover { background: var(--bg-secondary); }
+
+.panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+}
+.panel-tab-content { display: none; }
+.panel-tab-content.active { display: block; }
+
+.panel-add-btn {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px dashed var(--border);
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-family: inherit;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s;
+}
+.panel-add-btn:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+}
+
+.bookmark-item, .annotation-item {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+.bookmark-item:hover, .annotation-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.bookmark-section {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.bookmark-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+}
+.bookmark-date, .annotation-date {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+.item-delete {
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.bookmark-item:hover .item-delete,
+.annotation-item:hover .item-delete { opacity: 1; }
+.item-delete:hover { color: #e53935; background: rgba(229,57,53,0.1); }
+
+.annotation-selected-text {
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.25rem 0.4rem;
+    border-radius: 4px;
+    margin-bottom: 0.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    border-left: 2px solid var(--accent);
+}
+.annotation-note {
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    white-space: pre-wrap;
+}
+
+.notes-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 11rem;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 200;
+    transition: transform 0.2s;
+}
+.notes-btn:hover { transform: scale(1.1); }
+.notes-btn .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #e53935;
+    color: #fff;
+    font-size: 0.65rem;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.selection-tooltip {
+    position: absolute;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.35rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    z-index: 400;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    white-space: nowrap;
+    display: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.selection-tooltip:hover { filter: brightness(1.15); }
+.selection-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--accent);
+    border-bottom: none;
+}
+
+mark.user-annotation {
+    background: rgba(255,235,59,0.35);
+    border-bottom: 2px solid #ffca28;
+    padding: 0 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+mark.user-annotation:hover { background: rgba(255,235,59,0.55); }
+
+.annotation-popover {
+    position: absolute;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    max-width: 280px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 350;
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    display: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: pre-wrap;
+}
+.annotation-popover .popover-note { margin-bottom: 0.3rem; }
+.annotation-popover .popover-date { font-size: 0.7rem; color: var(--text-muted); }
+.annotation-popover .popover-actions { display: flex; gap: 0.5rem; margin-top: 0.4rem; }
+.annotation-popover .popover-actions button {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: inherit;
+}
+.annotation-popover .popover-actions button:hover { background: var(--bg-secondary); }
+
+.note-input-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.note-input-modal.open { display: flex; }
+.note-input-box {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 1.2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+.note-input-box h4 {
+    margin: 0 0 0.3rem 0;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+.note-input-box .selected-preview {
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.6rem;
+    border-left: 2px solid var(--accent);
+    max-height: 3rem;
+    overflow: hidden;
+}
+.note-input-box textarea {
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    resize: vertical;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    box-sizing: border-box;
+}
+.note-input-box textarea:focus { outline: none; border-color: var(--accent); }
+.note-input-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+}
+.note-input-actions button {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+.note-input-actions .btn-save {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+.note-input-actions .btn-cancel { background: transparent; color: var(--text-secondary); }
+
+.panel-empty {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+    .annotation-panel { width: 85vw; right: -90vw; }
+    .notes-btn { bottom: 1rem; right: 11rem; width: 40px; height: 40px; font-size: 1rem; }
+}
+@media print {
+    .annotation-panel, .notes-btn, .selection-tooltip, .note-input-modal, .annotation-popover { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -2763,6 +3099,47 @@ mark.search-hl.active {
     <button class="search-btn" onclick="Search.open()" aria-label="검색">&#128269;</button>
     <button class="back-to-top" onclick="scrollToTop()" aria-label="맨 위로">&#8593;</button>
     <button class="theme-toggle" onclick="toggleTheme()">&#127769;</button>
+    <button class="notes-btn" onclick="NotesPanel.toggle()" aria-label="북마크 & 메모">&#128209;<span class="badge" id="notes-badge" style="display:none"></span></button>
+
+    <!-- 북마크 & 메모 사이드 패널 -->
+    <aside id="annotation-panel" class="annotation-panel">
+        <div class="annotation-panel-header">
+            <div class="panel-tabs">
+                <button class="panel-tab active" data-tab="bookmarks">북마크</button>
+                <button class="panel-tab" data-tab="annotations">메모</button>
+            </div>
+            <button class="panel-close-btn" onclick="NotesPanel.close()">&#10005;</button>
+        </div>
+        <div class="panel-content">
+            <div id="tab-bookmarks" class="panel-tab-content active">
+                <button class="panel-add-btn" onclick="NotesPanel.addBookmark()">+ 현재 위치 북마크</button>
+                <div id="bookmarks-list"></div>
+            </div>
+            <div id="tab-annotations" class="panel-tab-content">
+                <div id="annotations-list"></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 텍스트 선택 툴팁 -->
+    <div id="selection-tooltip" class="selection-tooltip" onclick="NotesPanel.onTooltipClick()">+ 메모</div>
+
+    <!-- 메모 입력 모달 -->
+    <div id="note-input-modal" class="note-input-modal">
+        <div class="note-input-box">
+            <h4>메모 추가</h4>
+            <div class="selected-preview" id="note-preview"></div>
+            <textarea id="note-textarea" placeholder="메모를 입력하세요..."></textarea>
+            <div class="note-input-actions">
+                <button class="btn-cancel" onclick="NotesPanel.cancelNote()">취소</button>
+                <button class="btn-save" onclick="NotesPanel.saveNote()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메모 팝오버 -->
+    <div id="annotation-popover" class="annotation-popover"></div>
+
     <script>
 /* ============================================================
    1. 목차 토글
@@ -3062,6 +3439,363 @@ const Search = (() => {
 
     document.addEventListener('DOMContentLoaded', init);
     return { open };
+})();
+
+/* ============================================================
+   5. 북마크 & 메모 시스템
+   ============================================================ */
+const NotesPanel = (() => {
+    const PAGE_KEY = location.pathname.replace(/\//g, '_').replace(/^_|_$/g, '') || 'index';
+    const BM_KEY = 'textbook_bookmarks_' + PAGE_KEY;
+    const AN_KEY = 'textbook_annotations_' + PAGE_KEY;
+
+    let panel, tooltip, noteModal, noteTextarea, notePreview, popover;
+    let pendingSelection = null;
+
+    function loadBookmarks() {
+        try { return JSON.parse(localStorage.getItem(BM_KEY)) || []; } catch { return []; }
+    }
+    function saveBookmarks(arr) { localStorage.setItem(BM_KEY, JSON.stringify(arr)); }
+    function loadAnnotations() {
+        try { return JSON.parse(localStorage.getItem(AN_KEY)) || []; } catch { return []; }
+    }
+    function saveAnnotations(arr) { localStorage.setItem(AN_KEY, JSON.stringify(arr)); }
+
+    function getCurrentSection() {
+        let current = null;
+        document.querySelectorAll('.content h2[id], .content h3[id]').forEach(h => {
+            if (h.getBoundingClientRect().top < 150) current = h;
+        });
+        return current ? { id: current.id, title: current.textContent } : { id: '', title: '(시작 부분)' };
+    }
+
+    function getNearestHeading(node) {
+        const content = document.querySelector('.content');
+        const headings = Array.from(content.querySelectorAll('h2[id], h3[id]'));
+        let best = null;
+        for (const h of headings) {
+            if (node.compareDocumentPosition(h) & Node.DOCUMENT_POSITION_PRECEDING) {
+                best = h;
+            } else {
+                break;
+            }
+        }
+        return best ? { id: best.id, title: best.textContent } : { id: '', title: '' };
+    }
+
+    function toggle() {
+        panel.classList.toggle('open');
+        if (panel.classList.contains('open')) renderAll();
+    }
+    function close() { panel.classList.remove('open'); }
+
+    function switchTab(tabName) {
+        panel.querySelectorAll('.panel-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabName));
+        panel.querySelectorAll('.panel-tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tabName));
+    }
+
+    function addBookmark() {
+        const sec = getCurrentSection();
+        const label = prompt('북마크 라벨 (선택사항):') ?? '';
+        if (label === null) return;
+        const bookmarks = loadBookmarks();
+        bookmarks.unshift({
+            id: 'bm_' + Date.now(),
+            sectionId: sec.id,
+            sectionTitle: sec.title,
+            label: label.trim(),
+            createdAt: new Date().toISOString()
+        });
+        saveBookmarks(bookmarks);
+        renderBookmarks();
+        updateBadge();
+    }
+
+    function deleteBookmark(id) {
+        const bookmarks = loadBookmarks().filter(b => b.id !== id);
+        saveBookmarks(bookmarks);
+        renderBookmarks();
+        updateBadge();
+    }
+
+    function renderBookmarks() {
+        const list = document.getElementById('bookmarks-list');
+        const bookmarks = loadBookmarks();
+        if (!bookmarks.length) {
+            list.innerHTML = '<div class="panel-empty">아직 북마크가 없습니다.<br>현재 읽는 위치를 저장해보세요.</div>';
+            return;
+        }
+        list.innerHTML = bookmarks.map(b => {
+            const d = new Date(b.createdAt);
+            const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+            return '<div class="bookmark-item" data-section="' + escAttr(b.sectionId) + '" data-id="' + b.id + '">' +
+                '<div class="bookmark-section">' + escH(b.sectionTitle) + '</div>' +
+                (b.label ? '<div class="bookmark-label">' + escH(b.label) + '</div>' : '') +
+                '<div class="bookmark-date">' + dateStr + '</div>' +
+                '<button class="item-delete" data-bmid="' + b.id + '">&#10005;</button>' +
+                '</div>';
+        }).join('');
+    }
+
+    function onMouseUp(e) {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.toString().trim()) {
+            hideTooltip();
+            return;
+        }
+        const content = document.querySelector('.content');
+        if (!content.contains(sel.anchorNode) || !content.contains(sel.focusNode)) {
+            hideTooltip();
+            return;
+        }
+        const anchorEl = sel.anchorNode.parentElement;
+        if (anchorEl && anchorEl.closest('mark.user-annotation')) {
+            hideTooltip();
+            return;
+        }
+
+        const range = sel.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        tooltip.style.left = (rect.left + rect.width / 2 - 30 + window.scrollX) + 'px';
+        tooltip.style.top = (rect.top - 40 + window.scrollY) + 'px';
+        tooltip.style.display = 'block';
+
+        const section = getNearestHeading(range.startContainer);
+        pendingSelection = {
+            text: sel.toString().trim(),
+            sectionId: section.id,
+            sectionTitle: section.title,
+            selectedText: sel.toString().trim()
+        };
+    }
+
+    function hideTooltip() { tooltip.style.display = 'none'; }
+
+    function onTooltipClick() {
+        if (!pendingSelection) return;
+        hideTooltip();
+        window.getSelection().removeAllRanges();
+        notePreview.textContent = pendingSelection.text.length > 100
+            ? pendingSelection.text.slice(0, 100) + '...'
+            : pendingSelection.text;
+        noteTextarea.value = '';
+        noteModal.classList.add('open');
+        noteTextarea.focus();
+    }
+
+    function cancelNote() {
+        noteModal.classList.remove('open');
+        pendingSelection = null;
+    }
+
+    function saveNote() {
+        if (!pendingSelection) return;
+        const note = noteTextarea.value.trim();
+        if (!note) { noteTextarea.focus(); return; }
+        const annotations = loadAnnotations();
+        annotations.unshift({
+            id: 'an_' + Date.now(),
+            sectionId: pendingSelection.sectionId,
+            sectionTitle: pendingSelection.sectionTitle,
+            selectedText: pendingSelection.selectedText,
+            note: note,
+            createdAt: new Date().toISOString()
+        });
+        saveAnnotations(annotations);
+        noteModal.classList.remove('open');
+        pendingSelection = null;
+        restoreHighlights();
+        renderAnnotations();
+        updateBadge();
+    }
+
+    function deleteAnnotation(id) {
+        const annotations = loadAnnotations().filter(a => a.id !== id);
+        saveAnnotations(annotations);
+        restoreHighlights();
+        renderAnnotations();
+        updateBadge();
+        hidePopover();
+    }
+
+    function editAnnotation(id) {
+        const annotations = loadAnnotations();
+        const ann = annotations.find(a => a.id === id);
+        if (!ann) return;
+        const newNote = prompt('메모 수정:', ann.note);
+        if (newNote === null || !newNote.trim()) return;
+        ann.note = newNote.trim();
+        saveAnnotations(annotations);
+        renderAnnotations();
+        restoreHighlights();
+        hidePopover();
+    }
+
+    function renderAnnotations() {
+        const list = document.getElementById('annotations-list');
+        const annotations = loadAnnotations();
+        if (!annotations.length) {
+            list.innerHTML = '<div class="panel-empty">아직 메모가 없습니다.<br>텍스트를 선택하여 메모를 추가해보세요.</div>';
+            return;
+        }
+        list.innerHTML = annotations.map(a => {
+            const d = new Date(a.createdAt);
+            const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+            const preview = a.selectedText.length > 60 ? a.selectedText.slice(0, 60) + '...' : a.selectedText;
+            return '<div class="annotation-item" data-id="' + a.id + '">' +
+                '<div class="annotation-selected-text">' + escH(preview) + '</div>' +
+                '<div class="annotation-note">' + escH(a.note) + '</div>' +
+                '<div class="annotation-date">' + dateStr + (a.sectionTitle ? ' · ' + escH(a.sectionTitle) : '') + '</div>' +
+                '<button class="item-delete" data-anid="' + a.id + '">&#10005;</button>' +
+                '</div>';
+        }).join('');
+    }
+
+    function restoreHighlights() {
+        document.querySelectorAll('mark.user-annotation').forEach(mark => {
+            const parent = mark.parentNode;
+            parent.replaceChild(document.createTextNode(mark.textContent), mark);
+            parent.normalize();
+        });
+
+        const annotations = loadAnnotations();
+        const content = document.querySelector('.content');
+        if (!annotations.length || !content) return;
+
+        for (const ann of annotations) {
+            highlightText(content, ann.selectedText, ann.id);
+        }
+    }
+
+    function highlightText(root, text, annId) {
+        if (!text) return;
+        const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (tw.nextNode()) textNodes.push(tw.currentNode);
+
+        for (const tn of textNodes) {
+            const idx = tn.nodeValue.indexOf(text);
+            if (idx === -1) continue;
+            if (tn.parentElement.closest('mark.user-annotation')) continue;
+
+            const range = document.createRange();
+            range.setStart(tn, idx);
+            range.setEnd(tn, idx + text.length);
+            const mark = document.createElement('mark');
+            mark.className = 'user-annotation';
+            mark.dataset.annId = annId;
+            range.surroundContents(mark);
+            return;
+        }
+    }
+
+    function showPopover(mark) {
+        const annId = mark.dataset.annId;
+        const annotations = loadAnnotations();
+        const ann = annotations.find(a => a.id === annId);
+        if (!ann) return;
+
+        const d = new Date(ann.createdAt);
+        const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+
+        popover.innerHTML = '<div class="popover-note">' + escH(ann.note) + '</div>' +
+            '<div class="popover-date">' + dateStr + '</div>' +
+            '<div class="popover-actions">' +
+            '<button onclick="NotesPanel.editAnnotation(\'' + annId + '\')">수정</button>' +
+            '<button onclick="NotesPanel.deleteAnnotation(\'' + annId + '\')">삭제</button>' +
+            '</div>';
+
+        const rect = mark.getBoundingClientRect();
+        popover.style.left = (rect.left + window.scrollX) + 'px';
+        popover.style.top = (rect.bottom + 8 + window.scrollY) + 'px';
+        popover.style.display = 'block';
+    }
+
+    function hidePopover() { popover.style.display = 'none'; }
+
+    function updateBadge() {
+        const count = loadBookmarks().length + loadAnnotations().length;
+        const badge = document.getElementById('notes-badge');
+        if (count > 0) {
+            badge.textContent = count;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+
+    function renderAll() {
+        renderBookmarks();
+        renderAnnotations();
+    }
+
+    function escH(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function escAttr(s) { return (s||'').replace(/"/g,'&quot;').replace(/&/g,'&amp;'); }
+
+    function init() {
+        panel = document.getElementById('annotation-panel');
+        tooltip = document.getElementById('selection-tooltip');
+        noteModal = document.getElementById('note-input-modal');
+        noteTextarea = document.getElementById('note-textarea');
+        notePreview = document.getElementById('note-preview');
+        popover = document.getElementById('annotation-popover');
+
+        panel.querySelectorAll('.panel-tab').forEach(tab => {
+            tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+        });
+
+        document.getElementById('bookmarks-list').addEventListener('click', e => {
+            const delBtn = e.target.closest('[data-bmid]');
+            if (delBtn) { e.stopPropagation(); deleteBookmark(delBtn.dataset.bmid); return; }
+            const item = e.target.closest('.bookmark-item');
+            if (item && item.dataset.section) {
+                const el = document.getElementById(item.dataset.section);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        document.getElementById('annotations-list').addEventListener('click', e => {
+            const delBtn = e.target.closest('[data-anid]');
+            if (delBtn) { e.stopPropagation(); deleteAnnotation(delBtn.dataset.anid); return; }
+            const item = e.target.closest('.annotation-item');
+            if (item) {
+                const annId = item.dataset.id;
+                const mark = document.querySelector('mark.user-annotation[data-ann-id="' + annId + '"]');
+                if (mark) mark.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        document.addEventListener('mouseup', e => {
+            if (e.target.closest('.annotation-panel, .note-input-modal, .annotation-popover, .selection-tooltip')) return;
+            setTimeout(() => onMouseUp(e), 10);
+        });
+
+        document.addEventListener('click', e => {
+            const mark = e.target.closest('mark.user-annotation');
+            if (mark) {
+                e.preventDefault();
+                showPopover(mark);
+                return;
+            }
+            if (!e.target.closest('.annotation-popover')) {
+                hidePopover();
+            }
+        });
+
+        noteModal.addEventListener('click', e => { if (e.target === noteModal) cancelNote(); });
+
+        noteTextarea.addEventListener('keydown', e => {
+            if (e.key === 'Escape') cancelNote();
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') saveNote();
+        });
+
+        restoreHighlights();
+        updateBadge();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    return { toggle, close, addBookmark, onTooltipClick, cancelNote, saveNote, deleteAnnotation, editAnnotation };
 })();
 </script>
 </body>
