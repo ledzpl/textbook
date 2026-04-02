@@ -1,0 +1,3068 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20세기 이후의 프랑스 철학: 종합 교과서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+/* ========== 라이트 모드 (기본) ========== */
+:root, [data-theme="light"] {
+    --bg-primary: #fdfaf6;
+    --bg-secondary: #f5f0e8;
+    --bg-card: #ffffff;
+    --text-primary: #2c2c2c;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --accent: #3b5998;
+    --accent-light: #e8edf5;
+    --border: #e0d8cc;
+    --border-light: #ebe5d9;
+    --concept-bg: #e8f4fd;
+    --concept-border: #2196F3;
+    --tip-bg: #e8f5e9;
+    --tip-border: #4CAF50;
+    --warning-bg: #fff8e1;
+    --warning-border: #FF9800;
+    --practice-bg: #f3e5f5;
+    --practice-border: #9C27B0;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --toc-width: 280px;
+    --search-highlight: #ffe066;
+    --search-highlight-active: #ff9632;
+    --overlay-bg: rgba(0,0,0,0.45);
+    --code-bg: #1e1e2e;
+    --code-fg: #cdd6f4;
+    --inline-code-color: #c7254e;
+}
+
+/* ========== 다크 모드 ========== */
+[data-theme="dark"] {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #222244;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-muted: #777;
+    --accent: #7ba4db;
+    --accent-light: #2a3a5e;
+    --border: #333355;
+    --border-light: #2a2a4a;
+    --concept-bg: #1a2a3e;
+    --concept-border: #4488bb;
+    --tip-bg: #1a2e1a;
+    --tip-border: #55aa55;
+    --warning-bg: #2e2a1a;
+    --warning-border: #cc8833;
+    --practice-bg: #2a1a2e;
+    --practice-border: #aa55cc;
+    --shadow: 0 2px 12px rgba(0,0,0,0.3);
+    --search-highlight: #665500;
+    --search-highlight-active: #996600;
+    --overlay-bg: rgba(0,0,0,0.65);
+    --code-bg: #0d0d1a;
+    --code-fg: #cdd6f4;
+    --inline-code-color: #f0887a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.8;
+    display: flex;
+}
+
+/* 사이드바 목차 */
+.toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--toc-width);
+    height: 100vh;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+}
+
+.toc.collapsed {
+    transform: translateX(calc(-1 * var(--toc-width) + 40px));
+}
+
+.toc-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+    padding: 1.2rem 1rem 0.8rem;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.toc-header h3 {
+    font-size: 1rem;
+    color: var(--accent);
+}
+
+.toc-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+
+.toc-toggle:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+
+.toc.collapsed .toc-toggle {
+    transform: rotate(180deg);
+}
+
+.toc-body {
+    padding: 0.5rem 0;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc > .toc-body > ul > li {
+    margin: 0;
+}
+
+.toc > .toc-body > ul > li > a {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.toc > .toc-body > ul > li > a:hover,
+.toc > .toc-body > ul > li > a.active {
+    background: var(--accent-light);
+    border-left-color: var(--accent);
+    color: var(--accent);
+}
+
+.toc ul ul {
+    padding-left: 0;
+}
+
+.toc ul ul li a {
+    display: block;
+    padding: 0.25rem 1rem 0.25rem 1.8rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.toc ul ul li a:hover,
+.toc ul ul li a.active {
+    color: var(--accent);
+    background: var(--accent-light);
+}
+
+.toc.collapsed .toc-body {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 메인 콘텐츠 */
+.content {
+    margin-left: var(--toc-width);
+    max-width: 820px;
+    padding: 2.5rem 3rem 4rem;
+    transition: margin-left 0.3s ease;
+    width: 100%;
+}
+
+.content.expanded {
+    margin-left: 40px;
+}
+
+/* 진행 표시 바 */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: var(--toc-width);
+    right: 0;
+    height: 3px;
+    background: var(--border-light);
+    z-index: 200;
+    transition: left 0.3s ease;
+}
+
+.progress-bar.expanded {
+    left: 40px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #7b68ee);
+    width: 0%;
+    transition: width 0.1s;
+}
+
+/* 제목 스타일 */
+h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--accent);
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 3rem 0 1.2rem;
+    padding: 1rem 1.2rem;
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 2rem 0 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 1.5rem 0 0.6rem;
+}
+
+/* 단락 */
+p {
+    margin: 0.8rem 0;
+    color: var(--text-primary);
+}
+
+/* 강조 */
+strong {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* 링크 */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+a:hover {
+    border-bottom-color: var(--accent);
+}
+
+/* 리스트 */
+ul, ol {
+    margin: 0.8rem 0;
+    padding-left: 1.8rem;
+}
+
+li {
+    margin: 0.3rem 0;
+    line-height: 1.7;
+}
+
+li::marker {
+    color: var(--accent);
+}
+
+/* 테이블 */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 1.2rem 0;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: var(--bg-card);
+}
+
+th {
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+}
+
+td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+tr:hover td {
+    background: var(--accent-light);
+}
+
+/* 코드 블록 */
+pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 1.2rem 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.88em;
+}
+
+p code, li code, td code {
+    background: var(--bg-secondary);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: var(--inline-code-color);
+}
+
+/* Callout 박스 */
+.callout {
+    display: flex;
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.4rem;
+    border-radius: 10px;
+    border-left: 4px solid;
+    box-shadow: var(--shadow);
+}
+
+.callout-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    line-height: 1.5;
+}
+
+.callout-content {
+    flex: 1;
+}
+
+.callout-content strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.callout-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.callout-concept {
+    background: var(--concept-bg);
+    border-color: var(--concept-border);
+}
+
+.callout-concept strong { color: var(--concept-border); }
+
+.callout-tip {
+    background: var(--tip-bg);
+    border-color: var(--tip-border);
+}
+
+.callout-tip strong { color: var(--tip-border); }
+
+.callout-warning {
+    background: var(--warning-bg);
+    border-color: var(--warning-border);
+}
+
+.callout-warning strong { color: var(--warning-border); }
+
+.callout-practice {
+    background: var(--practice-bg);
+    border-color: var(--practice-border);
+}
+
+.callout-practice strong { color: var(--practice-border); }
+
+.callout-quote {
+    background: var(--bg-secondary);
+    border-color: var(--border);
+}
+
+.callout-quote strong { color: var(--text-secondary); }
+
+.callout-quote p {
+    font-style: italic;
+}
+
+/* 블록인용 */
+blockquote {
+    margin: 1rem 0;
+    padding: 0.8rem 1.2rem;
+    border-left: 3px solid var(--border);
+    background: var(--bg-secondary);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-secondary);
+}
+
+blockquote p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+/* 수평선 */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 2.5rem 0;
+}
+
+/* 맨 위로 버튼 */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 200;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.back-to-top.visible {
+    display: flex;
+}
+
+.back-to-top:hover {
+    transform: scale(1.1);
+}
+
+/* 다크모드 토글 */
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 5rem;
+    width: 44px;
+    height: 44px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    z-index: 200;
+    transition: transform 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* ========== 검색 모달 ========== */
+.search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-bg);
+    z-index: 500;
+    backdrop-filter: blur(3px);
+}
+
+.search-overlay.open { display: flex; justify-content: center; padding-top: 12vh; }
+
+.search-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    width: 560px;
+    max-width: 92vw;
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.search-input-wrap .search-icon { font-size: 1.1rem; color: var(--text-muted); flex-shrink: 0; }
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    font-family: inherit;
+    background: transparent;
+    color: var(--text-primary);
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-meta {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-meta kbd {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    font-family: inherit;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin: 0 0.15rem;
+}
+
+.search-results {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0.4rem 0;
+}
+
+.search-result-item {
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-left: 3px solid transparent;
+}
+
+.search-result-item:hover, .search-result-item.selected {
+    background: var(--accent-light);
+    border-left-color: var(--accent);
+}
+
+.search-result-item .result-title {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.search-result-item .result-context {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.search-result-item .result-context mark {
+    background: var(--search-highlight);
+    color: inherit;
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+.search-empty {
+    padding: 2rem 1.2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* 본문 검색 하이라이트 */
+mark.search-hl {
+    background: var(--search-highlight);
+    color: inherit;
+    border-radius: 2px;
+    padding: 0 1px;
+    scroll-margin-top: 80px;
+}
+
+mark.search-hl.active {
+    background: var(--search-highlight-active);
+    outline: 2px solid var(--search-highlight-active);
+}
+
+/* 검색 버튼 (사이드바) */
+.search-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 8rem;
+    width: 44px;
+    height: 44px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    z-index: 200;
+    transition: transform 0.3s;
+}
+
+.search-btn:hover { transform: scale(1.1); }
+
+/* 인쇄용 스타일 */
+@media print {
+    .toc, .back-to-top, .theme-toggle, .search-btn, .search-overlay, .progress-bar { display: none !important; }
+    mark.search-hl { background: none !important; outline: none !important; }
+    .content { margin-left: 0; max-width: 100%; padding: 0; }
+    h2 { break-before: page; }
+    .callout, table, pre { break-inside: avoid; }
+}
+
+/* 반응형 */
+@media (max-width: 900px) {
+    .toc {
+        transform: translateX(calc(-1 * var(--toc-width)));
+    }
+    .toc.open {
+        transform: translateX(0);
+    }
+    .content {
+        margin-left: 0;
+        padding: 1.5rem 1.2rem 3rem;
+    }
+    .progress-bar {
+        left: 0;
+    }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.4rem; }
+    .mobile-menu-btn {
+        display: flex !important;
+    }
+}
+
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 0.8rem;
+    left: 0.8rem;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 150;
+    box-shadow: var(--shadow);
+}
+</style>
+</head>
+<body>
+    <div class="progress-bar"><div class="progress-bar-fill"></div></div>
+    <button class="mobile-menu-btn" onclick="toggleMobileToc()">&#9776;</button>
+    <nav id="toc" class="toc">
+<div class="toc-header">
+<h3>📖 목차</h3>
+<button class="toc-toggle" onclick="toggleToc()" aria-label="목차 접기/펼치기">◀</button>
+</div>
+<div class="toc-body">
+<ul>
+  <li><a href="#머리말-preface">머리말 (Preface)</a>
+    <ul>
+    </ul></li>
+  <li><a href="#목차-table-of-contents">목차 (Table of Contents)</a>
+    <ul>
+    </ul></li>
+  <li><a href="#제1장-서론-프랑스-철학의-20세기적-전환">제1장. 서론: 프랑스 철학의 20세기적 전환</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#11-20세기-프랑스-철학이란-무엇인가">1.1 20세기 프랑스 철학이란 무엇인가</a></li>
+      <li><a href="#12-왜-프랑스-철학을-공부하는가">1.2 왜 프랑스 철학을 공부하는가</a></li>
+      <li><a href="#13-19세기-말의-지적-배경-영성주의-실증주의-독일-관념론">1.3 19세기 말의 지적 배경: 영성주의, 실증주의, 독일 관념론</a></li>
+      <li><a href="#14-코제브의-헤겔-세미나와-프랑스-사상의-전환점">1.4 코제브의 헤겔 세미나와 프랑스 사상의 전환점</a></li>
+      <li><a href="#15-프랑스-역사적-인식론-바슐라르와-캉길렘">1.5 프랑스 역사적 인식론: 바슐라르와 캉길렘</a></li>
+      <li><a href="#16-제도적-맥락-에콜-노르말-아그레가시옹-콜레주-드-프랑스">1.6 제도적 맥락: 에콜 노르말, 아그레가시옹, 콜레주 드 프랑스</a></li>
+      <li><a href="#17-이-교과서의-구성과-활용법">1.7 이 교과서의 구성과 활용법</a></li>
+    </ul></li>
+  <li><a href="#제2장-베르그송과-생의-철학">제2장. 베르그송과 생의 철학</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#21-앙리-베르그송의-생애와-시대">2.1 앙리 베르그송의 생애와 시대</a></li>
+      <li><a href="#22-지속duree의-개념">2.2 지속(Duree)의 개념</a></li>
+      <li><a href="#23-물질과-기억-습관-기억과-순수-기억">2.3 물질과 기억: 습관 기억과 순수 기억</a></li>
+      <li><a href="#24-창조적-진화와-엘랑-비탈">2.4 창조적 진화와 엘랑 비탈</a></li>
+      <li><a href="#25-직관의-방법">2.5 직관의 방법</a></li>
+      <li><a href="#26-도덕과-종교의-두-원천">2.6 도덕과 종교의 두 원천</a></li>
+      <li><a href="#27-베르그송의-유산-들뢰즈의-베르그송주의">2.7 베르그송의 유산: 들뢰즈의 베르그송주의</a></li>
+      <li><a href="#28-복습-문제와-더-읽을거리">2.8 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제3장-실존주의-자유-부조리-참여">제3장. 실존주의: 자유, 부조리, 참여</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#31-실존주의의-기원과-배경">3.1 실존주의의 기원과 배경</a></li>
+      <li><a href="#32-사르트르-존재와-무">3.2 사르트르: 존재와 무</a></li>
+      <li><a href="#33-보부아르-모호성의-윤리학과-제2의-성">3.3 보부아르: 모호성의 윤리학과 제2의 성</a></li>
+      <li><a href="#34-메를로-퐁티-지각의-현상학">3.4 메를로-퐁티: 지각의 현상학</a></li>
+      <li><a href="#35-카뮈-부조리의-철학">3.5 카뮈: 부조리의 철학</a></li>
+      <li><a href="#36-가브리엘-마르셀과-유신론적-실존주의">3.6 가브리엘 마르셀과 유신론적 실존주의</a></li>
+      <li><a href="#37-프란츠-파농-실존주의와-탈식민주의">3.7 프란츠 파농: 실존주의와 탈식민주의</a></li>
+      <li><a href="#38-사르트르-카뮈-논쟁">3.8 사르트르-카뮈 논쟁</a></li>
+      <li><a href="#39-복습-문제와-더-읽을거리">3.9 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제4장-현상학의-프랑스적-변용">제4장. 현상학의 프랑스적 변용</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#41-후설-현상학의-프랑스-수용">4.1 후설 현상학의 프랑스 수용</a></li>
+      <li><a href="#42-메를로-퐁티-체현된-주체의-현상학">4.2 메를로-퐁티: 체현된 주체의 현상학</a></li>
+      <li><a href="#43-레비나스-타자의-윤리학">4.3 레비나스: 타자의 윤리학</a></li>
+      <li><a href="#44-리쾨르-해석학적-현상학">4.4 리쾨르: 해석학적 현상학</a></li>
+      <li><a href="#45-마리옹과-현상학의-신학적-전회">4.5 마리옹과 현상학의 신학적 전회</a></li>
+      <li><a href="#46-복습-문제와-더-읽을거리">4.6 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제5장-구조주의-언어-구조-주체의-해체">제5장. 구조주의: 언어, 구조, 주체의 해체</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#51-소쉬르의-구조-언어학과-구조주의의-탄생">5.1 소쉬르의 구조 언어학과 구조주의의 탄생</a></li>
+      <li><a href="#52-레비-스트로스-구조-인류학">5.2 레비-스트로스: 구조 인류학</a></li>
+      <li><a href="#53-라캉-구조주의적-정신분석학">5.3 라캉: 구조주의적 정신분석학</a></li>
+      <li><a href="#54-알튀세르-구조주의적-마르크스주의">5.4 알튀세르: 구조주의적 마르크스주의</a></li>
+      <li><a href="#55-바르트-기호학과-신화론">5.5 바르트: 기호학과 신화론</a></li>
+      <li><a href="#56-1966년-구조주의의-정점">5.6 1966년: 구조주의의 정점</a></li>
+      <li><a href="#57-복습-문제와-더-읽을거리">5.7 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제6장-후기구조주의와-해체">제6장. 후기구조주의와 해체</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#61-구조주의에서-후기구조주의로">6.1 구조주의에서 후기구조주의로</a></li>
+      <li><a href="#62-데리다-해체와-디페랑스">6.2 데리다: 해체와 디페랑스</a></li>
+      <li><a href="#63-푸코-고고학-계보학-생명권력">6.3 푸코: 고고학, 계보학, 생명권력</a></li>
+      <li><a href="#64-들뢰즈와-가타리-차이의-철학과-리좀">6.4 들뢰즈와 가타리: 차이의 철학과 리좀</a></li>
+      <li><a href="#65-바타유-블랑쇼와-후기구조주의의-지하수맥">6.5 바타유, 블랑쇼와 후기구조주의의 지하수맥</a></li>
+      <li><a href="#66-1968년-5월과-철학적-전환">6.6 1968년 5월과 철학적 전환</a></li>
+      <li><a href="#67-복습-문제와-더-읽을거리">6.7 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제7장-포스트모더니즘과-시뮬라크르">제7장. 포스트모더니즘과 시뮬라크르</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#71-포스트모더니즘이란-무엇인가">7.1 포스트모더니즘이란 무엇인가</a></li>
+      <li><a href="#72-리오타르-거대서사에-대한-불신">7.2 리오타르: 거대서사에 대한 불신</a></li>
+      <li><a href="#73-보드리야르-시뮬라크르와-하이퍼리얼리티">7.3 보드리야르: 시뮬라크르와 하이퍼리얼리티</a></li>
+      <li><a href="#74-소칼-사건과-포스트모더니즘-논쟁">7.4 소칼 사건과 포스트모더니즘 논쟁</a></li>
+      <li><a href="#75-누보-필로소프-마르크스주의의-거부">7.5 누보 필로소프: 마르크스주의의 거부</a></li>
+      <li><a href="#76-복습-문제와-더-읽을거리">7.6 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제8장-프랑스-페미니즘-철학">제8장. 프랑스 페미니즘 철학</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#81-보부아르와-실존주의-페미니즘의-기원">8.1 보부아르와 실존주의 페미니즘의 기원</a></li>
+      <li><a href="#82-이리가라이-성차의-철학">8.2 이리가라이: 성차의 철학</a></li>
+      <li><a href="#83-크리스테바-기호계와-상징계">8.3 크리스테바: 기호계와 상징계</a></li>
+      <li><a href="#84-식수-여성적-글쓰기">8.4 식수: 여성적 글쓰기</a></li>
+      <li><a href="#85-평등-대-차이-논쟁">8.5 평등 대 차이 논쟁</a></li>
+      <li><a href="#86-복습-문제와-더-읽을거리">8.6 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제9장-21세기-프랑스-철학의-새로운-지평">제9장. 21세기 프랑스 철학의 새로운 지평</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#91-바디우-존재와-사건">9.1 바디우: 존재와 사건</a></li>
+      <li><a href="#92-랑시에르-불화의-정치학">9.2 랑시에르: 불화의 정치학</a></li>
+      <li><a href="#93-메이야수-사변적-실재론">9.3 메이야수: 사변적 실재론</a></li>
+      <li><a href="#94-말라부-라투르-스티글레르-새로운-유물론">9.4 말라부, 라투르, 스티글레르: 새로운 유물론</a></li>
+      <li><a href="#95-장-뤽-낭시와-라뤼엘">9.5 장-뤽 낭시와 라뤼엘</a></li>
+      <li><a href="#96-복습-문제와-더-읽을거리">9.6 복습 문제와 더 읽을거리</a></li>
+    </ul></li>
+  <li><a href="#제10장-결론-프랑스-철학의-유산과-미래">제10장. 결론: 프랑스 철학의 유산과 미래</a>
+    <ul>
+      <li><a href="#학습-목표">학습 목표</a></li>
+      <li><a href="#101-프랑스-철학의-학제간-영향">10.1 프랑스 철학의 학제간 영향</a></li>
+      <li><a href="#102-프렌치-이론과-미국-학계의-수용">10.2 "프렌치 이론"과 미국 학계의 수용</a></li>
+      <li><a href="#103-한국에서의-프랑스-철학-수용">10.3 한국에서의 프랑스 철학 수용</a></li>
+      <li><a href="#104-분석-대륙-철학의-화해-가능성">10.4 분석-대륙 철학의 화해 가능성</a></li>
+      <li><a href="#105-프랑스-철학의-미래-전망">10.5 프랑스 철학의 미래 전망</a></li>
+    </ul></li>
+  <li><a href="#부록-a-용어-사전">부록 A. 용어 사전</a>
+    <ul>
+    </ul></li>
+  <li><a href="#부록-b-주요-연표">부록 B. 주요 연표</a>
+    <ul>
+    </ul></li>
+  <li><a href="#부록-c-참고문헌">부록 C. 참고문헌</a>
+    <ul>
+      <li><a href="#1차-문헌-출판-연도순">1차 문헌 (출판 연도순)</a></li>
+      <li><a href="#2차-문헌">2차 문헌</a></li>
+    </ul></li>
+  <li><a href="#부록-d-추가-학습-자료">부록 D. 추가 학습 자료</a>
+    <ul>
+      <li><a href="#온라인-학술-자료-무료">온라인 학술 자료 (무료)</a></li>
+      <li><a href="#유튜브-채널">유튜브 채널</a></li>
+      <li><a href="#팟캐스트">팟캐스트</a></li>
+      <li><a href="#한국어-자료">한국어 자료</a></li>
+    </ul></li>
+</ul></div></nav>
+    <main class="content">
+        <h1 id="20세기-이후의-프랑스-철학-종합-교과서">20세기 이후의 프랑스 철학: 종합 교과서</h1>
+<h2 id="머리말-preface">머리말 (Preface)</h2>
+<p>20세기 프랑스 철학은 현대 인문학, 사회과학, 예술 비평, 정치 이론의 지형을 근본적으로 재편한 지적 전통이다. 앙리 베르그송(Henri Bergson)의 생의 철학에서 출발하여 실존주의, 현상학, 구조주의, 후기구조주의, 포스트모더니즘을 거쳐 알랭 바디우(Alain Badiou)와 캉탱 메이야수(Quentin Meillassoux)의 동시대 철학에 이르기까지, 프랑스 철학자들은 자유, 주체, 언어, 권력, 차이, 진리의 문제를 둘러싸고 서양 사상의 가장 도발적이고 영향력 있는 논의를 전개해 왔다.</p>
+<p>이 교과서는 그 방대한 지적 여정을 체계적으로 정리하여 한국어 독자에게 제공하는 것을 목표로 한다. 대상 독자는 철학 입문자부터 인문학 전공 중급자까지를 포괄한다. 각 장은 학습 목표에서 시작하여 핵심 개념의 설명, 원전 인용, 사례 연구, 복습 문제, 추가 읽을거리로 구성되어 있으며, 초보자도 접근할 수 있으면서도 학문적 엄밀성을 유지하도록 설계되었다.</p>
+<p>프랑스 철학의 특이성 중 하나는 철학이 순수 학문의 영역에 머물지 않았다는 점이다. 사르트르(Sartre)는 소설가이자 극작가였고, 카뮈(Camus)는 노벨문학상 수상 작가였으며, 보부아르(Beauvoir)는 자서전과 소설을 통해 철학적 사유를 전달했다. 푸코(Foucault)는 감옥 개혁 운동에 참여했고, 데리다(Derrida)는 건축가들과 협업했다. 프랑스에서 철학은 삶의 양식이자 공적 담론의 핵심이었으며, 이러한 전통은 오늘날에도 리세(lycee)의 바칼로레아 철학 시험을 통해 이어지고 있다.</p>
+<p>한국에서 프랑스 철학의 수용 역시 깊은 역사를 가지고 있다. 1980년대 민주화 운동 시기 사르트르의 실존주의는 자유와 저항의 철학적 틀을 제공했고, 푸코와 알튀세르의 이론은 국가 권력을 분석하는 도구로 활용되었다. 21세기에 들어서 한국 학자들은 단순한 번역과 수용을 넘어 프랑스 철학에 대한 독창적 연구를 생산하고 있다. 이 교과서가 그러한 학문적 대화에 기여할 수 있기를 바란다.</p>
+<p>본 교과서의 모든 사실적 주장은 교차 검증된 학술 자료에 기반하며, 원어 표기를 병기하여 독자가 원전에 접근할 수 있도록 배려하였다.</p>
+<hr>
+<h2 id="목차-table-of-contents">목차 (Table of Contents)</h2>
+<ul>
+  <li><strong>제1장. 서론: 프랑스 철학의 20세기적 전환</strong></li>
+  <li>1.1 20세기 프랑스 철학이란 무엇인가</li>
+  <li>1.2 왜 프랑스 철학을 공부하는가</li>
+  <li>1.3 19세기 말의 지적 배경: 영성주의, 실증주의, 독일 관념론</li>
+  <li>1.4 코제브의 헤겔 세미나와 프랑스 사상의 전환점</li>
+  <li>1.5 프랑스 역사적 인식론: 바슐라르와 캉길렘</li>
+  <li>1.6 제도적 맥락: 에콜 노르말, 아그레가시옹, 콜레주 드 프랑스</li>
+  <li>1.7 이 교과서의 구성과 활용법</li>
+</ul>
+<ul>
+  <li><strong>제2장. 베르그송과 생의 철학</strong></li>
+  <li>2.1 앙리 베르그송의 생애와 시대</li>
+  <li>2.2 지속(duree)의 개념</li>
+  <li>2.3 물질과 기억: 습관 기억과 순수 기억</li>
+  <li>2.4 창조적 진화와 엘랑 비탈</li>
+  <li>2.5 직관의 방법</li>
+  <li>2.6 도덕과 종교의 두 원천</li>
+  <li>2.7 베르그송의 유산: 들뢰즈의 베르그송주의</li>
+  <li>2.8 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제3장. 실존주의: 자유, 부조리, 참여</strong></li>
+  <li>3.1 실존주의의 기원과 배경</li>
+  <li>3.2 사르트르: 존재와 무</li>
+  <li>3.3 보부아르: 모호성의 윤리학과 제2의 성</li>
+  <li>3.4 메를로-퐁티: 지각의 현상학</li>
+  <li>3.5 카뮈: 부조리의 철학</li>
+  <li>3.6 가브리엘 마르셀과 유신론적 실존주의</li>
+  <li>3.7 프란츠 파농: 실존주의와 탈식민주의</li>
+  <li>3.8 사르트르-카뮈 논쟁</li>
+  <li>3.9 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제4장. 현상학의 프랑스적 변용</strong></li>
+  <li>4.1 후설 현상학의 프랑스 수용</li>
+  <li>4.2 메를로-퐁티: 체현된 주체의 현상학</li>
+  <li>4.3 레비나스: 타자의 윤리학</li>
+  <li>4.4 리쾨르: 해석학적 현상학</li>
+  <li>4.5 마리옹과 현상학의 신학적 전회</li>
+  <li>4.6 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제5장. 구조주의: 언어, 구조, 주체의 해체</strong></li>
+  <li>5.1 소쉬르의 구조 언어학과 구조주의의 탄생</li>
+  <li>5.2 레비-스트로스: 구조 인류학</li>
+  <li>5.3 라캉: 구조주의적 정신분석학</li>
+  <li>5.4 알튀세르: 구조주의적 마르크스주의</li>
+  <li>5.5 바르트: 기호학과 신화론</li>
+  <li>5.6 1966년: 구조주의의 정점</li>
+  <li>5.7 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제6장. 후기구조주의와 해체</strong></li>
+  <li>6.1 구조주의에서 후기구조주의로</li>
+  <li>6.2 데리다: 해체와 디페랑스</li>
+  <li>6.3 푸코: 고고학, 계보학, 생명권력</li>
+  <li>6.4 들뢰즈와 가타리: 차이의 철학과 리좀</li>
+  <li>6.5 바타유, 블랑쇼와 후기구조주의의 지하수맥</li>
+  <li>6.6 1968년 5월과 철학적 전환</li>
+  <li>6.7 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제7장. 포스트모더니즘과 시뮬라크르</strong></li>
+  <li>7.1 포스트모더니즘이란 무엇인가</li>
+  <li>7.2 리오타르: 거대서사에 대한 불신</li>
+  <li>7.3 보드리야르: 시뮬라크르와 하이퍼리얼리티</li>
+  <li>7.4 소칼 사건과 포스트모더니즘 논쟁</li>
+  <li>7.5 누보 필로소프: 마르크스주의의 거부</li>
+  <li>7.6 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제8장. 프랑스 페미니즘 철학</strong></li>
+  <li>8.1 보부아르와 실존주의 페미니즘의 기원</li>
+  <li>8.2 이리가라이: 성차의 철학</li>
+  <li>8.3 크리스테바: 기호계와 상징계</li>
+  <li>8.4 식수: 여성적 글쓰기</li>
+  <li>8.5 평등 대 차이 논쟁</li>
+  <li>8.6 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제9장. 21세기 프랑스 철학의 새로운 지평</strong></li>
+  <li>9.1 바디우: 존재와 사건</li>
+  <li>9.2 랑시에르: 불화의 정치학</li>
+  <li>9.3 메이야수: 사변적 실재론</li>
+  <li>9.4 말라부, 라투르, 스티글레르: 새로운 유물론</li>
+  <li>9.5 장-뤽 낭시와 라뤼엘</li>
+  <li>9.6 복습 문제와 더 읽을거리</li>
+</ul>
+<ul>
+  <li><strong>제10장. 결론: 프랑스 철학의 유산과 미래</strong></li>
+  <li>10.1 프랑스 철학의 학제간 영향</li>
+  <li>10.2 "프렌치 이론"과 미국 학계의 수용</li>
+  <li>10.3 한국에서의 프랑스 철학 수용</li>
+  <li>10.4 분석-대륙 철학의 화해 가능성</li>
+  <li>10.5 프랑스 철학의 미래 전망</li>
+</ul>
+<ul>
+  <li><strong>부록</strong></li>
+  <li>A. 용어 사전</li>
+  <li>B. 주요 연표</li>
+  <li>C. 참고문헌</li>
+  <li>D. 추가 학습 자료</li>
+</ul>
+<hr>
+<h2 id="제1장-서론-프랑스-철학의-20세기적-전환">제1장. 서론: 프랑스 철학의 20세기적 전환</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>20세기 프랑스 철학의 주요 흐름을 시대순으로 개괄할 수 있다.</li>
+  <li>프랑스 철학이 독일 철학(칸트, 헤겔, 후설, 하이데거)을 어떻게 수용하고 변용했는지 설명할 수 있다.</li>
+  <li>코제브의 헤겔 세미나가 프랑스 지성사에 미친 영향을 설명할 수 있다.</li>
+  <li>바슐라르-캉길렘으로 이어지는 프랑스 역사적 인식론의 전통을 이해할 수 있다.</li>
+  <li>에콜 노르말, 아그레가시옹, 콜레주 드 프랑스 등 프랑스 철학의 제도적 기반을 이해할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="11-20세기-프랑스-철학이란-무엇인가">1.1 20세기 프랑스 철학이란 무엇인가</h3>
+<p>20세기 프랑스 철학(philosophie francaise du XXe siecle)은 1900년경부터 현재까지 프랑스어권 사상가들이 생산한 극히 다양하고 전 세계적으로 영향력 있는 철학적 사유의 총체를 가리킨다. 이것은 하나의 통일된 전통이 아니라, 각각이 선행하는 운동에 반응하고 그것을 변형시키는 일련의 지적 혁명들로 구성되어 있다.</p>
+<p>그 주요 흐름을 시간순으로 정리하면 다음과 같다:</p>
+<ol>
+  <li><strong>생의 철학/생기론(Vitalisme)</strong> [약 1889-1940년대]: 앙리 베르그송</li>
+  <li><strong>현상학과 실존주의(Phenomenologie et Existentialisme)</strong> [약 1930년대-1960년대]: 사르트르, 보부아르, 메를로-퐁티, 카뮈, 레비나스, 리쾨르</li>
+  <li><strong>구조주의(Structuralisme)</strong> [약 1950년대-1970년대]: 레비-스트로스, 라캉, 알튀세르, 바르트</li>
+  <li><strong>후기구조주의와 해체(Post-structuralisme et Deconstruction)</strong> [약 1966년-현재]: 데리다, 푸코, 들뢰즈와 가타리</li>
+  <li><strong>포스트모더니즘(Postmodernisme)</strong> [약 1970년대-1990년대]: 리오타르, 보드리야르</li>
+  <li><strong>프랑스 페미니즘 철학(Feminisme philosophique francais)</strong> [약 1949년-현재]: 보부아르, 이리가라이, 크리스테바, 식수</li>
+  <li><strong>동시대 프랑스 철학(Philosophie francaise contemporaine)</strong> [약 1988년-현재]: 바디우, 랑시에르, 메이야수</li>
+</ol>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>프랑스 철학의 특이성</strong><p>프랑스 철학의 가장 두드러진 특징 중 하나는 철학적 사유가 문학, 예술, 정신분석, 정치 활동과 긴밀하게 교차했다는 점이다. 프랑스 철학자들은 소설, 희곡, 신문 칼럼 등 다양한 장르를 넘나들며 글을 쓰고, 공적 정치 생활에 직접 참여하는 "공적 지식인(intellectuel public)"의 전통을 형성했다. 이는 스탠퍼드 철학 백과사전이 지적하듯이 프랑스에 고유한 지적 양식이다.</p></div></div>
+<p>이들 운동은 프랑스의 학술 기관들 -- 소르본(Sorbonne), 콜레주 드 프랑스(College de France), 에콜 노르말 쉬페리외르(Ecole Normale Superieure) -- 에 의해 제도적으로 뒷받침되었으며, 두 차례의 세계대전, 나치 점령, 냉전, 탈식민화, 그리고 1968년 5월 혁명이라는 격동의 정치적 사건들에 의해 깊이 각인되었다.</p>
+<hr>
+<h3 id="12-왜-프랑스-철학을-공부하는가">1.2 왜 프랑스 철학을 공부하는가</h3>
+<p>프랑스 철학을 공부해야 하는 이유는 여러 가지가 있다.</p>
+<p><strong>첫째, 학제적 영향력이 압도적이다.</strong> 20세기 프랑스 철학은 문학 이론(해체, 상호텍스트성), 정치 이론(생명정치, 이데올로기적 국가장치), 사회학(부르디외의 아비투스), 정신분석학(라캉), 인류학(레비-스트로스), 영화 이론(들뢰즈의 운동-이미지와 시간-이미지), 젠더 연구(보부아르, 이리가라이, 크리스테바), 탈식민 연구(파농) 등 인문사회과학 전 분야에 걸쳐 방법론적, 이론적 틀을 제공했다.</p>
+<p><strong>둘째, 현대 사회의 핵심 문제를 분석하는 도구를 제공한다.</strong> 푸코의 감시 사회론은 디지털 감시 시대에 새로운 적실성을 가지며, 보드리야르의 시뮬라크르 이론은 소셜 미디어와 딥페이크의 시대를 예견했다. 랑시에르의 감각적인 것의 분배 개념은 누가 보이고 누가 보이지 않는가라는 정치적 물음에 직결된다.</p>
+<p><strong>셋째, 한국 지성사와 깊은 연관이 있다.</strong> 프랑스 철학은 해방 이후 한국 지식인 사회에서 중요한 흐름을 형성해 왔다. 1980년대 민주화 운동 시기에 사르트르의 실존주의는 자유와 저항의 프레임을 제공했고, 푸코와 알튀세르는 국가 권력 분석의 도구가 되었다. 진태원, 이정우, 홍준기 등 한국 학자들의 번역과 연구는 프랑스 철학의 한국적 수용을 심화시켜 왔다.</p>
+<hr>
+<h3 id="13-19세기-말의-지적-배경-영성주의-실증주의-독일-관념론">1.3 19세기 말의 지적 배경: 영성주의, 실증주의, 독일 관념론</h3>
+<p>20세기 프랑스 철학은 진공 속에서 출현하지 않았다. 그 뿌리는 여러 선행 전통에 놓여 있다.</p>
+<p><strong>프랑스 영성주의(Spiritualisme)와 실증주의(Positivisme).</strong> 19세기 프랑스 철학의 두 축은 빅토르 쿠쟁(Victor Cousin)과 멘 드 비랑(Maine de Biran)의 영성주의 전통, 그리고 오귀스트 콩트(Auguste Comte)의 실증주의 전통이었다. 베르그송의 생기론은 이 두 전통 모두에 대한 반응으로 등장했다 -- 실증주의의 기계론적 환원주의를 거부하면서도, 영성주의의 추상적 형이상학을 넘어서 생명과 의식의 구체적 경험으로 향했다.</p>
+<p><strong>독일 관념론과 현상학의 수용.</strong> 20세기 프랑스 철학의 결정적 특징은 독일 철학 -- 칸트(Kant), 헤겔(Hegel), 마르크스(Marx), 니체(Nietzsche), 후설(Husserl), 하이데거(Heidegger) -- 과의 체계적인 대화이다. 각각의 주요 프랑스 철학 운동은 이 독일적 유산의 독특한 전유와 변용을 나타낸다.</p>
+<p>후설의 현상학은 주로 에마뉘엘 레비나스(Emmanuel Levinas)의 매개를 통해 프랑스에 도달했다. 레비나스는 1928-1929년에 프라이부르크에서 후설과 하이데거 아래서 직접 수학했으며, 1930년에 후설 현상학에 관한 박사 논문 『후설 현상학에서의 직관 이론』(La Theorie de l'intuition dans la phenomenologie de Husserl)을 출판했다. 1931년에는 가브리엘 페퍼(Gabrielle Peiffer)와 공동으로, 알렉상드르 코이레(Alexandre Koyre)의 조언을 받아 후설의 『데카르트적 성찰』(Meditations cartesiennes)을 프랑스어로 번역했다. 이 번역은 후설 현상학의 프랑스 수용에 결정적 계기가 되었다.</p>
+<p><strong>소쉬르의 구조 언어학.</strong> 스위스 언어학자 페르디낭 드 소쉬르(Ferdinand de Saussure, 1857-1913)의 『일반 언어학 강의』(Cours de linguistique generale, 1916년 사후 출판)는 구조주의의 개념적 토대를 제공했다. 소쉬르의 핵심 구분 -- 랑그(langue, 체계로서의 언어)와 파롤(parole, 개별 발화), 기표(signifiant)와 기의(signifie), 공시태(synchronie)와 통시태(diachronie) -- 은 레비-스트로스, 라캉, 알튀세르, 바르트가 인류학, 정신분석, 마르크스주의, 문학 이론에 적용한 구조적 모델이 되었다.</p>
+<hr>
+<h3 id="14-코제브의-헤겔-세미나와-프랑스-사상의-전환점">1.4 코제브의 헤겔 세미나와 프랑스 사상의 전환점</h3>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>알렉상드르 코제브(Alexandre Kojeve, 1902-1968)</strong><p>러시아 태생의 프랑스 철학자 코제브는 1933년부터 1939년까지 파리 고등연구실습원(Ecole Pratique des Hautes Etudes)에서 헤겔의 『정신현상학』(Phenomenologie de l'Esprit)에 대한 세미나를 진행했다. 이 세미나는 프랑스 실존주의와 후기구조주의 모두의 탄생에 결정적인 역할을 한, 20세기 프랑스 지성사의 가장 중요한 지적 사건 중 하나로 평가된다.</p></div></div>
+<p>코제브의 세미나에는 당대와 후대의 프랑스 철학을 형성하게 될 주요 인물들이 참석했다. 사르트르, 보부아르, 메를로-퐁티, 라캉, 바타유(Bataille), 레이몽 아롱(Raymond Aron), 레이몽 크노(Raymond Queneau) 등이 그 청강생이었다.</p>
+<p>코제브의 헤겔 해석은 몇 가지 핵심적 특징을 가졌다:</p>
+<ol>
+  <li><strong>주인과 노예의 변증법에 대한 강조.</strong> 코제브는 『정신현상학』의 "주인과 노예" 장을 전체 텍스트의 핵심으로 읽었다. 인정(reconnaissance)을 위한 투쟁, 죽음을 무릅쓴 싸움, 노동을 통한 노예의 자기의식 획득이라는 구도는 사르트르의 '시선(le regard)' 개념과 보부아르의 '타자로서의 여성' 분석에 직접적 영향을 미쳤다.</li>
+</ol>
+<ol>
+  <li><strong>역사의 종말(fin de l'histoire) 테제.</strong> 코제브는 헤겔의 역사 철학을 급진적으로 해석하여, 나폴레옹 전쟁과 함께 역사가 본질적으로 종결되었다고 주장했다. 이 테제는 후에 프란시스 후쿠야마(Francis Fukuyama)의 『역사의 종말과 최후의 인간』(1992)으로 이어지는 사상적 계보를 형성한다.</li>
+</ol>
+<ol>
+  <li><strong>욕망(desir)의 인간학.</strong> 코제브는 인간의 욕망을 단순한 생물학적 욕구가 아니라 타자의 욕망에 대한 욕망, 즉 인정에 대한 욕망으로 해석했다. 이 해석은 라캉의 "욕망은 타자의 욕망이다(Le desir est le desir de l'Autre)"라는 정식에 직접적으로 반영되어 있다.</li>
+</ol>
+<p>코제브 세미나의 중요성은 아무리 강조해도 지나치지 않다. 이 세미나를 통해 헤겔은 프랑스 철학의 핵심 참조점이 되었고, 주체성, 타자성, 인정, 역사의 문제가 이후 프랑스 철학의 중심 의제로 부상했다.</p>
+<p>한편 레이몽 아롱의 독일 체류(1933년경) 역시 중요한 계기였다. 전해지는 일화에 따르면, 아롱이 독일 현상학에 대해 보고하자 사르트르는 칵테일 잔을 가리키며 "현상학자라면 이 칵테일에 대해서도 철학을 할 수 있단 말인가!"라고 외쳤다고 한다. 이 일화는 현상학이 일상적 경험으로부터 출발하는 철학이라는 인식이 프랑스 지식인들에게 얼마나 신선한 충격이었는지를 보여준다.</p>
+<hr>
+<h3 id="15-프랑스-역사적-인식론-바슐라르와-캉길렘">1.5 프랑스 역사적 인식론: 바슐라르와 캉길렘</h3>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>인식론적 단절(Coupure epistemologique)</strong><p>가스통 바슐라르가 제안한 개념으로, 전과학적(pre-scientifique) 사고와 과학적 사고 사이의 급진적 불연속성을 가리킨다. 과학의 역사는 점진적 축적이 아니라 단절과 재구성의 역사이다. 이 개념은 후에 알튀세르가 마르크스의 사상적 발전을 설명하는 데 차용하고, 푸코의 에피스테메(episteme) 개념에도 영향을 미쳤다.</p></div></div>
+<p>현상학-실존주의와 나란히, 프랑스에는 또 하나의 독자적 철학 전통이 형성되었다. 가스통 바슐라르(Gaston Bachelard, 1884-1962)와 조르주 캉길렘(Georges Canguilhem, 1904-1995)으로 대표되는 <strong>프랑스 역사적 인식론(epistemologie historique francaise)</strong>의 전통이 그것이다.</p>
+<p><strong>가스통 바슐라르</strong>는 과학 철학자이자 시학(poetique) 이론가였다. 과학 영역에서 그의 핵심 공헌은 '인식론적 장애물(obstacle epistemologique)'과 '인식론적 단절' 개념이다. 바슐라르는 과학적 인식이 일상적 경험이나 상식으로부터 자연스럽게 발전하는 것이 아니라, 오히려 그것들을 적극적으로 부정하고 극복해야만 성립한다고 주장했다. 과학의 역사는 누적적 진보가 아니라 단절과 재구성의 연속이다.</p>
+<p><strong>조르주 캉길렘</strong>은 바슐라르의 제자이자 후계자로, 생물학과 의학의 철학적 기초를 탐구했다. 그의 주저 『정상적인 것과 병리적인 것』(Le Normal et le pathologique, 1943/1966)은 '정상(normal)'이라는 개념이 순수한 과학적 사실이 아니라 가치 판단을 내포한다고 논증했다. 정상과 비정상의 구분은 생물학적 사실 이전에 사회적, 역사적으로 구성된다는 이 통찰은 푸코의 작업에 직접적으로 영향을 미쳤다. 캉길렘은 푸코의 박사논문 지도교수였으며, 푸코의 광기, 임상의학, 감옥에 대한 계보학적 분석은 캉길렘의 정상성 비판의 연장선에 놓여 있다.</p>
+<p>바슐라르-캉길렘 전통은 알튀세르와 푸코를 통해 후기구조주의로 이어진다. 알튀세르가 마르크스 사상에서 '인식론적 단절'을 발견한 것은 바슐라르의 과학 철학을 직접 차용한 것이며, 푸코의 '에피스테메' 개념 -- 특정 역사적 시기에 무엇이 사유될 수 있는지를 결정하는 지식의 심층 구조 -- 은 바슐라르의 인식론적 역사주의와 캉길렘의 규범 비판을 종합한 것이다.</p>
+<hr>
+<h3 id="16-제도적-맥락-에콜-노르말-아그레가시옹-콜레주-드-프랑스">1.6 제도적 맥락: 에콜 노르말, 아그레가시옹, 콜레주 드 프랑스</h3>
+<p>프랑스 철학의 독특한 성격을 이해하려면 그것을 떠받치는 제도적 구조를 알아야 한다.</p>
+<p><strong>에콜 노르말 쉬페리외르(Ecole Normale Superieure, ENS).</strong> 파리의 뤼 뒤름(rue d'Ulm)에 위치한 이 엘리트 교육기관은 프랑스 철학 인재의 주요 배양소였다. 사르트르, 메를로-퐁티, 알튀세르, 데리다, 푸코, 보부아르, 바디우, 메이야수 등이 모두 이곳을 거쳤다. ENS의 소규모 학생 집단과 집중적 교육 환경은 서로 경쟁하고 자극하는 지적 공동체를 형성했다.</p>
+<p><strong>아그레가시옹 드 필로소피(Agregation de philosophie).</strong> 프랑스의 경쟁적 국가 교원 자격시험인 아그레가시옹은 프랑스 철학적 실천을 심대하게 형성했다. 이 시험은 철학사의 정전(canon)에 대한 숙달과 시간 압박 속에서 철학적으로 엄밀한 논술(dissertation)을 작성하는 능력을 요구한다. 프랑스의 거의 모든 학술 철학자는 이 시험을 통과했으며, 앨런 슈리프트(Alan D. Schrift)가 지적했듯이, 아그레가시옹의 교과과정은 프랑스 철학 생산의 방향성에 결정적 영향을 미쳤다.</p>
+<p><strong>콜레주 드 프랑스(College de France).</strong> 동료들의 선출에 의해 연구 프로그램이 특별히 설치되는 이 기관은 베르그송, 레비-스트로스, 푸코, 메를로-퐁티 등에게 일반적 교수 의무에서 자유로운 명망 높은 연구 기반을 제공했다. 베르그송의 콜레주 드 프랑스 강연(1900-1924)은 경찰 경비가 필요할 정도로 대규모 청중을 끌어모았다.</p>
+<p><strong>바칼로레아 철학 시험.</strong> 프랑스는 세계적으로 유일하게 모든 고등학교 졸업생에게 철학 시험을 의무화하는 나라이다. 인문 계열 학생은 주당 최대 8시간의 철학 수업을 받으며, 과학 계열 학생도 주당 2시간을 이수한다. 바칼로레아 첫날에 치르는 4시간 필기시험은 정의, 의식, 자유, 타자, 예술, 의무, 행복 등의 '개념(notions)'에 대한 논술로 구성된다. 이러한 제도는 철학적 사유를 프랑스 시민 정체성의 깊은 곳에 뿌리내리게 했다.</p>
+<hr>
+<h3 id="17-이-교과서의-구성과-활용법">1.7 이 교과서의 구성과 활용법</h3>
+<p>이 교과서는 대략적으로 시간순 구성을 따르면서도, 각 장이 하나의 주요 철학적 운동 또는 주제를 다루는 방식으로 조직되어 있다. 독자는 처음부터 순서대로 읽을 수도 있고, 관심 있는 특정 장이나 사상가로 바로 이동할 수도 있다.</p>
+<p>각 장의 구성 요소:</p>
+<ul>
+  <li><strong>학습 목표</strong>: 해당 장에서 달성해야 할 학습 성과</li>
+  <li><strong>핵심 개념 박스</strong>: 중요 용어와 개념에 대한 강조 설명</li>
+  <li><strong>원문 인용</strong>: 핵심 텍스트의 원어 인용과 한국어 번역</li>
+  <li><strong>사례 연구</strong>: 구체적 예시를 통한 개념 이해</li>
+  <li><strong>복습 문제</strong>: 학습 내용 점검을 위한 질문</li>
+  <li><strong>더 읽을거리</strong>: 해당 주제에 대한 추가 학습 자료</li>
+</ul>
+<p>초보자에게 권하는 학습 순서는 다음과 같다: 먼저 문학적, 전기적 텍스트(카뮈의 『이방인』, 사르트르의 희곡 『닫힌 방』)로 시작하여 철학적 분위기에 익숙해진 후, 게리 거팅(Gary Gutting)의 『20세기 프랑스 철학』이나 앨런 슈리프트의 『20세기 프랑스 철학: 주요 주제와 사상가들』 같은 개론서를 읽고, 그 다음에 원전으로 나아가는 것이 효과적이다. 대륙 철학에서 2차 문헌의 중요성은 아무리 강조해도 지나치지 않다 -- 어떤 철학자가 어떤 문제에 응답하고 있는지를 이해하는 것이 그 철학자가 무엇을 말하고 있는지를 이해하는 데 종종 필수적이다.</p>
+<hr>
+<h2 id="제2장-베르그송과-생의-철학">제2장. 베르그송과 생의 철학</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>베르그송의 '지속(duree)' 개념을 설명하고, 공간화된 시간과 구별할 수 있다.</li>
+  <li>직관(intuition)과 분석(analyse)의 방법론적 차이를 설명할 수 있다.</li>
+  <li>엘랑 비탈(elan vital)의 개념과 그것이 기계론 및 목적론과 어떻게 다른지 설명할 수 있다.</li>
+  <li>물질과 기억의 관계에 대한 베르그송의 이론을 서술할 수 있다.</li>
+  <li>베르그송이 후대 프랑스 철학(특히 들뢰즈)에 미친 영향을 평가할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="21-앙리-베르그송의-생애와-시대">2.1 앙리 베르그송의 생애와 시대</h3>
+<p>앙리 베르그송(Henri Bergson, 1859-1941)은 19세기와 20세기 프랑스 철학의 분수령에 해당하는 인물이다. 파리에서 태어나 에콜 노르말 쉬페리외르에서 수학했으며, 1900년부터 1924년까지 콜레주 드 프랑스의 근대철학 담당 교수로 재직했다. 그의 강연은 일반 대중까지 끌어들여 대규모 청중을 형성하는 지적 현상이 되었다 -- 이는 프랑스 지성사에서 이례적인 사건이었다.</p>
+<p>1914년에는 아카데미 프랑세즈(Academie francaise) 회원으로 선출되었고, 1927년에는 노벨문학상을 수상했다. 그는 노벨문학상을 수상한 철학자들 중 한 명이다 -- 버트런드 러셀(Bertrand Russell)이 1950년에, 루돌프 오이켄(Rudolf Eucken)이 1908년에 같은 상을 받았다.</p>
+<p>베르그송은 제2차 세계대전 중 비시 정부의 반유대주의 법률에도 불구하고 유대인으로서의 정체성을 포기하지 않았다. 그는 면제 조치를 거부하고 직접 등록 줄에 섰다고 전해진다. 1941년 파리에서 사망했다.</p>
+<hr>
+<h3 id="22-지속duree의-개념">2.2 지속(Duree)의 개념</h3>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>지속(Duree)</strong><p>베르그송의 중심 개념. 살아 있는 의식이 경험하는 시간의 질적이고 이질적이며 연속적으로 흘러가는 특성을 가리킨다. 이는 과학이 측정하는 공간화된, 동질적인, 양적인 시계 시간(temps)과 근본적으로 다르다. 지속은 분할될 수 없으며, 각 순간은 이전의 모든 순간들을 내포하면서 항상 새로운 것을 창조한다.</p></div></div>
+<p>베르그송 철학의 출발점이자 기초는 <strong>지속(duree)</strong> 개념이다. 그의 첫 번째 주저인 『시간과 자유의지에 대한 시론』(Essai sur les donnees immediates de la conscience, 1889)에서 처음 체계적으로 제시된 이 개념은 시간에 대한 우리의 통상적 이해를 근본적으로 문제 삼는다.</p>
+<p>베르그송에 따르면, 과학과 일상적 인식은 시간을 체계적으로 왜곡한다 -- 시간을 <strong>공간화(spatialisation)</strong>하여, 이산적이고 동질적인 순간들의 계열로 처리하기 때문이다. 시계의 눈금, 달력의 날짜, 수학적 변수 t는 모두 시간을 공간의 모델 위에 펼쳐놓은 것이다. 이렇게 공간화된 시간에서 각 순간은 다른 순간과 동일하며, 교환 가능하고, 분리 가능하다.</p>
+<p>그러나 우리가 실제로 살아가는 시간 -- <strong>지속</strong> -- 은 이와 전혀 다르다. 지속은:</p>
+<ul>
+  <li><strong>질적(qualitatif)</strong>이다: 각 순간은 고유한 질적 색조를 가진다.</li>
+  <li><strong>이질적(heterogene)</strong>이다: 어떤 두 순간도 동일하지 않다.</li>
+  <li><strong>연속적(continu)</strong>이다: 순간들 사이에 분명한 경계선이 없으며, 하나가 다른 하나로 녹아들어 간다.</li>
+  <li><strong>불가분(indivisible)</strong>이다: 지속을 분할하면 그 본성이 변한다.</li>
+</ul>
+<p>비유하자면, 지속은 하나의 멜로디와 같다. 멜로디의 각 음은 이전 음들의 기억과 다음 음에 대한 기대를 내포하며, 분리된 음들의 단순한 합이 아니라 유기적 전체를 형성한다. 멜로디를 개별 음으로 분해하면 멜로디 자체가 사라지듯이, 지속을 개별 순간들로 분해하면 지속의 본질 -- 연속적 흐름과 질적 변화 -- 이 상실된다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"순수 지속은 우리 의식 상태들의 연속이 뚜렷한 윤곽 없이 서로 녹아들며 진행하는 형태이다." (<em>La duree toute pure est la forme que prend la succession de nos etats de conscience quand notre moi se laisse vivre.</em> -- <em>Essai sur les donnees immediates de la conscience</em>, 1889)</p></div></div>
+<p>이 구분은 자유의지 문제에 대한 함의를 가진다. 베르그송은 결정론이 공간화된 시간의 환상에 기반한다고 주장했다. 시간을 공간적 계열로 표상하면, 각 순간은 이전 순간에 의해 기계적으로 결정되는 것처럼 보인다. 그러나 지속 속에서, 의식의 각 상태는 이전 상태들의 전체를 내포하면서도 새로운 것을 창조하며, 따라서 자유로운 행위가 가능하다.</p>
+<hr>
+<h3 id="23-물질과-기억-습관-기억과-순수-기억">2.3 물질과 기억: 습관 기억과 순수 기억</h3>
+<p>베르그송의 두 번째 주저 『물질과 기억』(Matiere et memoire, 1896)은 마음과 몸의 관계, 특히 기억의 본성에 대한 독창적 분석을 전개한다.</p>
+<p>베르그송은 두 종류의 기억을 구분한다:</p>
+<ol>
+  <li><strong>습관 기억(memoire-habitude)</strong>: 반복을 통해 획득된 신체적, 운동적 성향. 예를 들어 자전거 타는 법이나 피아노 치는 법을 기억하는 것. 이것은 과거의 재현이 아니라 현재의 행동 역량이다.</li>
+</ol>
+<ol>
+  <li><strong>순수 기억(souvenir pur)</strong>: 과거 경험 전체의 가상적(virtuel) 보존. 순수 기억은 뇌에 저장되는 것이 아니라, 의식적으로 소환되기를 기다리면서 가상적 상태로 존속한다. 뇌는 기억의 저장고가 아니라, 현재의 행동에 적절한 기억을 선택하는 도구이다.</li>
+</ol>
+<p>이 구분은 유물론과 관념론 모두를 넘어서는 독자적 입장을 형성한다. 베르그송에게 물질은 <strong>이미지(image)</strong>의 집합이다 -- 관념론이 말하듯 순수한 표상도 아니고, 유물론이 말하듯 의식과 무관한 자체 존재도 아닌, 그 사이에 놓인 것이다. 지각은 항상 이미 행동 지향적이며, 기억에 의해 침투되어 있다.</p>
+<p>이 작업은 후대 철학에 깊은 영향을 미쳤다. 특히 들뢰즈는 베르그송의 순수 기억 개념에서 <strong>잠재적인 것(le virtuel)</strong> -- 실재적이되 현행적이지 않은(reel sans etre actuel) 존재 양태 -- 의 개념을 발전시켰다.</p>
+<hr>
+<h3 id="24-창조적-진화와-엘랑-비탈">2.4 창조적 진화와 엘랑 비탈</h3>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>엘랑 비탈(Elan vital)</strong><p>'생명의 약동' 또는 '창조적 생명력'으로 번역되는 이 개념은 베르그송이 『창조적 진화』(1907)에서 제안한 것으로, 생물학적 진화를 추동하는 내재적 창조력을 가리킨다. 이것은 기계론(맹목적 물리적 인과)도 아니고 목적론(미리 정해진 목적)도 아닌 제3의 길 -- 창조적 비결정성 -- 을 제안한다.</p></div></div>
+<p>『창조적 진화』(L'Evolution creatrice, 1907)는 베르그송의 가장 유명한 저작이다. 이 책에서 그는 다윈적 진화를 수용하면서도, 진화가 순전히 기계적 자연선택만으로는 설명될 수 없다고 주장한다.</p>
+<p>베르그송의 비판 대상은 두 가지이다:</p>
+<ul>
+  <li><strong>기계론(mecanisme)</strong>: 진화를 맹목적 물리적 인과의 산물로 설명하는 입장. 기계론은 생명 현상의 창조성과 참신성을 설명하지 못한다.</li>
+  <li><strong>목적론(finalisme/teleologie)</strong>: 진화가 미리 정해진 목적을 향해 전개된다고 보는 입장. 목적론은 진화를 사후적으로 재구성하여 예측 가능한 것으로 만들지만, 이는 실제 진화 과정의 개방성과 예측 불가능성을 왜곡한다.</li>
+</ul>
+<p>엘랑 비탈은 이 두 극단을 넘어서는 제3의 원리이다. 그것은 생명 내부에서 작용하는 비기계적 창조 충동으로서, 진화가 진정으로 새로운 형태를 산출할 수 있게 하는 힘이다. 엘랑 비탈은 단일한 원천에서 출발하여 여러 방향으로 분기(divergence)하며, 각 분기 경로에서 상이한 생명 형태를 만들어낸다.</p>
+<p>베르그송은 또한 이 책에서 <strong>사유의 영화적 환상(illusion cinematographique de la pensee)</strong>이라는 비유를 제시한다. 영화가 정지 이미지들의 빠른 연속으로 운동의 환상을 만들어내듯, 분석적 지성은 실재의 연속적 흐름을 정지된 스냅샷들로 분해한 뒤 재구성하려 한다. 그러나 이렇게 재구성된 운동은 실제 운동이 아니다 -- 정지 이미지들의 아무리 빠른 연속도 운동 자체를 재현할 수 없다.</p>
+<p>이 책은 국제적 센세이션을 일으켰다. 미국의 철학자 윌리엄 제임스(William James)는 이 책을 높이 평가하며 "정교한 천재의 작품"이라고 불렀다고 전해진다.</p>
+<hr>
+<h3 id="25-직관의-방법">2.5 직관의 방법</h3>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>직관(Intuition)</strong><p>베르그송에게 직관은 실재를 내부로부터 파악하는 철학적 인식 방법이다. 이는 대상을 외부에서 분해하고 개념적 범주로 재구성하는 분석(analyse)과 대비된다. 직관은 지속의 운동 자체에 동참하는 지적 공감(sympathie intellectuelle)이다.</p></div></div>
+<p>베르그송의 방법론적 강령은 「형이상학 입문」(Introduction a la metaphysique, 1903)에서 체계적으로 제시된다. 그 핵심은 <strong>직관(intuition)</strong>과 <strong>분석(analyse)</strong>의 구별이다.</p>
+<p><strong>분석</strong>은 대상을 바깥에서 관찰하고, 이미 알려진 개념들로 분해하며, 여러 외적 관점들을 종합하여 상대적이고 상징적인 앎에 도달한다. 분석은 물질(그 자체가 공간화된 것)을 다루는 데는 적합하지만, 살아 있는 시간적 실재를 다루면 그것을 왜곡한다.</p>
+<p><strong>직관</strong>은 대상의 내부로 들어가 그것의 운동 자체와 합치하는 직접적이고 비개념적인 인식이다. 직관은 이미 만들어진 개념들을 적용하는 것이 아니라, 실재의 고유한 리듬에 동참함으로써 절대적 앎에 도달한다.</p>
+<p>베르그송의 방법론적 프로그램은 세 단계로 요약된다:</p>
+<ol>
+  <li><strong>분석에 대한 비판</strong>: 분석적 지성이 어떻게 살아 있는 실재를 정적이고 이산적인 단위들로 분해하여 왜곡하는지를 보여준다.</li>
+  <li><strong>지속 안에 자리 잡기(installation dans la duree)</strong>: 여러 외적 관점에서 대상을 돌려보는 것이 아니라, 한 번의 지적 공감의 행위로 그것의 내부에 자리 잡는다.</li>
+  <li><strong>이미지를 통한 확장</strong>: 직관은 직접적으로 전달될 수 없으므로, 수렴하는 이미지들을 통해 접근해야 한다. 이 이미지들은 마음을 습관적 개념에서 벗어나 지속의 동적 연속성으로 향하게 한다.</li>
+</ol>
+<hr>
+<h3 id="26-도덕과-종교의-두-원천">2.6 도덕과 종교의 두 원천</h3>
+<p>베르그송의 마지막 주저 『도덕과 종교의 두 원천』(Les Deux Sources de la morale et de la religion, 1932)은 그의 철학을 윤리학과 종교 철학으로 확장한다.</p>
+<p>베르그송은 두 종류의 도덕과 종교를 구분한다:</p>
+<ul>
+  <li><strong>닫힌 도덕(morale close)과 정적 종교(religion statique)</strong>: 습관, 사회적 압력, 의무에 기반한 도덕. 집단의 결속을 유지하기 위해 작동하며, 근본적으로 보수적이다. 정적 종교는 죽음에 대한 공포와 불확실성에 대한 불안을 달래주는 기능을 수행한다.</li>
+</ul>
+<ul>
+  <li><strong>열린 도덕(morale ouverte)과 동적 종교(religion dynamique)</strong>: 신비적이고 창조적인 사랑에 의해 고무되는 도덕. 열린 도덕은 특정 집단을 넘어 인류 전체를 향하며, 진정한 윤리적 창조성의 원천이다. 동적 종교는 신비주의자들의 체험에서 나타나는 생명의 근원적 힘과의 합일이다.</li>
+</ul>
+<p>이 구분은 베르그송의 엘랑 비탈 개념을 사회적, 윤리적 차원으로 확장한 것으로, 닫힌 것에서 열린 것으로의 이행은 생명의 창조적 약동이 사회적 관성을 돌파하는 과정으로 이해된다.</p>
+<hr>
+<h3 id="27-베르그송의-유산-들뢰즈의-베르그송주의">2.7 베르그송의 유산: 들뢰즈의 베르그송주의</h3>
+<p>베르그송의 영향력은 제2차 세계대전 이후 실존주의와 구조주의의 부상과 함께 쇠퇴했으나, 1966년 질 들뢰즈(Gilles Deleuze)의 『베르그송주의』(Le Bergsonisme)를 통해 극적으로 부활했다.</p>
+<p>들뢰즈는 베르그송의 세 가지 핵심 개념이 차이와 다양성의 철학을 위해 결정적으로 중요하다고 주장했다:</p>
+<ol>
+  <li><strong>지속</strong>: 시간은 동일자의 반복이 아니라 차이의 끊임없는 생산이다. 지속은 차이화(differenciation)의 과정 자체이다.</li>
+  <li><strong>순수 기억/잠재적인 것(le virtuel)</strong>: 과거 전체가 잠재적 상태로 보존된다는 베르그송의 테제는 들뢰즈의 잠재적/현행적(virtuel/actuel) 존재론의 직접적 원천이 되었다.</li>
+  <li><strong>다양체(multiplicite)</strong>: 베르그송은 두 종류의 다양체를 구분했다 -- 이산적(discretes), 양적, 공간적 다양체와 연속적(continues), 질적, 시간적 다양체. 들뢰즈는 이 구분을 자신의 차이 철학의 존재론적 기초로 삼았다.</li>
+</ol>
+<p>바디우(Badiou)는 "베르그송이 들뢰즈의 진정한 스승"이라고 평가한 바 있다. 베르그송 철학의 현대적 부활은 생물학 철학, 생태학, 과학철학에서도 이어지고 있다. 베르그송의 생기론은 더 이상 신비주의적인 것으로 폄하되지 않고, 기계론으로 환원될 수 없는 생명 현상의 고유성을 포착하기 위한 발견적(heuristique) 틀로 재평가되고 있다.</p>
+<div class="callout callout-practice"><div class="callout-icon">📖</div><div class="callout-content"><strong>베르그송과 프루스트</strong><p>베르그송의 지속 이론은 마르셀 프루스트(Marcel Proust)의 『잃어버린 시간을 찾아서』(A la recherche du temps perdu)와 깊은 친연성을 가진다. 프루스트의 '비자발적 기억(memoire involontaire)' -- 마들렌 과자의 맛이 갑자기 유년의 기억 전체를 불러일으키는 유명한 장면 -- 은 베르그송의 순수 기억이 갑작스럽게 현재 의식으로 분출하는 과정을 문학적으로 구현한 것으로 해석된다. 베르그송과 프루스트는 실제로 친척 관계(먼 인척)였으며, 프루스트의 서사적 시간 경험은 문학-철학적 교류의 대표적 사례이다.</p></div></div>
+<hr>
+<h3 id="28-복습-문제와-더-읽을거리">2.8 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>베르그송의 '지속(duree)'과 공간화된 시간(temps)의 차이를 설명하시오. 멜로디의 비유를 사용하여 지속의 핵심 특징을 서술하시오.</li>
+</ol>
+<ol>
+  <li>습관 기억(memoire-habitude)과 순수 기억(souvenir pur)의 차이를 예를 들어 설명하시오. 베르그송에게 뇌는 기억과 어떤 관계에 있는가?</li>
+</ol>
+<ol>
+  <li>엘랑 비탈(elan vital)이 기계론(mecanisme)과 목적론(finalisme) 모두와 다른 점을 서술하시오.</li>
+</ol>
+<ol>
+  <li>베르그송의 '직관(intuition)' 방법과 '분석(analyse)' 방법의 차이를 설명하시오. 왜 베르그송은 분석이 살아 있는 실재를 왜곡한다고 주장하는가?</li>
+</ol>
+<ol>
+  <li>들뢰즈가 베르그송의 어떤 개념들을 자신의 철학에 차용했는지 설명하시오.</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>베르그송, 앙리. 『창조적 진화』 (L'Evolution creatrice, 1907). 베르그송의 가장 유명하고 영향력 있는 저작.</li>
+  <li>들뢰즈, 질. 『베르그송주의』 (Le Bergsonisme, 1966). 베르그송 철학의 현대적 재해석.</li>
+  <li>Gutting, Gary. <em>French Philosophy in the Twentieth Century</em>. Cambridge University Press, 2001. 제1-3장.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Henri Bergson" (https://plato.stanford.edu/entries/bergson/).</li>
+</ul>
+<hr>
+<h2 id="제3장-실존주의-자유-부조리-참여">제3장. 실존주의: 자유, 부조리, 참여</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>"실존은 본질에 앞선다"는 테제의 의미를 설명할 수 있다.</li>
+  <li>사르트르의 자기기만(mauvaise foi), 시선(le regard), 급진적 자유의 개념을 분석할 수 있다.</li>
+  <li>보부아르의 실존주의적 윤리학과 페미니즘의 핵심 논증을 서술할 수 있다.</li>
+  <li>메를로-퐁티가 사르트르의 이원론을 어떻게 비판했는지 설명할 수 있다.</li>
+  <li>카뮈의 부조리 철학과 사르트르 실존주의의 차이를 구별할 수 있다.</li>
+  <li>파농의 탈식민 철학이 실존주의를 어떻게 확장했는지 이해할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="31-실존주의의-기원과-배경">3.1 실존주의의 기원과 배경</h3>
+<p>프랑스 실존주의(existentialisme)는 제2차 세계대전, 나치 점령, 홀로코스트, 히로시마의 충격 속에서 1940-50년대 프랑스의 지배적 지적 운동으로 부상했다. 이 운동은 인간 존재가 미리 정해진 본성을 갖지 않으며, 구체적 역사적 상황 속에서 자유로운 선택을 통해 스스로를 창조해야 한다는 주장으로 통일되지만, '실존주의자'로 분류된 철학자들은 핵심 문제에서 상당히 갈라졌다.</p>
+<p>실존주의는 프랑스에서 독자적으로 발생한 것이 아니다. 그 개념적 토대는 19세기 키르케고르(Kierkegaard)와 니체(Nietzsche)에 의해 놓였고, 20세기 초 독일에서 하이데거(Heidegger)와 야스퍼스(Jaspers)에 의해 발전되었다. 프랑스 실존주의의 독자성은 이 독일적 유산을 자유, 책임, 정치적 참여(engagement)라는 문제틀로 변용한 데 있다.</p>
+<p>실존주의라는 명칭 자체를 둘러싸고도 논쟁이 있었다. 가브리엘 마르셀(Gabriel Marcel)이 처음으로 사르트르의 철학을 '실존주의'라고 명명했을 때, 사르트르 자신은 처음에 이 꼬리표를 거부했다. 그러나 1945년 10월 29일 파리의 클뤼브 맹트넝(Club Maintenant)에서 행한 유명한 강연 「실존주의는 휴머니즘이다」(L'existentialisme est un humanisme)에서 사르트르는 공개적으로 이 명칭을 수용하고 옹호했다. (이 강연은 1945년에 행해졌고, 텍스트로는 1946년에 출판되었다.)</p>
+<hr>
+<h3 id="32-사르트르-존재와-무">3.2 사르트르: 존재와 무</h3>
+<p><strong>장-폴 사르트르(Jean-Paul Sartre, 1905-1980)</strong>는 프랑스 실존주의의 규정적 인물이다. 소설가, 극작가, 철학자로서 다방면에 걸쳐 활동했으며, 1964년 노벨문학상을 수상했으나 이를 거부했다 -- 제도적 인정을 거부하는 실존주의적 태도의 구현이었다.</p>
+<h4 id="존재론적-구조-즉자존재와-대자존재">존재론적 구조: 즉자존재와 대자존재</h4>
+<p>사르트르의 철학적 주저 『존재와 무』(L'Etre et le Neant, 1943)는 '현상학적 존재론'의 시도로서, 존재의 두 근본 양태를 구분한다:</p>
+<ul>
+  <li><strong>즉자존재(etre-en-soi, 存在自體)</strong>: 조밀하고, 불투명하며, 의식이 없는 사물의 존재 양태. 순수한 긍정성. 돌, 책상, 나무 등 사물이 존재하는 방식. 즉자존재는 자기 자신과 완전히 동일하며, 내적 부정을 품지 않는다.</li>
+</ul>
+<ul>
+  <li><strong>대자존재(etre-pour-soi, 存在對自)</strong>: 의식적 인간 존재의 양태. 무화(neanitisation)와 자유에 의해 정의된다. 대자존재는 항상 자기 자신이 아닌 것이며, 자기 자신이 아닌 것이 아니다. 이 이중 부정이 대자존재의 핵심 구조이다.</li>
+</ul>
+<ul>
+  <li><strong>대타존재(etre-pour-autrui, 存在對他)</strong>: 타자의 의식에 대한 나의 존재. 타자의 시선에 의해 도입되는 차원.</li>
+</ul>
+<p>사르트르의 근본 주장은 의식이 <strong>무화(neantisation)</strong>라는 것이다: 무언가를 의식한다는 것은 그것으로부터 물러나 의식과 의식 대상 사이에 간극 -- 무(neant) -- 을 도입하는 것이다. 이 무화하는 힘이 곧 인간의 자유이며, 그것은 벗어날 수 없다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"인간은 자유롭도록 선고받았다." (<em>L'homme est condamne a etre libre.</em> -- <em>L'Etre et le Neant</em>, 1943)  "실존은 본질에 앞선다." (<em>L'existence precede l'essence.</em> -- <em>L'existentialisme est un humanisme</em>, 1945)</p></div></div>
+<h4 id="자기기만mauvaise-foi">자기기만(Mauvaise foi)</h4>
+<p><strong>자기기만(mauvaise foi)</strong>은 사르트르 윤리학의 핵심 개념이다. 자기기만이란 자신의 급진적 자유를 부인하여, 자신이 본성이나 역할에 의해 결정되어 있는 척하는 자기 기만이다.</p>
+<div class="callout callout-practice"><div class="callout-icon">📖</div><div class="callout-content"><strong>카페 웨이터</strong><p>사르트르의 가장 유명한 예시 중 하나는 파리 카페의 웨이터이다. 그는 웨이터의 역할을 '연기한다' -- 웨이터에게 기대되는 동작, 어조, 태도를 과장되게 수행한다. 마치 '웨이터'라는 본질이 자신의 존재를 규정하는 것처럼 행동하는 것이다. 그러나 사르트르에 따르면, 어떤 인간도 웨이터-사물(en-soi)이 아니다. 웨이터인 동시에 웨이터가 아닌 것 -- 이 간극이 대자존재의 구조이며, 이 간극을 부인하는 것이 자기기만이다.</p></div></div>
+<p>자기기만은 두 방향으로 작동한다: (a) 자신을 사물(즉자)로 취급하기 -- "나는 웨이터일 뿐이다"처럼, 자신의 사실성이 자신의 존재를 소진하는 것처럼 행동하는 것. (b) 자신을 순수 초월(순수 대자)로 취급하기 -- 자신의 상황을 제약하는 사실성을 부인하는 것.</p>
+<h4 id="시선le-regard">시선(Le regard)</h4>
+<p><strong>시선(le regard)</strong>은 사르트르의 타자론의 핵심이다. 타자의 시선에 의해 나는 대상화된다 -- 세계-안의-사물(etre-au-milieu-du-monde-pour-l'Autre)로서 경험된다. 시선은 수치심, 자부심, 자기의식을 야기하며, 상호주관성의 근본적이고 해소 불가능한 갈등을 도입한다. 각 의식은 타자의 자유를 전유하면서 자신의 자유를 보존하려 한다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"지옥은 타인들이다." (<em>L'enfer, c'est les autres.</em> -- <em>Huis Clos</em>, 1944)</p></div></div>
+<p>이 유명한 구절은 종종 타인에 대한 혐오로 오해되지만, 사르트르의 실제 의미는 타자의 시선이 나의 자유에 대한 불가피한 위협이 된다는 존재론적 주장이다.</p>
+<h4 id="참여engagement와-후기-사르트르">참여(Engagement)와 후기 사르트르</h4>
+<p>사르트르는 정치적 참여(engagement)를 실존주의의 필연적 귀결로 보았다. 중립은 불가능하고 부정직하다 -- 선택하지 않는 것 자체가 하나의 선택이기 때문이다.</p>
+<p>그의 후기 주저 『변증법적 이성 비판』(Critique de la raison dialectique, 1960)은 실존주의와 마르크스주의의 종합을 시도했다. 이 책에서 사르트르는 <strong>계열성(serialite)</strong> -- 고립된, 소외된 사회적 관계 -- 과 <strong>융합 집단(groupe-en-fusion)</strong> -- 혁명적 집단 행동 -- 의 개념을 도입했다. 프레드릭 제임슨(Fredric Jameson)은 이 텍스트가 소급적으로 『존재와 무』의 의미를 변형시킨다고 주장했다.</p>
+<hr>
+<h3 id="33-보부아르-모호성의-윤리학과-제2의-성">3.3 보부아르: 모호성의 윤리학과 제2의 성</h3>
+<p><strong>시몬 드 보부아르(Simone de Beauvoir, 1908-1986)</strong>는 오랫동안 사르트르의 부수적 인물로 과소평가되었으나, 최근의 학술적 재평가는 그녀를 실존주의를 확장하고 비판한 독창적 사상가로 확립했다.</p>
+<h4 id="모호성의-윤리학">모호성의 윤리학</h4>
+<p>보부아르의 『모호성의 윤리학』(Pour une morale de l'ambiguite, 1947)은 사르트르 철학의 공백 -- 개인의 자유가 타인의 자유와 어떤 관계를 맺는지에 대한 윤리학의 부재 -- 을 메운다. 보부아르의 핵심 주장은 진정한 자유는 타인의 자유와의 관계 속에서만 실현될 수 있다는 것이다. 나의 자유는 타인의 자유를 요구한다 -- 이는 후대의 인정과 상호주관성에 대한 논의를 선취한다.</p>
+<h4 id="제2의-성">제2의 성</h4>
+<p>보부아르의 가장 중요한 철학적 공헌인 『제2의 성』(Le Deuxieme Sexe, 1949)은 현상학, 실존주의, 정신분석학, 역사학, 사회학을 동원하여 여성 억압의 체계적 분석을 전개한 혁명적 저작이다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"여성은 태어나는 것이 아니라, 만들어지는 것이다." (<em>On ne nait pas femme, on le devient.</em> -- <em>Le Deuxieme Sexe</em>, 1949)</p></div></div>
+<p>이것은 페미니즘 철학의 가장 유명한 문장 중 하나이다. 그 논증은 동시에 경험적이고 철학적이다:</p>
+<ul>
+  <li><strong>경험적 차원</strong>: 생물학적 성(sexe)은 '여성성(feminite)'의 원인이 아니다. 여성성은 역사적, 문화적, 경제적, 심리적 구성물이다.</li>
+  <li><strong>철학적 차원</strong>: 여성은 가부장적 문화에서 남성적으로 정의된 인간 보편의 규범에 대한 타자(l'Autre)로 구성되어 왔다.</li>
+</ul>
+<p>보부아르의 핵심 대립은 <strong>내재성(immanence)</strong>과 <strong>초월(transcendance)</strong>이다. 여성은 반복적이고 신체적이며 가사적인 역할인 내재성에 가두어져 왔으며, 창조적이고 세계를 변형하는 프로젝트인 초월은 남성에게만 허용되어 왔다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>상황 지어진 자유(Liberte situee)</strong><p>보부아르의 '상황(situation)' 개념은 그녀의 사상의 핵심이다. 자유는 항상 구체적인 물질적, 역사적, 신체적 조건에 배태되어 있다. 사르트르의 추상적이고 무조건적인 의식의 자유와 달리, 보부아르에게 자유는 그 행사를 위한 물질적 조건이 필요하다 -- 이는 자유가 항상 이미 사회적이며 타인의 자유에 의해 조건 지어진다는 것을 의미한다. 소니아 크룩스(Sonia Kruks), 미셸 르 되프(Michele Le Doeuff), 낸시 바우어(Nancy Bauer) 등의 최근 학자들은 보부아르의 상황과 체현된 자유에 대한 설명이 사르트르의 의지주의적 자유관에 대한 진정한 도전을 구성한다고 주장한다.</p></div></div>
+<p>참고: 『제2의 성』의 영어 번역에 관하여 -- 1953년 파슐리(Parshley)의 영역본은 축약되고 부분적으로 왜곡된 것이었다. 완전한 학술적 번역인 콩스탕스 보르드(Constance Borde)와 쉴라 말로바니-슈발리에(Sheila Malovany-Chevallier)의 번역은 2010년에야 출판되었다.</p>
+<hr>
+<h3 id="34-메를로-퐁티-지각의-현상학">3.4 메를로-퐁티: 지각의 현상학</h3>
+<p><strong>모리스 메를로-퐁티(Maurice Merleau-Ponty, 1908-1961)</strong>는 실존주의와 현상학의 주요 학술적 대변자이자 신체 철학의 선구자이다. 그는 1952년에 콜레주 드 프랑스 교수로 선출되었으며, 1961년 갑작스럽게 사망했다.</p>
+<h4 id="지각의-현상학">지각의 현상학</h4>
+<p>메를로-퐁티의 주저 『지각의 현상학』(Phenomenologie de la perception, 1945)은 사르트르의 의식/대상 이원론을 비판하면서, 지각이 인간 경험의 일차적 양태이며 신체가 단순한 대상이 아니라 세계-내-존재의 살아 있는 매체라고 주장한다.</p>
+<p><strong>핵심 주장들:</strong></p>
+<ul>
+  <li><strong>지각의 우위(primaute de la perception)</strong>: 지각은 인지적 사건이 아니라 전반성적이고 운동-지향적인(moteur-intentionnel) 세계와의 관여이다. 우리는 먼저 세계를 지각한 뒤에 생각하는 것이 아니라, 지각 자체가 이미 세계에 대한 이해이다.</li>
+</ul>
+<ul>
+  <li><strong>체화된 주체(sujet incarne)</strong>: 메를로-퐁티의 핵심 개념인 <strong>고유한 신체(corps propre)</strong>는 순수 주체도 순수 대상도 아닌 '살아 있는 신체'이다. 신체는 실천적 지성 -- 명시적 표상으로 환원될 수 없는 <strong>운동 지향성(intentionnalite motrice)</strong> -- 을 가지고 있다. 타자기를 치는 사람은 각 키의 위치를 명시적으로 알지 못하면서도 타자할 수 있다.</li>
+</ul>
+<ul>
+  <li><strong>사르트르에 대한 비판</strong>: 메를로-퐁티는 사르트르의 의식/사물, 자아/타자 사이의 경직된 대립을 "불모적 이분법화(dualisation sterile)"라고 비판했다. 사르트르에게 타자가 주로 위협(시선)으로 나타나는 것과 달리, 메를로-퐁티는 상호주관성의 상호신체적(intercorporel) 차원을 강조했다.</li>
+</ul>
+<h4 id="살la-chair과-키아즘chiasme">살(La chair)과 키아즘(Chiasme)</h4>
+<p>메를로-퐁티의 사후 출판된 미완성 유고 『보이는 것과 보이지 않는 것』(Le Visible et l'invisible, <strong>1964년</strong> 클로드 르포르(Claude Lefort) 편집에 의해 사후 출판)에서, 그는 <strong>살(chair)</strong> 개념을 중심으로 한 새로운 존재론을 발전시켰다.</p>
+<p>살은 물질이 아니라, 지각하는 자와 지각되는 것이 얽혀 있는 가역적인 일반적 질감(texture)이다. 살은 <strong>키아즘(chiasme)</strong> -- 보는 것과 보이는 것, 만지는 것과 만져지는 것의 가역적 교차 -- 을 통해 작동한다. 내 손이 다른 손을 만질 때, 나는 동시에 만지는 자이고 만져지는 자이다 -- 이 가역성이 지각하는 주체와 지각되는 세계 사이의 근본적 연속성을 보여준다.</p>
+<hr>
+<h3 id="35-카뮈-부조리의-철학">3.5 카뮈: 부조리의 철학</h3>
+<p><strong>알베르 카뮈(Albert Camus, 1913-1960)</strong>는 소설가, 극작가, 에세이스트로서 실존주의와 관련된 주제를 탐구했으나, 실존주의자라는 꼬리표를 <strong>명시적으로 거부</strong>했다. 그는 별도의 '부조리(l'absurde)' 철학을 발전시켰으며, 1957년 노벨문학상을 수상했고, 1960년 자동차 사고로 사망했다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>부조리(L'Absurde)</strong><p>카뮈에게 부조리는 세계의 속성도 인간 의식의 속성도 아니다. 그것은 명료성과 의미에 대한 인간적 요구와 세계의 불합리한 침묵 사이의 <strong>대면(confrontation)</strong>이다. 부조리는 관계적 개념이다 -- 인간과 세계의 충돌에서 발생한다.</p></div></div>
+<p>카뮈의 철학적 주저 『시지프 신화』(Le Mythe de Sisyphe, 1942)는 근본적인 철학적 문제는 자살이라고 선언하면서 시작한다 -- 부조리를 직면한 삶이 살 가치가 있는지 여부. 카뮈의 대답은 세 가지로 요약된다: <strong>반항(revolte)</strong>, <strong>자유(liberte)</strong>, <strong>열정(passion)</strong>.</p>
+<p>카뮈는 부조리에 대한 두 가지 잘못된 대응을 거부한다:</p>
+<ul>
+  <li><strong>육체적 자살</strong>: 부조리를 피하기 위해 삶을 끝내는 것.</li>
+  <li><strong>철학적 자살</strong>: 키르케고르적 '신앙의 도약'이나 종교적 초월로 부조리를 회피하는 것. 카뮈는 이것을 부조리를 직면하기를 거부하는 또 다른 형태의 도피로 본다.</li>
+</ul>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"시지프가 행복하다고 상상해야 한다." (<em>Il faut imaginer Sisyphe heureux.</em> -- <em>Le Mythe de Sisyphe</em>, 1942)</p></div></div>
+<p>카뮈의 부조리는 사르트르의 부조리와 중요한 차이가 있다. 사르트르에게 부조리는 국지적이고 우연적인 현상적 상태인 반면, 카뮈에게 그것은 보편적이고 구성적인 인간 조건이다.</p>
+<p>카뮈의 후기 저작 『반항하는 인간』(L'Homme revolte, 1951)은 반항을 부조리에 대한 윤리적 응답으로 발전시키면서, 허무주의와 혁명적 폭력 모두를 비판했다. 이 책은 사르트르와의 결정적 단절을 초래했다(3.8절 참조).</p>
+<hr>
+<h3 id="36-가브리엘-마르셀과-유신론적-실존주의">3.6 가브리엘 마르셀과 유신론적 실존주의</h3>
+<p><strong>가브리엘 마르셀(Gabriel Marcel, 1889-1973)</strong>은 프랑스 유신론적(theiste) 실존주의의 대표자이다. 그는 '실존주의'라는 명칭을 사르트르의 철학에 처음 적용한 인물이기도 하다(마르셀 자신은 후에 이 용어 대신 '신비(mystere)'와 '존재의 구체적 철학'을 선호했다).</p>
+<p>마르셀은 실존의 핵심 범주로 <strong>문제(probleme)</strong>와 <strong>신비(mystere)</strong>를 구분했다. 문제는 해결될 수 있는 기술적 질문이며, 주체는 문제 바깥에 서 있다. 신비는 해결이 아니라 참여를 요구하는 존재론적 상황이며, 주체 자신이 그 안에 연루되어 있다. 존재, 사랑, 죽음, 신앙은 문제가 아니라 신비이다.</p>
+<p>마르셀의 유신론적 실존주의는 사르트르의 무신론적 실존주의와 날카롭게 대조된다. 사르트르가 인간의 자유를 불안과 무로부터 사유하는 반면, 마르셀은 자유를 존재의 충만함과 신에 대한 신뢰 속에서 사유한다.</p>
+<hr>
+<h3 id="37-프란츠-파농-실존주의와-탈식민주의">3.7 프란츠 파농: 실존주의와 탈식민주의</h3>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>프란츠 파농(Frantz Fanon, 1925-1961)</strong><p>마르티니크 태생의 프랑스어권 정신과 의사이자 철학자인 파농은 실존주의, 정신분석학, 반식민주의를 결합하여 식민 상황에서의 주체성, 인종, 폭력의 문제를 분석한 탈식민 사상의 핵심 인물이다. 그의 작업은 사르트르의 실존주의를 식민지적 맥락으로 확장하고 변형한 것으로, 프랑스 철학 전통 내에서 중요한 위치를 차지한다.</p></div></div>
+<p>파농의 두 주요 저작은 프랑스 철학과 직접적으로 연결된다:</p>
+<ul>
+  <li><strong>『검은 피부, 하얀 가면』(Peau noire, masques blancs, 1952)</strong>: 파농은 사르트르의 시선(regard) 개념과 헤겔-코제브적 인정(reconnaissance) 변증법을 식민지적 인종 관계에 적용한다. 흑인 주체는 백인의 시선 아래서 자신의 신체를 '검은 피부'로 경험하게 되며, 이 인종적 시선은 사르트르가 분석한 것보다 더 근본적인 소외를 야기한다. 파농은 식민지 상황에서 헤겔의 주인-노예 변증법이 작동하지 않는다고 주장한다 -- 식민지의 노예는 노동을 통한 자기의식의 획득이 구조적으로 차단되어 있기 때문이다.</li>
+</ul>
+<ul>
+  <li><strong>『대지의 저주받은 자들』(Les Damnes de la terre, 1961)</strong>: 사르트르가 서문을 쓴 이 책은 탈식민 혁명의 철학적 정당화를 시도한다. 파농은 식민지적 폭력이 식민자와 피식민자 사이의 마니교적(manicheenne) 분할을 창출하며, 이 분할의 극복은 반식민적 폭력을 통해서만 가능하다고 주장한다.</li>
+</ul>
+<p>파농의 작업은 실존주의의 보편적 자유 주장이 식민지적 상황에서 어떤 한계를 드러내는지를 보여주는 동시에, 실존주의적 범주들을 인종과 식민주의의 분석으로 창조적으로 확장한다. 그는 후에 탈식민 연구(postcolonial studies)의 창시자 중 한 명으로 평가된다.</p>
+<hr>
+<h3 id="38-사르트르-카뮈-논쟁">3.8 사르트르-카뮈 논쟁</h3>
+<p>사르트르와 카뮈의 공개적 결별은 전후 프랑스 지성사의 규정적 사건 중 하나이다.</p>
+<p>1951년 카뮈는 『반항하는 인간』(L'Homme revolte)을 출판하여, 혁명적 폭력이 전체주의로 귀결된다고 비판했다. 이에 대해 프랑시스 장송(Francis Jeanson)이 사르트르의 잡지 『레 탕 모데른』(Les Temps Modernes)에 1952년 5월 적대적 서평을 게재했고, 1952년 8월에 사르트르와 카뮈 사이의 공개 서한이 교환되었다.</p>
+<p>논쟁의 핵심은:</p>
+<ul>
+  <li><strong>카뮈</strong>: 혁명적 폭력은 부정의를 또 다른 부정의로 대체할 뿐이다. 반항은 윤리적 한계 -- 살인에 대한 거부 -- 를 가져야 한다.</li>
+  <li><strong>사르트르</strong>: 카뮈의 입장은 정치적으로 순진하며, 객관적으로 현상 유지를 지지하는 것이다. 역사적 참여는 때로 폭력적 수단을 필요로 한다.</li>
+</ul>
+<p>이 논쟁은 실존주의적 휴머니즘과 마르크스주의적 참여 사이의, 그리고 반전체주의적 자유주의와 혁명적 정치 사이의 긴장을 결정적으로 드러냈다.</p>
+<hr>
+<h3 id="39-복습-문제와-더-읽을거리">3.9 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>"실존은 본질에 앞선다"(L'existence precede l'essence)는 테제의 의미를 설명하시오. 사르트르에게 이것은 인간 자유에 대해 무엇을 함의하는가?</li>
+</ol>
+<ol>
+  <li>사르트르의 '자기기만(mauvaise foi)' 개념을 카페 웨이터의 예를 통해 설명하시오. 자기기만의 두 방향은 각각 무엇인가?</li>
+</ol>
+<ol>
+  <li>보부아르의 "여성은 태어나는 것이 아니라 만들어지는 것이다"라는 주장의 철학적 의미를 분석하시오. 이것이 실존주의의 어떤 원리를 적용한 것인지 설명하시오.</li>
+</ol>
+<ol>
+  <li>메를로-퐁티가 사르트르의 의식/사물 이원론을 비판하는 논점을 설명하시오. '체화된 주체(sujet incarne)'란 무엇인가?</li>
+</ol>
+<ol>
+  <li>카뮈의 '부조리(l'absurde)' 개념은 사르트르의 부조리 개념과 어떻게 다른가? 카뮈가 실존주의자라는 꼬리표를 거부한 이유를 설명하시오.</li>
+</ol>
+<ol>
+  <li>사르트르-카뮈 논쟁의 핵심 쟁점을 요약하시오.</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>사르트르, 장-폴. 『실존주의는 휴머니즘이다』 (1945/1946). 실존주의의 가장 접근하기 쉬운 입문 텍스트.</li>
+  <li>카뮈, 알베르. 『이방인』 (L'Etranger, 1942) 및 『시지프 신화』 (Le Mythe de Sisyphe, 1942). 문학과 철학의 결합.</li>
+  <li>보부아르, 시몬 드. 『제2의 성』 (Le Deuxieme Sexe, 1949). 특히 서론. Toril Moi의 입문서를 선행 독서로 권장.</li>
+  <li>메를로-퐁티, 모리스. 『지각의 현상학』 (Phenomenologie de la perception, 1945). 에세이 모음집 <em>The Primacy of Perception</em>이 더 짧은 입문 경로.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Existentialism," "Jean-Paul Sartre," "Simone de Beauvoir," "Albert Camus" 항목.</li>
+</ul>
+<hr>
+<h2 id="제4장-현상학의-프랑스적-변용">제4장. 현상학의 프랑스적 변용</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>후설 현상학이 프랑스에서 어떻게 수용되고 변형되었는지 설명할 수 있다.</li>
+  <li>레비나스의 '타자의 얼굴'과 '윤리학이 제일철학이다'라는 테제를 분석할 수 있다.</li>
+  <li>리쾨르의 해석학적 현상학과 서사적 정체성 이론을 서술할 수 있다.</li>
+  <li>마리옹의 '포화된 현상'과 현상학의 신학적 전회를 이해할 수 있다.</li>
+  <li>프랑스 현상학의 다양한 변형들 사이의 관계를 비교할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="41-후설-현상학의-프랑스-수용">4.1 후설 현상학의 프랑스 수용</h3>
+<p>프랑스 현상학(phenomenologie francaise)은 독일의 후설(Husserl)과 하이데거(Heidegger) 현상학의 독특한 변용이다. 프랑스 철학자들은 독일 선구자들의 방법을 급진화하고, 확장하고, 비판하면서 고유한 전통을 형성했다.</p>
+<p>후설 현상학의 핵심 방법론은 다음과 같다:</p>
+<ul>
+  <li><strong>에포케(epoche)</strong>: 세계가 의식과 독립적으로 존재한다는 자연적 태도의 정립을 괄호에 넣기(현상학적 환원)</li>
+  <li><strong>본질 환원(reduction eidetique)</strong>: 상상적 변형을 통해 사실에서 본질로 이행하기</li>
+  <li><strong>초월론적 환원(reduction transcendantale)</strong>: 초월론적 의식의 구성적 역할을 드러내기</li>
+  <li><strong>지향성(intentionnalite)</strong>: 모든 의식은 무언가에 대한 의식이다 -- 작용(noesis)과 그 상관자(noema)</li>
+</ul>
+<p>프랑스 철학자들은 이 방법을 다양한 방향으로 변형했다:</p>
+<div class="table-wrapper"><table>
+  <tr class="header-row">
+    <th>철학자</th>
+    <th>핵심 변형</th>
+  </tr>
+  <tr>
+    <td>사르트르</td>
+    <td>초월론적 자아를 전반성적 코기토로 대체; 지향성을 무화하는 자유로 만듦</td>
+  </tr>
+  <tr>
+    <td>메를로-퐁티</td>
+    <td>구성하는 의식을 체화된 전반성적 신체-도식으로 대체</td>
+  </tr>
+  <tr>
+    <td>레비나스</td>
+    <td>지향적 구성의 우위를 비판; 타자의 얼굴이 자아론적 지향성 구조를 중단시킴</td>
+  </tr>
+  <tr>
+    <td>리쾨르</td>
+    <td>현상학에 해석학을 접목; 기호, 상징, 텍스트를 통한 우회로를 자기 이해의 경로로 삼음</td>
+  </tr>
+  <tr>
+    <td>데리다</td>
+    <td>후설의 기호 이론에 대한 급진적 내재적 비판; 내적 독백조차 기호의 구조(차이, 반복가능성)를 필요로 하며, 순수한 자기-현전의 이상을 해체</td>
+  </tr>
+</table></div>
+<hr>
+<h3 id="42-메를로-퐁티-체현된-주체의-현상학">4.2 메를로-퐁티: 체현된 주체의 현상학</h3>
+<p>메를로-퐁티의 현상학은 이미 제3장에서 상세히 다루었다. 여기서는 그의 작업이 프랑스 현상학 전통 안에서 차지하는 위치를 보완적으로 설명한다.</p>
+<p>메를로-퐁티의 핵심 기여는 후설의 초월론적 자아를 <strong>체화된 주체(sujet incarne)</strong>로 대체한 것이다. 후설에게 의식의 지향성은 궁극적으로 초월론적 자아의 구성 작용에 기반하지만, 메를로-퐁티에게 지향성의 일차적 형태는 <strong>운동 지향성(intentionnalite motrice)</strong> -- 신체의 전반성적이고 실천적인 세계와의 관여 -- 이다.</p>
+<p>메를로-퐁티의 현상학은 이후 체화된 인지과학(embodied cognitive science), 로봇공학, 신경현상학(neurophenomenologie)에 중요한 영향을 미쳤다. 프란시스코 바렐라(Francisco Varela)의 '신경현상학' 프로그램은 메를로-퐁티의 현상학과 신경과학을 명시적으로 결합한 것이다. 이는 대륙 철학의 사상가가 경험 과학 프로그램에 직접적으로 관련되는 드문 사례이다.</p>
+<hr>
+<h3 id="43-레비나스-타자의-윤리학">4.3 레비나스: 타자의 윤리학</h3>
+<p><strong>에마뉘엘 레비나스(Emmanuel Levinas, 1906-1995)</strong>는 리투아니아 태생의 프랑스 귀화 철학자로, 현상학을 급진적 타자성의 윤리학으로 변용시켰다.</p>
+<h4 id="전체성과-무한">전체성과 무한</h4>
+<p>레비나스의 첫 번째 주요 철학 저작 『전체성과 무한』(Totalite et Infini, 1961)은 서양 철학이 -- 플라톤에서 헤겔과 하이데거에 이르기까지 -- <strong>전체화(totalisation)</strong>로서 구성되어 왔다고 주장한다. 전체화란 타자를 동일자(le Meme)로 환원하는 것, 모든 타자성을 포괄적 체계 안에 동화시키는 것이다.</p>
+<p>이에 대해 레비나스는 <strong>윤리학이 제일철학(l'ethique comme philosophie premiere)</strong>이라고 주장한다: 존재론 이전에, 그리고 존재론으로 환원될 수 없게, 타자와의 대면적 만남(face-a-face)이 무한한 윤리적 의무를 부과한다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>얼굴(Le visage)</strong><p>레비나스의 '얼굴' 개념은 경험적이고 시각적인 얼굴이 아니다. 그것은 윤리적 요구 -- 타자의 취약성과 벌거벗음이 발하는 "살인하지 말라!(Tu ne tueras point!)"의 부름 -- 이다. 얼굴은 모든 표상과 범주화를 돌파하며, 무한한 책임을 요구한다.</p></div></div>
+<h4 id="존재와-달리-또는-본질-너머">존재와 달리, 또는 본질 너머</h4>
+<p>레비나스의 두 번째 주저 『존재와 달리, 또는 본질 너머』(Autrement qu'etre ou au-dela de l'essence, 1974)는 『전체성과 무한』의 아직 존재론적인 어휘를 넘어서 더 급진적인 방향으로 나아간다. 여기서 핵심 개념은:</p>
+<ul>
+  <li><strong>말함(le Dire)과 말해진 것(le Dit)</strong>: 말함은 타자를 향한 살아 있는 응답적 행위 -- 어떤 내용 이전의 노출과 취약성 -- 이다. 말해진 것은 주제화된 내용으로, 말함을 고정시키고 배반한다. 철학은 말해진 것을 통해 말함을 배반하면서도, 동시에 말해진 것을 해체하려 노력해야 한다.</li>
+</ul>
+<ul>
+  <li><strong>대체(substitution)</strong>: 주체는 자율적 자기-현전이 아니라, 타자를 위한 <strong>인질(otage)</strong> -- 타자를 대신하는 자 -- 로 구성된다. 책임은 선택 이전의, 비대칭적이고 비호혜적인 원초적 구조이다.</li>
+</ul>
+<p>레비나스의 윤리학은 의료 윤리, 임상 실천, 난민과 환대 담론에서 중요한 실천적 적용을 찾아왔다. 타자의 취약성과의 전반성적 만남에서 진정한 윤리적 책임이 발생한다는 주장은 의료, 인도주의, 신학 분야의 응용 윤리학자들에 의해 발전되었다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"타자의 얼굴은 나에게 '살인하지 말라'고 말한다." (<em>Le visage d'autrui me dit 'Tu ne tueras point.'</em> -- <em>Totalite et Infini</em>, 1961)</p></div></div>
+<p>데리다의 중요 논문 「폭력과 형이상학」(Violence et metaphysique, 1964, 『쓰기와 차이』 수록)은 레비나스와 깊이 관여하면서, 레비나스의 급진적 타자성이 형이상학을 벗어날 수 있는지를 물었다. 이 대화는 두 사상가 모두에게 결정적이었다.</p>
+<hr>
+<h3 id="44-리쾨르-해석학적-현상학">4.4 리쾨르: 해석학적 현상학</h3>
+<p><strong>폴 리쾨르(Paul Ricoeur, 1913-2005)</strong>는 현상학, 실존주의, 정신분석학, 구조주의, 언어 철학, 성서학을 통합하는 장기적이고 체계적인 철학을 발전시킨 프랑스의 주요 철학자이다.</p>
+<h4 id="해석학적-순환과-해석의-갈등">해석학적 순환과 해석의 갈등</h4>
+<p>리쾨르의 방법론적 핵심은 <strong>해석학적 호(arc hermeneutique)</strong> -- 소박한 1차 독서에서 출발하여, 비판적-설명적 우회(정신분석, 구조주의)를 거치고, 풍요로운 제2의 순진성(seconde naivete)에 도달하는 운동 -- 이다.</p>
+<p>리쾨르는 또한 <strong>해석의 갈등(conflit des interpretations)</strong>을 인정했다: 상징의 잉여 의미를 회복하는 <strong>신뢰의 해석학(hermeneutique de la confiance)</strong>과, 허위 의식을 폭로하는 <strong>의심의 해석학(hermeneutique du soupcon)</strong> -- 프로이트, 마르크스, 니체 -- 이 있으며, 철학은 이 갈등을 성급하게 해소하지 않고 가로질러야 한다.</p>
+<h4 id="시간과-이야기">시간과 이야기</h4>
+<p>리쾨르의 대작 『시간과 이야기』(Temps et recit, 3권, 1983-1985)는 시간성과 서사성 사이의 근본적 상관관계를 논증한다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"시간은 서사적 양태를 통해 분절되는 한에서 인간적 시간이 되며, 서사는 시간적 실존의 조건이 될 때 그 완전한 의미를 획득한다." (<em>Le temps devient temps humain dans la mesure ou il est articule de maniere narrative, et le recit atteint sa signification pleniere quand il devient une condition de l'existence temporelle.</em> -- <em>Temps et recit</em>, 1983)</p></div></div>
+<p>리쾨르는 아리스토텔레스의 미메시스(mimesis) 개념과 아우구스티누스의 시간론을 결합하여, 서사적 줄거리 구성(mise en intrigue)이 어떻게 이질적인 시간적 요소들(사건, 행위자, 상황)을 의미 있는 전체로 종합하는지를 보여준다.</p>
+<p><strong>세 가지 미메시스:</strong></p>
+<ul>
+  <li><strong>미메시스 I (전형상화, prefiguration)</strong>: 서사 이전의 행위에 대한 이해 -- 행위자, 동기, 목표, 상황 등의 서사적 이해 가능성이 이미 체험에 내포되어 있다.</li>
+  <li><strong>미메시스 II (형상화, configuration)</strong>: 줄거리 구성이 이질적 요소들을 화합적-불화합적 전체로 종합하는 작업 -- 이것이 서사의 본래적 작업이다.</li>
+  <li><strong>미메시스 III (재형상화, refiguration)</strong>: 서사 세계가 독자의 세계와 교차하여, 독자의 전이해를 변형하는 순간.</li>
+</ul>
+<h4 id="서사적-정체성identite-narrative">서사적 정체성(Identite narrative)</h4>
+<p>『시간과 이야기』에서 출발한 <strong>서사적 정체성</strong> 개념은 리쾨르의 가장 영향력 있는 기여 중 하나이다. 자아는 실체가 아니라 삶의 서사적 통합을 통해 달성되는 구성이다.</p>
+<p>리쾨르는 두 종류의 정체성을 구분한다:</p>
+<ul>
+  <li><strong>동일성-정체성(identite-idem)</strong>: 수적 동일성 -- 시간을 관통하는 같은 사물.</li>
+  <li><strong>자기성-정체성(identite-ipse)</strong>: 자기성(ipseite) -- 약속을 지키고 서사적 일관성을 유지하는 자기-유지.</li>
+</ul>
+<div class="callout callout-practice"><div class="callout-icon">📖</div><div class="callout-content"><strong>서사적 정체성의 예</strong><p>"20년 전의 나와 지금의 나를 같은 사람으로 만드는 것은 무엇인가?" 리쾨르의 대답은: 고정된 실체가 아니라, 나의 삶에 대해 내가 구성하는 서사의 일관성이다. 나의 정체성은 기억, 약속, 프로젝트를 서사적으로 엮어내는 지속적 과정이다.</p></div></div>
+<hr>
+<h3 id="45-마리옹과-현상학의-신학적-전회">4.5 마리옹과 현상학의 신학적 전회</h3>
+<p>1980년대부터 프랑스 현상학은 도미니크 자니코(Dominique Janicaud)가 논쟁적으로 <strong>"신학적 전회(tournant theologique)"</strong>라고 명명한 방향 전환을 겪었다. 자니코는 1991년 소책자 『프랑스 현상학의 신학적 전회』에서 레비나스, 미셸 앙리(Michel Henry), 장-뤽 마리옹(Jean-Luc Marion)이 현상학적 방법 자체가 보증하지 않는 신학적 개념들을 현상학 안에 밀수입했다고 비판했다.</p>
+<p><strong>미셸 앙리(Michel Henry, 1922-2002)</strong>는 『현시의 본질』(L'Essence de la manifestation, 1963)에서 순수한 생명의 자기-촉발(auto-affection) -- 모든 지향적 구조에 앞선 생명의 내재적 자기-현시 -- 을 중심으로 한 <strong>질료적 현상학(phenomenologie materielle)</strong>을 발전시켰다.</p>
+<p><strong>장-뤽 마리옹(Jean-Luc Marion, 1946-)</strong>은 『주어진 존재』(Etant donne, 1997)에서 후설의 지향적 분석과 하이데거의 존재론의 한계를 넘어서는 <strong>주어짐(donation)의 현상학</strong>을 전개했다. 핵심 개념은 <strong>포화된 현상(phenomene sature)</strong> -- 주체의 구성 능력을 압도하는 과잉의 현상들 -- 이며, 그 패러다임적 사례는 종교적 <strong>계시(revelation)</strong>이다.</p>
+<p>응답자들은 신학적 전회가 현상학의 한계를 넘어서는 부당한 확장이 아니라, 후설적 지향적 분석의 한계에 대응하는 현상학의 정당한 연장이라고 주장했다.</p>
+<hr>
+<h3 id="46-복습-문제와-더-읽을거리">4.6 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>후설의 현상학적 방법(에포케, 본질 환원, 지향성)을 간략히 설명하시오. 프랑스 철학자들은 이 방법을 어떤 방향으로 변형했는가?</li>
+</ol>
+<ol>
+  <li>레비나스의 '윤리학이 제일철학이다'라는 주장의 의미를 설명하시오. 왜 레비나스는 존재론이 타자를 동일자로 환원한다고 비판하는가?</li>
+</ol>
+<ol>
+  <li>리쾨르의 '해석학적 호(arc hermeneutique)' 개념을 설명하시오. 세 가지 미메시스란 무엇인가?</li>
+</ol>
+<ol>
+  <li>서사적 정체성(identite narrative)에서 동일성-정체성(idem)과 자기성-정체성(ipse)의 차이를 설명하시오.</li>
+</ol>
+<ol>
+  <li>'현상학의 신학적 전회'란 무엇이며, 어떤 논쟁을 야기했는가?</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>레비나스, 에마뉘엘. 『전체성과 무한』 (Totalite et Infini, 1961). 서론부터 시작 권장.</li>
+  <li>리쾨르, 폴. 『타자로서의 자기 자신』 (Soi-meme comme un autre, 1990). 서사적 정체성의 체계적 전개.</li>
+  <li>Janicaud, Dominique. <em>Phenomenology and the "Theological Turn": The French Debate</em>. Fordham University Press, 2000.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Emmanuel Levinas," "Paul Ricoeur" 항목.</li>
+</ul>
+<hr>
+<h2 id="제5장-구조주의-언어-구조-주체의-해체">제5장. 구조주의: 언어, 구조, 주체의 해체</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>소쉬르의 구조 언어학이 구조주의에 어떤 모델을 제공했는지 설명할 수 있다.</li>
+  <li>레비-스트로스의 구조 인류학(이항대립, 신화소, 브리콜라주)을 분석할 수 있다.</li>
+  <li>라캉의 구조주의적 정신분석학(거울 단계, 상상계/상징계/실재계)을 서술할 수 있다.</li>
+  <li>알튀세르의 구조주의적 마르크스주의(호명, 이데올로기적 국가장치)를 설명할 수 있다.</li>
+  <li>구조주의가 실존주의를 어떻게 대체했는지 평가할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="51-소쉬르의-구조-언어학과-구조주의의-탄생">5.1 소쉬르의 구조 언어학과 구조주의의 탄생</h3>
+<p>구조주의(structuralisme)는 1960년대 프랑스에서 정점에 달한 지적 운동으로, 실존주의의 인본주의적 주체에서 문화적, 언어적, 심리적 현상을 지배하는 비인칭적이고 차이적인 구조들로 관심을 전환한다.</p>
+<p>구조주의의 이론적 어휘는 소쉬르의 구조 언어학에서 가져온 것이다:</p>
+<ul>
+  <li><strong>랑그(langue)와 파롤(parole)</strong>: 체계로서의 언어(랑그)와 그것의 개별적 사용(파롤)의 구분. 구조주의는 파롤(개별 발화)보다 랑그(체계)를 우선시한다.</li>
+</ul>
+<ul>
+  <li><strong>기표(signifiant)와 기의(signifie)</strong>: 기호는 자의적이고 관계적이다. 기호는 실재와의 내재적 연결이 아니라, 체계 내 다른 기호들과의 <strong>차이</strong>를 통해 의미를 획득한다.</li>
+</ul>
+<ul>
+  <li><strong>공시태(synchronie)와 통시태(diachronie)</strong>: 공시적 분석(동시적 관계들의 분석)이 통시적 분석(역사적 변화의 분석)에 우선한다.</li>
+</ul>
+<ul>
+  <li><strong>이항대립(opposition binaire)</strong>: 의미 생성의 최소 단위는 대립쌍이다 -- 유성/무성(음운론적), 자연/문화(개념적) 등.</li>
+</ul>
+<hr>
+<h3 id="52-레비-스트로스-구조-인류학">5.2 레비-스트로스: 구조 인류학</h3>
+<p><strong>클로드 레비-스트로스(Claude Levi-Strauss, 1908-2009)</strong>는 구조 인류학의 창시자이자 구조주의 운동의 기초를 놓은 인물이다. 그는 1959년에 콜레주 드 프랑스 교수로 선출되었으며, 100세까지 장수하여 2009년에 사망했다.</p>
+<h4 id="친족의-기본-구조">친족의 기본 구조</h4>
+<p>『친족의 기본 구조』(Les Structures elementaires de la parente, 1949)는 소쉬르적 원리를 친족 체계에 적용한 초기 걸작이다. 레비-스트로스는 친족 체계가 생물학적 혈통에 기반하는 것이 아니라, 근친혼 금지와 외혼 규칙에 의해 구조화된 <strong>교환(echange)</strong> 체계라고 주장했다.</p>
+<h4 id="신화의-구조-분석">신화의 구조 분석</h4>
+<p>레비-스트로스의 가장 야심찬 작업은 4권으로 된 『신화학』(Mythologiques, 1964-1971)이다. 여기서 그는 수백 개의 아메리카 원주민 신화를 분석하여, 표면적으로 다양한 신화들이 동일한 이항대립(자연/문화, 날것/익힌 것, 삶/죽음) 구조의 변환(transformation)임을 보여주었다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>신화소(Mytheme)</strong><p>레비-스트로스의 신화 분석에서 최소 의미 단위. 음소(phoneme)가 언어의 최소 음성 단위이듯, 신화소는 신화의 최소 관계 단위이다. 신화의 의미는 개별 요소가 아니라 신화소들 사이의 이항대립적 관계들의 상관관계에 놓여 있다.</p></div></div>
+<p>참고: 『야생의 사고』(La Pensee sauvage)는 1962년에, 『날것과 익힌 것』(Le Cru et le cuit, 『신화학』 제1권)은 <strong>1964년에</strong> 출판되었다 -- 이 두 저작은 별도의 책이며 출판 연도가 다르다.</p>
+<h4 id="브리콜라주bricolage">브리콜라주(Bricolage)</h4>
+<p>레비-스트로스의 중요한 개념인 <strong>브리콜라주(bricolage)</strong>는 '야생의 사고'가 작동하는 방식을 묘사한다. 과학자가 미리 설계된 계획에 따라 재료를 선택하는 반면, 브리콜뢰르(bricoleur, 수선공)는 이미 손에 있는 재료들을 활용하여 새로운 구성물을 만들어낸다. '원시적' 사고는 과학적 사고보다 열등한 것이 아니라, 다른 방식으로 -- 구체적 재료의 재조합을 통해 -- 작동하는 엄밀한 지적 질서이다.</p>
+<p>1962년 『야생의 사고』의 마지막 장에서 레비-스트로스는 사르트르를 명시적으로 공격하여, 사르트르의 역사적 의식에 대한 특권화가 그 자체로 하나의 -- 서양의 진보에 대한 -- 신화라고 주장했다. 이 공격은 실존주의에서 구조주의로의 지배적 패러다임 전환을 상징하는 사건으로 평가된다.</p>
+<hr>
+<h3 id="53-라캉-구조주의적-정신분석학">5.3 라캉: 구조주의적 정신분석학</h3>
+<p><strong>자크 라캉(Jacques Lacan, 1901-1981)</strong>은 구조주의적 언어학의 렌즈를 통해 프로이트를 재독해함으로써 정신분석학을 변형시킨 인물이다.</p>
+<h4 id="무의식은-언어처럼-구조화되어-있다">"무의식은 언어처럼 구조화되어 있다"</h4>
+<p>라캉의 핵심 테제는 프로이트의 무의식 메커니즘을 소쉬르와 야콥슨(Jakobson)의 언어학으로 번역한다:</p>
+<ul>
+  <li><strong>응축(condensation)</strong> = <strong>은유(metaphore)</strong>: 하나의 기표가 다른 기표를 대체하는 것. 증상의 메커니즘.</li>
+  <li><strong>전치(deplacement)</strong> = <strong>환유(metonymie)</strong>: 기표의 연쇄를 따라 미끄러지는 것. 욕망의 메커니즘.</li>
+</ul>
+<h4 id="거울-단계stade-du-miroir">거울 단계(Stade du miroir)</h4>
+<p>라캉이 1936년에 처음 강연하고 1949년에 개정한 <strong>거울 단계</strong> 이론은 6-18개월 사이의 영아가 거울에 비친 자신의 이미지와 동일시하면서 통일된 자아(moi)를 구성하는 과정을 기술한다. 그러나 이 자아는 <strong>오인(meconnaissance)</strong> -- 실제로는 파편화되고 무력한 신체를 통일된 이미지로 허구적으로 통합하는 것 -- 의 산물이다. 거울 단계는 상상계(l'Imaginaire)로의 진입을 표시한다.</p>
+<h4 id="세-가지-질서-상상계-상징계-실재계">세 가지 질서: 상상계, 상징계, 실재계</h4>
+<p>라캉의 이론 체계를 관통하는 삼원적 위상학:</p>
+<ul>
+  <li><strong>상상계(l'Imaginaire)</strong>: 이미지, 자아, 이원적 동일시의 영역. 거울 단계에서 시작되며, 자아는 항상 타자의 이미지와의 동일시로 구성된다.</li>
+</ul>
+<ul>
+  <li><strong>상징계(le Symbolique)</strong>: 언어, 법, 문화의 질서 -- 라캉이 "아버지의 이름(Nom-du-Pere)"이라 부르는 것. 주체는 상징계로의 진입을 통해 구성되며, 이 진입은 거세(castration) -- 아버지의 법에 대한 복종 -- 를 수반한다. 주체는 기표의 연쇄 안에서 하나의 기표에 의해 다른 기표에 대해 대표되는 것이다.</li>
+</ul>
+<ul>
+  <li><strong>실재계(le Reel)</strong>: 상징화에 절대적으로 저항하는 것. 현실(realite)이 아니라, 상징적 질서에 통합될 수 없는 트라우마적 핵심이다. 실재계는 항상 같은 자리에 회귀한다.</li>
+</ul>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>욕망(Desir)</strong><p>라캉에게 욕망은 항상 타자의 욕망이다(Le desir est le desir de l'Autre). 욕망은 생물학적 욕구(besoin)와 구분되며, 상징적 질서 -- 타자(l'Autre) -- 안에서 그리고 그것을 통해 구성된다. 욕망은 결코 완전히 충족되지 않는다 -- 그것은 결여(manque)에 의해 구성되기 때문이다. 대상 소문자 a(objet petit a)는 욕망의 부분 대상-원인 -- 항상 놓치는 것 -- 이다.</p></div></div>
+<p>라캉의 세미나(1953-1980)는 그의 진화하는 사유의 중심 장소였으며, 다양한 분야의 수백 명의 청강생을 끌어들였다. 『에크리』(Ecrits, 1966)는 그의 수집된 논문들을 담고 있으며, 수학적 형식주의(위상학, 보로메오 매듭, 마테마)와 문학적, 철학적 참조를 활용하는 것으로 악명 높게 난해하다. 이 난해함은 전략적인 것이었다 -- 미국식 자아 심리학적 전유에 저항하기 위한 것.</p>
+<p>라캉의 임상적 실천은 프랑스와 라틴 아메리카 바깥에서는 광범위하게 채택되지 못했다(영미권에서는 증거 기반 치료인 CBT, DBT가 지배적이다). 그러나 그의 이론적 혁신은 문화 이론, 문학 이론, 영화 연구, 페미니즘 철학에서 엄청난 영향력을 발휘했다.</p>
+<hr>
+<h3 id="54-알튀세르-구조주의적-마르크스주의">5.4 알튀세르: 구조주의적 마르크스주의</h3>
+<p><strong>루이 알튀세르(Louis Althusser, 1918-1990)</strong>는 마르크스주의를 구조주의적 방법을 통해 재구성하려 시도한 구조주의적 마르크스주의의 주도적 인물이다.</p>
+<h4 id="인식론적-단절과-과잉결정">인식론적 단절과 과잉결정</h4>
+<p>알튀세르의 『마르크스를 위하여』(Pour Marx, 1965)와 『자본을 읽자』(Lire le Capital, 1965, 에티엔 발리바르 등과 공저)는 마르크스 사상에서 <strong>인식론적 단절(coupure epistemologique)</strong> -- 바슐라르의 개념을 차용한 것 -- 을 식별한다. 알튀세르에 따르면, 1845년의 『독일 이데올로기』를 기점으로 마르크스는 초기의 인본주의적(이데올로기적) 작업에서 후기의 과학적(탈인본주의적) 작업으로 단절적으로 이행했다.</p>
+<p>핵심 개념들:</p>
+<ul>
+  <li><strong>과잉결정(surdetermination)</strong>: 마르크스주의적 사회적 전체는 단순한 표현적 통일이 아니라, 부분적으로 자율적인 다수의 수준들(경제적, 정치적, 이데올로기적) 사이의 모순들의 복합적이고 탈중심화된 구조이다.</li>
+  <li><strong>구조적 인과성(causalite structurale)</strong>: 전체를 그 내부에서 결정하는 부재하는 원인.</li>
+  <li><strong>문제설정(problematique)</strong>: 어떤 질문이 제기될 수 있는지를 결정하는 이론적 틀.</li>
+</ul>
+<h4 id="이데올로기와-이데올로기적-국가장치">이데올로기와 이데올로기적 국가장치</h4>
+<p>알튀세르의 가장 영향력 있는 텍스트인 「이데올로기와 이데올로기적 국가장치」(1970)는 이데올로기의 물질적 이론과 주체 형성의 메커니즘을 제시한다.</p>
+<ul>
+  <li><strong>억압적 국가장치(ASR)</strong>: 주로 폭력에 의해 작동(군대, 경찰, 감옥).</li>
+  <li><strong>이데올로기적 국가장치(AIE)</strong>: 주로 이데올로기에 의해 작동(학교, 교회, 가족, 미디어). 생산 관계의 재생산은 주로 AIE를 통해 이루어진다.</li>
+</ul>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>호명(Interpellation)</strong><p>이데올로기가 개인을 주체로 구성하는 메커니즘. 알튀세르의 유명한 예시: 경찰관이 거리에서 "이봐, 거기!"라고 외치면, 개인은 뒤를 돌아보고 -- 그 행위 자체로 -- 자신을 수신자로 인정하며 이데올로기의 주체가 된다. 호명은 항상-이미(toujours-deja) 작동한다 -- 우리는 주체가 '되는' 것이 아니라, 항상-이미 주체이다.</p></div></div>
+<p>알튀세르의 핵심 정식: "이데올로기는 개인들의 그들의 실존의 실재적 조건들에 대한 상상적 관계를 표상한다." 이데올로기는 허위 의식이 아니라, 장치들(appareil) 안에 체화된 물질적 실천들의 집합이다.</p>
+<p>알튀세르의 호명 개념은 주디스 버틀러(Judith Butler)에 의해 젠더 이론으로 전유되었고, 미디어 연구, 교육 연구, 비판 사회학에서 계속 적용되고 있다.</p>
+<p><strong>논란</strong>: 알튀세르는 1980년 11월 16일 자신의 아내 엘렌 리트만(Helene Rytmann)을 교살했으며, 정신 질환으로 인해 재판 불능 판정을 받아 정신과 시설에 수용되었다. 이 비극은 사상가의 삶과 작업의 관계에 대한 심각한 질문을 야기하며, 학계에서 지속적인 논쟁의 대상이다.</p>
+<hr>
+<h3 id="55-바르트-기호학과-신화론">5.5 바르트: 기호학과 신화론</h3>
+<p><strong>롤랑 바르트(Roland Barthes, 1915-1980)</strong>는 구조주의에서 후기구조주의로의 전환을 체현하는 문학 비평가, 기호학자, 문화 이론가이다.</p>
+<ul>
+  <li><strong>『신화론』(Mythologies, 1957)</strong>: 레슬링, 비누 광고, 시트로엥 자동차 등 프랑스 대중문화를 분석하여, 문화적 기호가 어떻게 이데올로기적 의미를 자연화하는지를 보여주었다. 신화(mythe)는 역사를 자연으로 전환한다.</li>
+</ul>
+<ul>
+  <li><strong>"저자의 죽음"(La mort de l'auteur, 1967)</strong>: 텍스트 의미를 결정하는 데 있어 저자의 권위를 거부. 의미는 독자에 의해 생산된다.</li>
+</ul>
+<ul>
+  <li><strong>『S/Z』(1970)</strong>: 발자크의 소설에 대한 치밀한 분석으로 읽을 수 있는 텍스트(lisible)와 쓸 수 있는 텍스트(scriptible)를 구분.</li>
+</ul>
+<p>바르트의 작업은 초기의 엄밀한 기호학적 분석에서 후기의 개인적이고 수필적인 스타일(『사랑의 단상』, 1977; 『밝은 방』, 1980)로 이행하며, 구조주의에서 후기구조주의로의 이행을 개인적 궤적으로 보여준다.</p>
+<hr>
+<h3 id="56-1966년-구조주의의-정점">5.6 1966년: 구조주의의 정점</h3>
+<p>1966년은 20세기 프랑스 철학의 전환점으로 자주 인용된다:</p>
+<ul>
+  <li>푸코의 『말과 사물』(Les Mots et les choses)이 출판되어 예상치 못한 베스트셀러가 되었다. "인간은 최근의 발명이다. 그리고 아마도 종말에 가까운."</li>
+  <li>라캉의 『에크리』(Ecrits)가 출판되었다.</li>
+  <li>데리다가 존스 홉킨스 대학 심포지엄 "비평의 언어들과 인간 과학(The Languages of Criticism and the Sciences of Man)"에서 「인문과학의 담론에서의 구조, 기호, 놀이」(Structure, Sign, and Play)를 발표했다 -- 이 강연은 프랑스 구조주의를 미국에 소개하려는 의도의 학술대회에서 오히려 후기구조주의의 시작을 알리는 것이 되었다.</li>
+</ul>
+<p>이 동시성은 실존주의적-현상학적 패러다임에서 구조주의적-후기구조주의적 패러다임으로의 전환을 표시한다.</p>
+<hr>
+<h3 id="57-복습-문제와-더-읽을거리">5.7 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>소쉬르의 랑그/파롤, 기표/기의 구분이 구조주의에 어떤 모델을 제공했는지 설명하시오.</li>
+</ol>
+<ol>
+  <li>레비-스트로스의 신화 분석 방법을 설명하시오. '신화소'란 무엇이며, 신화의 의미는 어디에 있는가?</li>
+</ol>
+<ol>
+  <li>라캉의 세 가지 질서(상상계, 상징계, 실재계)를 각각 설명하시오.</li>
+</ol>
+<ol>
+  <li>알튀세르의 '호명(interpellation)' 개념을 예를 들어 설명하시오. 이데올로기적 국가장치(AIE)와 억압적 국가장치(ASR)의 차이는 무엇인가?</li>
+</ol>
+<ol>
+  <li>1966년이 프랑스 지성사에서 전환점으로 평가되는 이유를 설명하시오.</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>바르트, 롤랑. 『신화론』 (Mythologies, 1957). 구조주의적 문화 분석의 접근하기 쉬운 예.</li>
+  <li>레비-스트로스, 클로드. 『슬픈 열대』 (Tristes Tropiques, 1955). 인류학과 철학의 결합.</li>
+  <li>Dosse, Francois. <em>History of Structuralism</em> (2 vols., 1991-92). 구조주의 운동의 가장 상세한 역사적 설명.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Jacques Lacan," "Louis Althusser" 항목.</li>
+</ul>
+<hr>
+<h2 id="제6장-후기구조주의와-해체">제6장. 후기구조주의와 해체</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>후기구조주의가 구조주의의 어떤 전제들을 비판하는지 설명할 수 있다.</li>
+  <li>데리다의 해체, 디페랑스, 로고스중심주의 비판을 분석할 수 있다.</li>
+  <li>푸코의 고고학적, 계보학적 방법과 권력/지식 개념을 서술할 수 있다.</li>
+  <li>들뢰즈와 가타리의 차이 철학, 리좀, 탈영토화 개념을 이해할 수 있다.</li>
+  <li>바타유와 블랑쇼의 후기구조주의에 대한 영향을 평가할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="61-구조주의에서-후기구조주의로">6.1 구조주의에서 후기구조주의로</h3>
+<p>후기구조주의(post-structuralisme)는 1960년대 후반에 구조주의의 기초적 전제들에 대한 비판적 심문으로 출현했다. 후기구조주의는 통일된 학파가 아니라, 이질적인 비판적 실천들의 집합이다.</p>
+<div class="table-wrapper"><table>
+  <tr class="header-row">
+    <th>차원</th>
+    <th>구조주의</th>
+    <th>후기구조주의</th>
+  </tr>
+  <tr>
+    <td>구조의 안정성</td>
+    <td>안정적이고 보편적</td>
+    <td>불안정하고 역사적이며 논쟁적</td>
+  </tr>
+  <tr>
+    <td>언어관</td>
+    <td>기호는 차이를 통해 상대적으로 안정적 의미를 가짐</td>
+    <td>의미는 무한히 지연됨(differance); 중심 없음</td>
+  </tr>
+  <tr>
+    <td>주체관</td>
+    <td>주체는 구조의 효과</td>
+    <td>주체는 탈중심화되고 다수적이며 분열됨</td>
+  </tr>
+  <tr>
+    <td>방법</td>
+    <td>공시적 분석</td>
+    <td>계보학, 해체, 고고학</td>
+  </tr>
+  <tr>
+    <td>정치</td>
+    <td>보편주의 경향</td>
+    <td>권력, 배제, 주변화된 차이들 강조</td>
+  </tr>
+</table></div>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>후기구조주의의 오해</strong><p>흔한 오해: "푸코, 데리다, 들뢰즈는 진리의 존재를 부인한다." 이는 가장 정치적으로 논쟁적인 오독이다. 이 사상가들은 어떤 단일한 담론이 진리에 특권적 접근을 가진다는 주장에 의문을 제기하고, 진리 주장이 어떻게 권력 관계 안에서 생산되는지를 분석하는 것이지, 단순한 진리 부정이 아니다.</p></div></div>
+<hr>
+<h3 id="62-데리다-해체와-디페랑스">6.2 데리다: 해체와 디페랑스</h3>
+<p><strong>자크 데리다(Jacques Derrida, 1930-2004)</strong>는 알제리에서 태어난 프랑스 철학자로, 해체(deconstruction)의 창시자이며 20세기 가장 영향력 있고 논쟁적인 철학자 중 한 명이다.</p>
+<h4 id="1967년의-세-권">1967년의 세 권</h4>
+<p>1967년에 데리다는 세 권의 주요 저작을 동시에 출판했다 -- 20세기 철학에서 가장 밀도 높은 단일 연도 기여 중 하나로 평가되는 사건:</p>
+<ul>
+  <li><strong>『그라마톨로지에 대하여』(De la grammatologie)</strong>: 서양 철학 전통의 로고스중심주의(logocentrisme)와 음성중심주의(phonocentrisme) -- 글쓰기(ecriture)에 대한 말(parole)의 특권화 -- 를 비판. <strong>원-글쓰기(archi-ecriture)</strong> 개념을 전개.</li>
+</ul>
+<ul>
+  <li><strong>『쓰기와 차이』(L'Ecriture et la difference)</strong>: 후설, 푸코, 레비-스트로스, 레비나스, 아르토, 프로이트에 대한 에세이들.</li>
+</ul>
+<ul>
+  <li><strong>『목소리와 현상』(La Voix et le phenomene)</strong>: 후설의 기호 이론과 현전의 형이상학에 대한 비판.</li>
+</ul>
+<h4 id="디페랑스differance">디페랑스(Differance)</h4>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>디페랑스(Differance)</strong><p>데리다의 신조어로, 프랑스어 <em>differer</em>의 두 의미 -- '다르다(differer spatialement)'와 '지연하다(differer temporellement)' -- 를 결합한다. 디페랑스는 모든 의미화의 가능 조건을 지칭한다: 의미는 결코 완전히 현전하지 않으며, 항상 차이적 관계들과 현전의 지연에 의해 구성된다. 중요한 점: 프랑스어에서 differance와 difference는 발음이 동일하다 -- 이 차이는 들리지 않고 읽힐 수만 있다. 이것 자체가 글쓰기(ecriture)가 말(parole)에 선행한다는 데리다의 논증을 수행적으로 보여준다.</p></div></div>
+<h4 id="해체의-실천">해체의 실천</h4>
+<p>해체는 방법이 아니라, 텍스트 <strong>내부에서</strong> 작동하는 독해 실천이다. 그 특징적 운동은:</p>
+<ol>
+  <li><strong>지배적 이항대립을 식별한다</strong>: 모든 철학적 텍스트는 이항적 위계를 통해 작동한다 (말/글, 현전/부재, 자연/문화, 진지한/비진지한).</li>
+</ol>
+<ol>
+  <li><strong>전도를 보여준다</strong>: 파생적이거나 부차적이라고 여겨지는 항이 실은 소위 일차적 항의 가능 조건임을 보여준다. 글쓰기는 말의 파생물이 아니라, 반복가능성(iterabilite)의 구조가 말 자체에 이미 구성적이다.</li>
+</ol>
+<ol>
+  <li><strong>단순한 전도를 넘어서 전위한다</strong>: 위계를 단순히 뒤집는 것(글쓰기를 말 위에 놓는 것)은 같은 로고스중심주의적 몸짓을 반복할 뿐이다. 해체는 대립 자체가 불안정함을 보여준다.</li>
+</ol>
+<ol>
+  <li><strong>비결정자(indecidable)를 도입한다</strong>: 어느 극에도 속하지 않는 항 -- <em>파르마콘(pharmakon)</em>(독이자 치료제), <em>보충(supplement)</em>(첨가이자 대체), <em>디페랑스</em> -- 을 제시한다.</li>
+</ol>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"텍스트 바깥은 없다." (<em>Il n'y a pas de hors-texte.</em> -- <em>De la grammatologie</em>, 1967)  이 유명한 (그리고 빈번히 오해되는) 주장은 언어만이 존재한다는 의미가 아니다. 모든 경험은 흔적(trace)의 차이적 논리에 의해 구조화되어 있으며, 텍스트들이 그 근거로 참조할 수 있는 전-언어적 현전은 없다는 의미이다.</p></div></div>
+<h4 id="설-데리다-논쟁">설-데리다 논쟁</h4>
+<p>데리다와 존 설(John Searle) 사이의 논쟁(1977-1988)은 분석-대륙 철학 분열을 결정적으로 드러냈다. 데리다는 오스틴(Austin)의 수행적 발화 이론에 대한 독해(「서명 사건 맥락(Signature Evenement Contexte)」, 1972)에서, 인용과 반복가능성(iterabilite)의 가능성이 오스틴이 진지하고 의도적이며 맥락-구속적인 발화에 부여하는 우선성을 훼손한다고 주장했다. 설은 데리다가 오스틴을 오해했다고 비판했고, 데리다는 「유한 주식회사 abc(Limited Inc abc)」(1977)로 응수했다.</p>
+<hr>
+<h3 id="63-푸코-고고학-계보학-생명권력">6.3 푸코: 고고학, 계보학, 생명권력</h3>
+<p><strong>미셸 푸코(Michel Foucault, 1926-1984)</strong>는 철학자이자 역사가로서, 20세기 가장 많이 인용되는 학자 중 한 명이다. 그의 철학은 구조주의나 후기구조주의로 쉽게 분류되지 않으며, 그 자신은 <strong>고고학(archeologie)</strong>과 <strong>계보학(genealogie)</strong>이라는 고유한 방법 명칭을 선호했다.</p>
+<h4 id="고고학적-시기">고고학적 시기</h4>
+<p>푸코의 초기 저작들은 특정 역사적 시기에 무엇이 알려질 수 있고, 말해질 수 있으며, 사유될 수 있는지를 결정하는 심층 구조인 <strong>에피스테메(episteme)</strong>를 분석한다.</p>
+<ul>
+  <li><strong>『광기의 역사』(Histoire de la folie, 1961)</strong>: '광기'가 어떻게 사회적/의학적 범주로 구성되었는지를 17세기 '대감금(Grand Renfermement)'을 통해 분석.</li>
+  <li><strong>『임상의학의 탄생』(Naissance de la clinique, 1963)</strong>: 근대 의학적 지각의 계보학.</li>
+  <li><strong>『말과 사물』(Les Mots et les choses, 1966)</strong>: 르네상스, 고전 시대, 근대의 에피스테메를 분석. "인간은 최근의 발명이다. 그리고 아마도 종말에 가까운."</li>
+</ul>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"인간은 최근의 발명이다. 그리고 아마도 종말에 가까운 발명이다." (<em>L'homme est une invention dont l'archeologie de notre pensee montre aisement la date recente. Et peut-etre la fin prochaine.</em> -- <em>Les Mots et les choses</em>, 1966)</p></div></div>
+<h4 id="계보학적-시기">계보학적 시기</h4>
+<p>니체의 계보학적 방법을 계승한 푸코는 자연적이거나 보편적인 것으로 여겨지는 것들의 우연적이고 권력-적재된 기원을 추적한다.</p>
+<ul>
+  <li><strong>『감시와 처벌』(Surveiller et punir, 1975)</strong>: 근대 감옥의 계보학. 권력이 화려한 공개 처형(주권적 권력)에서 감시, 규범화, '유순한 신체(corps dociles)'의 생산(규율 권력)으로 이행하는 과정을 분석.</li>
+</ul>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>파놉티콘(Panoptique)</strong><p>제러미 벤담(Jeremy Bentham)이 설계한 원형 감옥 -- 중앙의 감시탑에서 모든 수감자를 관찰할 수 있지만, 수감자는 감시자를 볼 수 없는 구조 -- 은 푸코에게 근대 규율 사회의 패러다임이 된다. 감시는 내면화되며, 주체들은 스스로를 규율한다. 이 분석은 학교, 병원, 공장, 디지털 감시에 적용되어 왔다.</p></div></div>
+<ul>
+  <li><strong>『성의 역사 제1권: 앎의 의지』(La Volonte de savoir, 1976)</strong>: '억압 가설(hypothese repressive)' -- 근대가 성을 억압했다는 통념 -- 을 비판하며, 근대가 오히려 성에 대한 담론의 <strong>폭발</strong>을 생산했다고 주장. <strong>생명권력(biopouvoir)</strong>과 <strong>생명정치(biopolitique)</strong> 개념을 도입.</li>
+</ul>
+<ul>
+  <li><strong>『성의 역사 제2-3권: 쾌락의 활용, 자기 배려』(1984)</strong>: 고대 그리스와 로마의 자기 수양 실천(askesis)으로의 전회. <strong>통치성(gouvernementalite)</strong> 개념의 발전.</li>
+</ul>
+<ul>
+  <li><strong>『성의 역사 제4권: 육체의 고백』(Les Aveux de la chair)</strong>: 푸코 사후 34년 만인 <strong>2018년에</strong> 출판된 유고. 초기 기독교의 고백 실천과 성(sexualite)의 관계를 분석한다.</li>
+</ul>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>권력/지식(Pouvoir/savoir)</strong><p>푸코의 핵심 논증: 권력과 지식은 대립하는 것이 아니라 상호 구성적이다. 권력은 대상을 지정하고, 방법을 특정하고, 진술을 승인함으로써 지식을 생산하며; 지식은 그것이 지배하는 주체와 대상을 생산함으로써 권력을 가능하게 한다.</p></div></div>
+<h4 id="푸코의-실천적-참여">푸코의 실천적 참여</h4>
+<p>푸코는 이론가인 동시에 활동가였다. 1971년에는 <strong>감옥정보그룹(Groupe d'Information sur les Prisons, GIP)</strong>을 공동 설립하여 감옥 개혁 운동에 참여했으며, 그의 작업은 반정신의학 운동, 퀴어 이론, AIDS 행동주의에 영향을 미쳤다.</p>
+<p>푸코가 1977년 프랑스 청원서 -- 성인과 미성년자 사이의 합의에 의한 성관계 합법화를 요구한 -- 에 참여한 사실은 갈수록 논쟁적이 되고 있으며, 그의 작업을 이러한 전기적 사실에 비추어 어떻게 읽을 것인지에 대한 집중적인 논의를 야기하고 있다.</p>
+<hr>
+<h3 id="64-들뢰즈와-가타리-차이의-철학과-리좀">6.4 들뢰즈와 가타리: 차이의 철학과 리좀</h3>
+<p><strong>질 들뢰즈(Gilles Deleuze, 1925-1995)</strong>는 20세기 프랑스 철학자들 중 가장 창조적이고 광범위한 사상가이며, 후기구조주의의 가장 체계적이고 형이상학적으로 야심찬 형태를 대표한다.</p>
+<h4 id="차이와-반복">차이와 반복</h4>
+<p>들뢰즈의 박사 논문이자 주저인 『차이와 반복』(Difference et repetition, 1968)은 <strong>동일성에 종속되지 않는 차이 그 자체(difference en elle-meme)</strong>의 철학을 전개한다.</p>
+<p>서양 형이상학이 동일성을 우선시하고 차이를 동일자의 모델에서의 일탈로 다루어 왔다면(플라톤의 이데아-복사본 관계, 헤겔의 부정적 변증법), 들뢰즈는 차이를 일차적이고 생산적인 존재론적 조건으로 놓는다. 반복은 동일자의 반복이 아니라 차이의 생산이다 -- 니체의 영원회귀는 동일자의 회귀가 아니라, 차이만을 선택하고 긍정하는 회귀이다.</p>
+<p>핵심 개념:</p>
+<ul>
+  <li><strong>잠재적인 것/현행적인 것(virtuel/actuel)</strong>: 잠재적인 것은 가능한 것(possible)과 다르다 -- 가능한 것은 실재에 대립하지만, 잠재적인 것은 현행적이지 않으면서도 실재적이다. 이데아/문제들은 다양한 방식으로 현행화되는 잠재적 다양체들이다.</li>
+  <li><strong>강도(intensite)</strong>: 현행화의 추동력. 외연적 양(나눌 수 있는 것)과 달리 내포적 양(나누면 본성이 변하는 것)이다.</li>
+</ul>
+<h4 id="안티-오이디푸스와-천-개의-고원">안티 오이디푸스와 천 개의 고원</h4>
+<p>들뢰즈는 정신분석가이자 활동가인 펠릭스 가타리(Felix Guattari, 1930-1992)와 함께 『자본주의와 분열증』의 두 권을 저술했다:</p>
+<ul>
+  <li><strong>『안티 오이디푸스』(L'Anti-Oedipe, 1972)</strong>: 라캉적 정신분석학의 급진적 비판. 결여로서의 욕망 모델(기표와 아버지의 이름에 의해 구조화된)에 맞서, 욕망을 생산적이고 긍정적이며 사회적 장에 내재하는 것으로 제안. 자본주의는 욕망을 탈영토화(deterritorialisation)하면서 동시에 오이디푸스적 삼각형(아빠-엄마-나)과 상품 형태를 통해 재영토화(reterritorialisation)한다.</li>
+</ul>
+<ul>
+  <li><strong>『천 개의 고원』(Mille Plateaux, 1980)</strong>: 사유와 문화를 위한 비위계적, 비수목적 모델인 <strong>리좀(rhizome)</strong>을 도입.</li>
+</ul>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>리좀(Rhizome)</strong><p>들뢰즈와 가타리의 핵심 개념. <strong>나무(arbre)</strong> 모델 -- 위계적이고 이진적이며 뿌리 내린 지식의 구조 -- 에 대비되는 <strong>리좀</strong> 모델은 비위계적이고 비선형적이며 탈중심화된 사유의 구조이다. 리좀은 시작도 끝도 없으며, 오직 중간들만 있다. 어떤 지점에서든 진입할 수 있으며, 구성적으로 다수적이다. 이 개념은 건축, 도시 계획, 디지털 인문학, 조직 이론에 광범위하게 적용되어 왔다.</p></div></div>
+<p>들뢰즈 철학의 일관된 관심사는 <strong>내재성(immanence)</strong>의 옹호이다. 내재성의 평면(plan d'immanence) 위에서 모든 생명과 사유의 형태들은 공존한다. 초월적 원리(외부에서 지배하는 것)에 대한 일관된 거부가 들뢰즈 사상의 핵심이다.</p>
+<div class="callout callout-practice"><div class="callout-icon">📖</div><div class="callout-content"><strong>들뢰즈의 영화 철학</strong><p>들뢰즈의 『시네마 1: 운동-이미지』(1983)와 『시네마 2: 시간-이미지』(1985)는 영화를 철학적 사유의 한 형태로 분석한다. 고전 영화의 운동-이미지(감각-운동적 도식, 행동-이미지)와 현대 영화의 시간-이미지(시간의 직접적 제시, 결정 불가능한 이미지) 사이의 전환을 분석하면서, 들뢰즈는 영화가 개념이 아닌 이미지를 통해 사유한다고 주장했다. 이 작업은 영화 이론을 근본적으로 변형시켰다.</p></div></div>
+<hr>
+<h3 id="65-바타유-블랑쇼와-후기구조주의의-지하수맥">6.5 바타유, 블랑쇼와 후기구조주의의 지하수맥</h3>
+<p>후기구조주의를 이해하려면, 그것의 주요 인물들에게 영향을 미쳤지만 독립적으로 다루어지는 경우가 드문 두 사상가를 살펴봐야 한다.</p>
+<p><strong>조르주 바타유(Georges Bataille, 1897-1962)</strong>는 위반, 주권, 낭비, 성스러움에 대한 작업을 통해 푸코, 데리다, 라캉에게 깊은 영향을 미쳤다. 바타유의 핵심 개념인 <strong>낭비(depense)</strong> -- 생산적 합리성을 넘어서는 비생산적 소비, 축제, 희생 -- 와 <strong>위반(transgression)</strong> -- 금기를 위반하면서도 금기를 전제하는 운동 -- 은 후기구조주의적 사유의 중요한 원천이다. 푸코의 에세이 「위반에의 서문」(Preface a la transgression, 1963)은 바타유에 대한 직접적 헌사이다.</p>
+<p><strong>모리스 블랑쇼(Maurice Blanchot, 1907-2003)</strong>는 문학적 철학의 사상가로서 데리다, 푸코, 레비나스, 들뢰즈에게 영향을 미쳤다. 블랑쇼의 핵심 주제인 '작품의 부재(absence d'oeuvre)', '글쓰기의 재앙(desastre)', '중성적인 것(le neutre)'은 의미의 확정 불가능성과 주체의 소진이라는 후기구조주의적 모티프의 문학적 원천이다. 데리다는 블랑쇼와의 관계를 통해 문학과 철학의 경계에 대한 사유를 발전시켰다.</p>
+<hr>
+<h3 id="66-1968년-5월과-철학적-전환">6.6 1968년 5월과 철학적 전환</h3>
+<p>1968년 5월의 학생-노동자 봉기는 프랑스 지성사에서 분수령이 되는 사건이다. 이 사건은 프랑스 철학자들에게 다양하고 복합적인 영향을 미쳤다:</p>
+<ul>
+  <li><strong>사르트르</strong>: 동정적이고 활동적으로 참여했다.</li>
+  <li><strong>알튀세르</strong>: 역설적으로 마비되었다 -- 사건들이 그의 구조주의적 혁명론을 모순하는 것처럼 보였기 때문이다.</li>
+  <li><strong>라캉</strong>: 학생들이 주인(maitre)을 찾고 있다고 유명하게 말했다.</li>
+  <li><strong>푸코</strong>: 당시 튀니지에 있었고 이후 귀국했다.</li>
+  <li><strong>들뢰즈와 가타리</strong>: 급진화되었으며, 『안티 오이디푸스』(1972)는 5월의 직접적 산물이다.</li>
+</ul>
+<p>5월 이후의 결과들:</p>
+<ul>
+  <li>이론의 급진화(『안티 오이디푸스』)</li>
+  <li>마르크스주의에 대한 환멸 -- 이는 1970년대 후반 <strong>누보 필로소프(Nouveaux Philosophes)</strong>의 부상으로 이어진다(제7장 참조).</li>
+  <li>미시정치(micropolitique), 성의 정치, 정신과 반체제의 정치 등 새로운 정치적 주제의 출현.</li>
+</ul>
+<hr>
+<h3 id="67-복습-문제와-더-읽을거리">6.7 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>구조주의와 후기구조주의의 핵심적 차이를 '구조의 안정성', '주체관', '방법' 세 차원에서 비교하시오.</li>
+</ol>
+<ol>
+  <li>데리다의 '디페랑스(differance)' 개념을 설명하시오. 이것이 소쉬르의 기호 이론과 어떤 관계에 있는가?</li>
+</ol>
+<ol>
+  <li>푸코의 '고고학'과 '계보학' 방법의 차이를 설명하시오. 파놉티콘이 근대 규율 사회의 패러다임인 이유를 서술하시오.</li>
+</ol>
+<ol>
+  <li>들뢰즈와 가타리의 '리좀(rhizome)' 모델과 '나무(arbre)' 모델의 대비를 설명하시오.</li>
+</ol>
+<ol>
+  <li>1968년 5월의 사건이 프랑스 철학에 미친 영향을 다양한 사상가들의 반응을 통해 분석하시오.</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>데리다, 자크. 『그라마톨로지에 대하여』 (De la grammatologie, 1967). 난해하지만 필수적. Jonathan Culler의 <em>On Deconstruction</em>을 선행 독서로 권장.</li>
+  <li>푸코, 미셸. 『감시와 처벌』 (Surveiller et punir, 1975). 푸코의 가장 접근하기 쉬운 주저.</li>
+  <li>들뢰즈와 가타리. 『천 개의 고원』 서론 "리좀" (Mille Plateaux, 1980). 들뢰즈 사상의 입구. Claire Parnet과의 대담집 <em>Dialogues</em>가 더 쉬운 입문.</li>
+  <li>Todd May, <em>The Philosophy of Foucault</em>. Claire Colebrook, <em>Gilles Deleuze</em> (Routledge).</li>
+</ul>
+<hr>
+<h2 id="제7장-포스트모더니즘과-시뮬라크르">제7장. 포스트모더니즘과 시뮬라크르</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>리오타르의 '거대서사에 대한 불신'으로서의 포스트모더니즘 정의를 분석할 수 있다.</li>
+  <li>리오타르의 '쟁론(le differend)' 개념을 설명할 수 있다.</li>
+  <li>보드리야르의 시뮬라크르, 하이퍼리얼리티 이론을 서술할 수 있다.</li>
+  <li>소칼 사건과 그것이 야기한 논쟁을 평가할 수 있다.</li>
+  <li>누보 필로소프 운동의 맥락과 의의를 이해할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="71-포스트모더니즘이란-무엇인가">7.1 포스트모더니즘이란 무엇인가</h3>
+<p>포스트모더니즘(postmodernisme)은 근대성의 거대한 정당화 서사들이 더 이상 신뢰할 수 없게 된 상황을 가리키는 철학적 개념이다. 중요한 점은 '포스트모던'이라는 명칭이 프랑스 내부에서는 거의 사용되지 않으며, 주로 영미 학계에서 프랑스 사상을 분류하는 데 쓰였다는 것이다. 프랑스 철학 학과에서는 '포스트모더니즘'이라는 꼬리표를 긍정적으로 사용하는 경우가 드물다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>흔한 오해 -- 포스트모더니즘 = 상대주의</strong><p>포스트모던 철학과 '아무것이나 가능하다'는 상대주의의 등치는 강하게 논쟁되는 지점이다. 리오타르의 '거대서사에 대한 불신'은 특정한 전체화하는 이론들(마르크스주의, 자유주의, 과학주의)을 겨냥한 것이지, 무제한적 상대주의를 승인하는 것이 아니다.</p></div></div>
+<hr>
+<h3 id="72-리오타르-거대서사에-대한-불신">7.2 리오타르: 거대서사에 대한 불신</h3>
+<p><strong>장-프랑수아 리오타르(Jean-Francois Lyotard, 1924-1998)</strong>의 『포스트모던의 조건: 지식에 대한 보고서』(La Condition postmoderne: Rapport sur le savoir, 1979)는 철학적으로 포스트모더니즘을 정의한 텍스트이다. 원래 퀘벡 정부에 제출할 고도 발전 사회의 지식 상태에 대한 보고서로 위탁된 이 텍스트는 근대성의 거대한 정당화 서사들 -- 이성을 통한 해방의 계몽주의 서사, 정신의 자기실현에 대한 사변적 서사 -- 이 후기 자본주의 사회에서 신뢰를 상실했다고 진단한다.</p>
+<div class="callout callout-quote"><div class="callout-icon">📜</div><div class="callout-content"><strong>원문 인용</strong><p>"나는 포스트모던을 거대서사에 대한 불신으로 정의한다." (<em>Je definis le postmoderne comme incredulite a l'egard des metarecits.</em> -- <em>La Condition postmoderne</em>, 1979)</p></div></div>
+<p><strong>언어 게임(jeux de langage)</strong>: 리오타르는 비트겐슈타인의 언어 게임 개념을 차용하여, 상이한 인지적, 실천적 영역(과학, 서사, 처방)이 공약 불가능한 규칙들에 의해 작동한다고 주장한다. 어떤 단일한 메타언어도 이들 사이를 판정할 수 없다 -- 이것이 포스트모던의 조건이다.</p>
+<p><strong>수행성(performativite)</strong>: 포스트모던 조건에서 지식은 진리가 아니라 효율성과 최적화에 의해 정당화된다.</p>
+<h4 id="쟁론le-differend">쟁론(Le Differend)</h4>
+<p>리오타르의 주요 철학 저작 『쟁론』(Le Differend, 1983)은 공통의 판단 규칙이 없는 분쟁 -- 한 당사자의 손실이 다른 당사자에 의해 부과된 관용어로는 적절히 표현될 수 없는 분쟁 -- 의 개념을 발전시킨다. 쟁론은 언어의 구성적 불의이다 -- 가용한 관용어 안에서 자신의 피해를 공식화할 수 없는 자들의 침묵시킴.</p>
+<p>리오타르는 홀로코스트를 쟁론의 극단적 사례로 분석한다 -- 생존자들의 증언이 가해자의 관용어 안에서 '증거'로 인정되지 않는 상황.</p>
+<h4 id="숭고le-sublime">숭고(Le sublime)</h4>
+<p>리오타르의 미학은 칸트의 숭고 개념에 의거하여, 포스트모던 예술이 재현 불가능한 것(l'impresentable) -- 모든 형상화를 초과하는 것 -- 에 증언하는 역할을 수행한다고 주장한다.</p>
+<hr>
+<h3 id="73-보드리야르-시뮬라크르와-하이퍼리얼리티">7.3 보드리야르: 시뮬라크르와 하이퍼리얼리티</h3>
+<p><strong>장 보드리야르(Jean Baudrillard, 1929-2007)</strong>는 포스트모던 문화 분석의 가장 급진적 형태를 발전시킨 사회학자이자 문화 이론가이다.</p>
+<h4 id="초기-작업-마르크스주의에서-기호학으로">초기 작업: 마르크스주의에서 기호학으로</h4>
+<p>보드리야르의 초기 저작 -- 『사물의 체계』(Le Systeme des objets, 1968)와 『소비 사회』(La Societe de consommation, 1970) -- 은 구조주의적 기호학을 소비에 적용하여, 상품이 사용가치를 충족시키는 것이 아니라 사회적 차별화 체계 안의 <strong>기호</strong>로서 소비된다고 주장했다.</p>
+<h4 id="시뮬라크르와-시뮬라시옹">시뮬라크르와 시뮬라시옹</h4>
+<p>보드리야르의 가장 유명한 저작 『시뮬라크르와 시뮬라시옹』(Simulacres et simulation, 1981)은 선진 소비사회에서 기호가 더 이상 외부 실재를 지시하지 않고 자기-지시적 시뮬라시옹이 되었다고 주장한다. 시뮬라크르(simulacre)는 원본 없는 복제이며, 하이퍼리얼리티(hyperrealite)는 시뮬라시옹이 실재보다 더 실재적인 상태이다.</p>
+<p>보드리야르의 시뮬라크르 이론에는 두 가지 틀이 있으며, 이들은 서로 다른 저작에서 유래한다:</p>
+<ol>
+  <li><strong>시뮬라크르의 세 질서</strong> (『상징적 교환과 죽음』, L'Echange symbolique et la mort, <strong>1976년</strong>):</li>
+</ol>
+<ul>
+  <li>(1) <strong>위조(contrefacon)</strong>: 르네상스에서 산업혁명까지 -- 자연의 재현으로서의 시뮬라시옹.</li>
+  <li>(2) <strong>생산(production)</strong>: 산업 시대 -- 동일한 복제물의 기계적 재생산.</li>
+  <li>(3) <strong>시뮬라시옹(simulation)</strong>: 동시대 -- 실재에 선행하고 실재를 생성하는 모델.</li>
+</ul>
+<ol>
+  <li><strong>이미지의 네 단계</strong> (『시뮬라크르와 시뮬라시옹』, <strong>1981년</strong>):</li>
+</ol>
+<ul>
+  <li>(1) 이미지는 심층적 실재의 반영이다.</li>
+  <li>(2) 이미지는 심층적 실재를 은폐하고 변성시킨다.</li>
+  <li>(3) 이미지는 심층적 실재의 부재를 은폐한다.</li>
+  <li>(4) 이미지는 어떤 실재와도 무관하다 -- 순수한 시뮬라크르.</li>
+</ul>
+<p>두 틀 모두 보드리야르의 상이한 텍스트에서 정당한 독해이며, 교과서에서는 양자의 구분을 명확히 할 필요가 있다.</p>
+<div class="callout callout-practice"><div class="callout-icon">📖</div><div class="callout-content"><strong>"걸프전은 일어나지 않았다"</strong><p>보드리야르의 1991년 에세이들은 걸프전이 서구 대중에 의해 경험된 바로는 시뮬라시옹이었다고 주장했다 -- 미디어 스펙터클이 실제 갈등을 대체하여, 포장되고 각본화되고 오락처럼 소비되는 '전쟁'을 생산했다. 이 도발적 주장은 사람들이 죽지 않았다는 의미가 아니라, 미디어에 의해 매개된 전쟁 경험이 실제 폭력과 단절되어 있다는 의미였다.</p></div></div>
+<p>보드리야르의 개념은 소셜 미디어, 딥페이크, 인플루언서 문화, AI 생성 이미지의 맥락에서 2020년대에 현저한 2차 관심 물결을 경험하고 있다. 2024-2025년의 학술 논문들은 소셜 미디어 플랫폼에서의 허위정보에 보드리야르의 틀을 명시적으로 적용하고 있다.</p>
+<hr>
+<h3 id="74-소칼-사건과-포스트모더니즘-논쟁">7.4 소칼 사건과 포스트모더니즘 논쟁</h3>
+<p>1996년, 물리학자 앨런 소칼(Alan Sokal)은 문화연구 저널 『소셜 텍스트(Social Text)』에 의도적으로 무의미한 논문 -- 「경계를 넘어서: 양자 중력의 변형적 해석학을 향하여」 -- 을 게재한 뒤, 이것이 날조임을 폭로했다. 소칼은 포스트모던 학자들이 과학적 기준을 포기했다고 주장했다. 장 브리크몽(Jean Bricmont)과 함께 출판한 『지적 사기』(Impostures intellectuelles, 1997)는 라캉, 보드리야르, 들뢰즈, 크리스테바, 이리가라이, 라투르 등을 과학 개념의 남용으로 구체적으로 표적으로 삼았다.</p>
+<p>이 논쟁에 대한 학계의 반응은 날카롭게 갈렸다:</p>
+<ul>
+  <li><strong>과학자와 분석 철학자</strong>: 대체로 소칼의 폭로를 환영.</li>
+  <li><strong>인문학 학자</strong>: 소칼과 브리크몽이 비판한 텍스트들을 오독했으며(수학적 개념의 비유적 사용을 문자적으로 해석), 비판이 대륙 철학 전체가 아니라 일부에만 적용된다고 반론.</li>
+  <li><strong>데리다</strong>: 이 사건을 "슬프다(triste)"고 표현했다.</li>
+</ul>
+<p>소칼 사건은 포스트모더니즘과 '우크 문화(wokisme)'에 대한 논쟁에서 계속 환기되고 있으며, 보수적 비평가들은 이를 프랑스 이론이 지적 기준을 타락시킨다는 증거로 인용한다.</p>
+<hr>
+<h3 id="75-누보-필로소프-마르크스주의의-거부">7.5 누보 필로소프: 마르크스주의의 거부</h3>
+<p>1968년 5월 이후의 환멸은 1970년대 후반 <strong>누보 필로소프(Nouveaux Philosophes, 신철학자들)</strong> 운동의 부상으로 이어졌다. 앙드레 글뤽스만(Andre Glucksmann)과 베르나르-앙리 레비(Bernard-Henri Levy)로 대표되는 이 그룹은 마르크스주의와 결별하고, 전체주의(스탈린주의, 마오주의)에 대한 비판을 통해 프랑스 공적 지식인 문화에 영향을 미쳤다.</p>
+<p>누보 필로소프의 의의는 철학적 독창성보다는 문화적, 정치적 영향에 있다. 이들은 프랑스 좌파 지식인 전통의 마르크스주의적 유산에 대한 공개적 거부를 대표하며, 이후 프랑스 공적 담론에서 '반전체주의'가 핵심 가치로 자리 잡는 데 기여했다.</p>
+<hr>
+<h3 id="76-복습-문제와-더-읽을거리">7.6 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>리오타르의 "포스트모던은 거대서사에 대한 불신이다"라는 정의를 설명하시오. 거대서사란 구체적으로 어떤 서사들을 가리키는가?</li>
+</ol>
+<ol>
+  <li>리오타르의 '쟁론(differend)' 개념을 설명하시오. 홀로코스트가 쟁론의 사례가 되는 이유는 무엇인가?</li>
+</ol>
+<ol>
+  <li>보드리야르의 시뮬라크르의 세 질서(1976년)와 이미지의 네 단계(1981년)를 각각 설명하시오.</li>
+</ol>
+<ol>
+  <li>소칼 사건의 양측 주장을 요약하시오. 이 논쟁이 분석-대륙 철학 분열과 어떤 관계에 있는가?</li>
+</ol>
+<ol>
+  <li>포스트모더니즘이 상대주의와 동일하다는 주장에 대해 비판적으로 평가하시오.</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>리오타르, 장-프랑수아. 『포스트모던의 조건』 (La Condition postmoderne, 1979). 짧고 밀도 있는 필수 텍스트.</li>
+  <li>보드리야르, 장. 『시뮬라크르와 시뮬라시옹』 (Simulacres et simulation, 1981).</li>
+  <li>소칼, 앨런; 브리크몽, 장. 『지적 사기』 (Impostures intellectuelles, 1997). 비판적 관점.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Jean-Francois Lyotard," "Jean Baudrillard" 항목.</li>
+</ul>
+<hr>
+<h2 id="제8장-프랑스-페미니즘-철학">제8장. 프랑스 페미니즘 철학</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>보부아르의 실존주의 페미니즘의 핵심 논증을 재검토할 수 있다.</li>
+  <li>이리가라이의 성차 철학과 그 세 단계를 설명할 수 있다.</li>
+  <li>크리스테바의 기호계/상징계 구분과 비체(abjection) 이론을 분석할 수 있다.</li>
+  <li>식수의 여성적 글쓰기(ecriture feminine) 개념을 이해할 수 있다.</li>
+  <li>평등 페미니즘과 차이 페미니즘 사이의 내부 논쟁을 평가할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="81-보부아르와-실존주의-페미니즘의-기원">8.1 보부아르와 실존주의 페미니즘의 기원</h3>
+<p>보부아르의 페미니즘 철학은 이미 제3장에서 상세히 다루었다. 여기서는 프랑스 페미니즘 철학 전체의 맥락에서 보부아르의 위치를 보완적으로 조명한다.</p>
+<p>보부아르의 여성 억압 분석은 실존주의, 현상학, 정신분석학, 역사적 유물론, 사회학을 종합하는 전례 없는 학제적 접근이었으며, 전 세계적으로 제2물결 페미니즘에 영향을 미쳤다.</p>
+<p>1970년대의 후기구조주의적 페미니스트들(이리가라이, 크리스테바, 식수)은 보부아르의 '남근적 페미니즘(feminisme phallique)'을 비판했다 -- 보부아르의 실존주의가 여성을 남성적으로 정의된 구조에 통합하려 한다는 것이었다. 이리가라이는 보부아르의 성차 초월 소망을 "어떤 형태의 파괴보다 더 급진적인 학살(genocide)"이라고까지 표현했다. 그러나 최근의 학문적 재평가는 이러한 후기구조주의적 비판의 상당 부분이 보부아르에 대한 면밀한 독해에 기반하지 않으며, 보부아르의 체화된 신체, 상황, 모호성에 대한 논의가 이미 많은 후기구조주의적 페미니즘적 관심사를 선취하고 있음을 보여주었다.</p>
+<hr>
+<h3 id="82-이리가라이-성차의-철학">8.2 이리가라이: 성차의 철학</h3>
+<p><strong>뤼스 이리가라이(Luce Irigaray, 1930-)</strong>는 벨기에 태생의 프랑스 철학자이자 정신분석가로, 서양 철학 전통 전체와의 엄밀한 철학적 대결을 통해 <strong>성차(difference sexuelle)</strong>의 철학을 발전시켰다.</p>
+<h4 id="타자의-여성의-거울">타자의 여성의 거울</h4>
+<p>이리가라이의 박사 논문이자 첫 주저 『타자의 여성의 거울』(Speculum de l'autre femme, 1974)은 프로이트에서 출발하여 서양 철학의 역사를 거슬러 올라가며 남근중심주의(phallocentrisme)를 체계적으로 해체한다. 제목은 부인과 기구인 스페큘럼(speculum)을 남성적 자기반영의 평면 거울(miroir plat)에 대한 대항-상징으로 사용한다. 여성은 일관되게 남성적 주체의 결핍된 판본(프로이트의 '거세된 남성') 또는 남성적 자기반영을 가능하게 하는 불활성 거울로 구성되어 왔다.</p>
+<p>이 책의 출판은 이리가라이가 <strong>라캉의 에콜 프로이디엔(Ecole Freudienne de Paris)에서 축출되고, 동시에 뱅센느 대학(Universite de Vincennes, Paris VIII)에서의 교수직에서도 해임</strong>되는 결과를 초래했다.</p>
+<h4 id="하나가-아닌-이-성">하나가 아닌 이 성</h4>
+<p>『하나가 아닌 이 성』(Ce sexe qui n'en est pas un, 1977)에서 이리가라이는 여성 성욕이 단일한 남근적 모델로 환원될 수 없는 복수적이고 분산적이며 자기-접촉적인 것이라고 주장한다. 여성적 욕망은 결코 자기 자신과 동일하지 않다.</p>
+<h4 id="이리가라이-프로젝트의-세-단계">이리가라이 프로젝트의 세 단계</h4>
+<ol>
+  <li><strong>남성적 주체의 해체</strong>: 서양 철학의 보편적 주체가 실은 암묵적으로 남성적임을 폭로.</li>
+  <li><strong>여성적 주체의 가능성 분절</strong>: 여성적 주체성, 형태학, 언어의 고유한 양태를 탐구.</li>
+  <li><strong>성차를 존중하는 윤리와 정치의 구축</strong>: 한 성의 다른 성에 대한 환원이 아닌 진정한 상호주관성의 가능성.</li>
+</ol>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>여성으로 말하기(Parler femme)</strong><p>여성은 남성적 담론에 자신을 삽입하는 것이 아니라, 자신만의 언어 -- 유동적이고 복수적이며 자기-접촉적인 -- 를 찾아야 한다. 이리가라이의 <strong>모방/미메시스(mimesis)</strong> 전략은 남성적 철학 텍스트를 의도적으로 모방하고 과장함으로써 그 전제들을 드러내는 전복적 독해 방법이다.</p></div></div>
+<hr>
+<h3 id="83-크리스테바-기호계와-상징계">8.3 크리스테바: 기호계와 상징계</h3>
+<p><strong>줄리아 크리스테바(Julia Kristeva, 1941-)</strong>는 불가리아 태생의 프랑스 정신분석가이자 철학자이며 소설가로, <strong>1965년 12월</strong>에 파리에 도착하여 텔 켈(Tel Quel) 그룹에 합류했다.</p>
+<h4 id="기호계와-상징계">기호계와 상징계</h4>
+<p>크리스테바는 <strong>기호계(le semiotique)</strong>와 <strong>상징계(le symbolique)</strong>를 구분한다:</p>
+<ul>
+  <li><strong>기호계(le semiotique)</strong>: 전언어적이고 전오이디푸스적인 충동, 리듬, 신체적 강도의 차원. 모성적 신체와 연결되며, 플라톤의 코라(chora) 개념을 차용하여 -- 전상징적 공간으로서 기호계적 충동이 흐르는 모성적 신체의 수용체 -- 로 개념화된다.</li>
+</ul>
+<ul>
+  <li><strong>상징계(le symbolique)</strong>: 언어, 문법, 사회법의 구조화된 영역. 부성적 권위와 연결된다.</li>
+</ul>
+<p>시적 언어는 기호계가 상징계 안으로 분출하여 그것을 교란하는 장소이다. 크리스테바의 주요 이론 저작 『시적 언어의 혁명』(La Revolution du langage poetique, 1974)은 아방가르드 시(말라르메, 로트레아몽)를 분석하여, 시적 언어가 주체를 과정 중에/심문 중에(sujet en proces/en proces) 놓는 <strong>실천</strong>이라고 주장한다.</p>
+<h4 id="상호텍스트성intertextualite">상호텍스트성(Intertextualite)</h4>
+<p>크리스테바는 1966년에 <strong>상호텍스트성</strong> 개념을 도입했다 -- 모든 텍스트는 다른 텍스트들의 인용과 변형의 모자이크로 구성되어 있다는 테제. 이 개념은 문학 이론에 막대한 영향을 미쳤다.</p>
+<h4 id="비체abjection">비체(Abjection)</h4>
+<p>『공포의 권력: 비체에 대한 시론』(Pouvoirs de l'horreur, 1980)에서 크리스테바는 <strong>비체(abjection)</strong> 개념을 전개한다 -- 자아와 비-자아, 내부와 외부의 경계를 위협하는 것(신체적 유동체, 시체, 모성-여성적인 것)의 배출로부터 야기되는 공포. 비체는 주체가 출현하기 위해 어머니로부터의 원초적 분리 -- '나'의 경계 설정 -- 를 표시한다.</p>
+<hr>
+<h3 id="84-식수-여성적-글쓰기">8.4 식수: 여성적 글쓰기</h3>
+<p><strong>엘렌 식수(Helene Cixous, 1937-)</strong>는 알제리 태생의 프랑스 페미니스트이자 철학자, 극작가, 소설가이다. 항상 좁은 의미의 철학자로 분류되지는 않지만, 그녀의 <strong>여성적 글쓰기(ecriture feminine)</strong> 개념은 철학적으로 중요한 영향을 미쳤다.</p>
+<p>식수의 랜드마크 선언문 「메두사의 웃음」(Le Rire de la Meduse, 1975)은 여성들에게 자신의 신체를 글로 쓸 것을 촉구한다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>여성적 글쓰기(Ecriture feminine)</strong><p>신체로부터 흘러나오며, 전상징적 경험을 특권화하고, 선형적 논리를 교란하며, 다수적 의미를 여는 글쓰기의 양식. 반드시 여성에 의해서만 쓰여지는 것은 아니지만, 여성적 리비도적 경제와 연결된다. 식수는 메두사를 재해석한다: 두려워해야 할 괴물이 아니라, 웃는 메두사 -- 기쁨과 전복적 여성성의 이미지.</p></div></div>
+<p>식수는 또한 이항대립(능동/수동, 문화/자연, 태양/달) 비판을 전개한다 -- 이 대립들은 항상 남성/여성으로 코드화되어 있으며, 여성은 이것들을 교란해야 한다.</p>
+<hr>
+<h3 id="85-평등-대-차이-논쟁">8.5 평등 대 차이 논쟁</h3>
+<p>프랑스 페미니즘 철학 내부에서 가장 중요한 논쟁은 <strong>평등 페미니즘</strong>과 <strong>차이 페미니즘</strong> 사이의 대립이다.</p>
+<ul>
+  <li><strong>평등 페미니즘(보부아르, 모니크 비티크/Monique Wittig, 크리스틴 델피/Christine Delphy의 유물론적 페미니즘)</strong>: 여성이 보편적 주체 위치에 대한 동등한 접근을 가져야 한다. '여성'이라는 범주는 억압의 산물이며 극복되어야 한다.</li>
+</ul>
+<ul>
+  <li><strong>차이 페미니즘(이리가라이, 크리스테바, 식수)</strong>: 보편적 주체 개념 자체에 내장된 남성중심적 전제를 문제 삼는다. 페미니즘의 과제는 보편에의 동화가 아니라, 성차의 긍정적 이론화이다.</li>
+</ul>
+<p>주디스 버틀러(Judith Butler)의 『젠더 트러블』(Gender Trouble, 1990)은 보부아르, 푸코, 데리다, 크리스테바를 종합하면서 양 진영 모두를 비판했다 -- 양측 모두 '여성'을 본질화한다는 이유로. 버틀러의 젠더 수행성(performativite du genre) 이론은 프랑스 페미니즘과 영미 젠더 연구 사이의 대화를 더욱 복잡하게 만들면서도 풍요롭게 했다.</p>
+<hr>
+<h3 id="86-복습-문제와-더-읽을거리">8.6 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>이리가라이의 프로젝트의 세 단계를 설명하시오. '타자의 여성의 거울'이 서양 철학 전통에 대해 제기하는 비판은 무엇인가?</li>
+</ol>
+<ol>
+  <li>크리스테바의 기호계(le semiotique)와 상징계(le symbolique)의 구분을 설명하시오. 시적 언어는 이 두 차원과 어떤 관계에 있는가?</li>
+</ol>
+<ol>
+  <li>식수의 '여성적 글쓰기(ecriture feminine)' 개념을 설명하시오. 이것이 반드시 여성에 의해서만 쓰여지는 것인가?</li>
+</ol>
+<ol>
+  <li>평등 페미니즘과 차이 페미니즘의 핵심 쟁점을 비교하시오. 각 입장의 강점과 약점은 무엇인가?</li>
+</ol>
+<ol>
+  <li>후기구조주의적 페미니스트들이 보부아르를 비판하는 논점은 무엇이며, 최근 학계에서 이 비판이 어떻게 재평가되고 있는가?</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>이리가라이, 뤼스. 『하나가 아닌 이 성』 (Ce sexe qui n'en est pas un, 1977).</li>
+  <li>식수, 엘렌. 「메두사의 웃음」 (Le Rire de la Meduse, 1975).</li>
+  <li>Toril Moi. <em>Simone de Beauvoir: The Making of an Intellectual Woman</em>. 보부아르 재평가의 핵심 텍스트.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Simone de Beauvoir," "Feminist Philosophy" 항목. Internet Encyclopedia of Philosophy, "Luce Irigaray" 항목.</li>
+</ul>
+<hr>
+<h2 id="제9장-21세기-프랑스-철학의-새로운-지평">제9장. 21세기 프랑스 철학의 새로운 지평</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>바디우의 집합론적 존재론, 사건, 진리 절차 개념을 분석할 수 있다.</li>
+  <li>랑시에르의 불화, 감각적인 것의 분배, 정치/치안 구분을 설명할 수 있다.</li>
+  <li>메이야수의 상관주의 비판과 우연성의 원리를 서술할 수 있다.</li>
+  <li>말라부, 라투르, 스티글레르 등 동시대 사상가들의 기여를 이해할 수 있다.</li>
+  <li>사변적 실재론의 내부 분열을 평가할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="91-바디우-존재와-사건">9.1 바디우: 존재와 사건</h3>
+<p><strong>알랭 바디우(Alain Badiou, 1937-)</strong>는 후기구조주의의 반인본주의적, 반보편주의적 지향과 포스트모던적 거대서사 거부 모두에 대한 날카로운 단절을 대표한다. 그의 작업은 엄밀한 수학적 형식주의와 타협 없는 보편주의, 진리, 주체에 대한 헌신으로 특징지어진다.</p>
+<h4 id="존재와-사건">존재와 사건</h4>
+<p>바디우의 주저 『존재와 사건』(L'Etre et l'evenement, 1988)은 존재론 -- 존재 그 자체(etre en tant qu'etre)의 학문 -- 을 수학, 구체적으로 체르멜로-프랑켈 집합론(ZFC)과 동일시한다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>수학 = 존재론</strong><p>바디우에게 존재는 순수한 비일관적 다수성(multiplicite inconsistante)이다. 집합론(다수성을 하나로 셈하고 조직하며 구조화하는 것)이 존재의 담론이다. 이 존재론적 배경 위에서 바디우는 <strong>사건(evenement)</strong> 개념을 도입한다 -- 상황에서 배제된 것(공백, le vide)을 명명함으로써 상황 안에서 인식되거나 명명될 수 없는 균열. 사건은 <strong>충실성(fidelite)</strong> -- 사건의 귀결을 상황 전체에 걸쳐 끌어내는 전투적 작업 -- 을 통해 <strong>진리(verite)</strong>를 생성한다.</p></div></div>
+<p><strong>네 가지 진리 조건</strong>: 바디우는 진리 절차가 발생할 수 있는 네 영역을 식별한다: 사랑, 과학, 예술, 정치. 각 영역은 고유한 사건적 구조와 충실성의 양태를 가진다.</p>
+<p><strong>민주주의적 유물론에 맞서</strong>: 바디우는 자신의 시대의 지배적 철학을 "민주주의적 유물론(materialisme democratique)" -- "신체와 언어만이 있다"는 견해 -- 으로 규정하고, 이에 대해 "유물론적 변증법(dialectique materialiste)" -- "진리가 있다는 것을 제외하면" -- 을 대립시킨다.</p>
+<p>바디우의 공산주의에 대한 지속적 옹호 -- 마오주의적 문화대혁명에 대한 동정적 관여를 포함하여 -- 는 좌파 내에서도 논쟁적이다. 그의 '자본-의회주의(capitalo-parlementarisme)'(자유 민주주의에 대한 그의 용어) 비판은 일부에 의해 정치적으로 위험한 것으로 평가된다.</p>
+<h4 id="바디우-들뢰즈-논쟁">바디우-들뢰즈 논쟁</h4>
+<p>바디우의 『들뢰즈: 존재의 함성』(Deleuze: La clameur de l'Etre, 1997)은 들뢰즈의 내재주의에 대한 주요 철학적 공격을 구성했다. 바디우는 들뢰즈의 차이의 철학이 궁극적으로 일자(l'Un)의 철학 -- 비차별화된 일의적 실체로서의 존재 -- 으로 환원된다고 주장했다. 들뢰즈주의자들은 이 독해가 들뢰즈의 존재론에서 다수성과 잠재적인 것의 역할을 근본적으로 오독한다고 반박한다.</p>
+<hr>
+<h3 id="92-랑시에르-불화의-정치학">9.2 랑시에르: 불화의 정치학</h3>
+<p><strong>자크 랑시에르(Jacques Ranciere, 1940-)</strong>는 알튀세르의 학생이었으나 1968년 5월 이후 스승과 결별했으며, 정치, 평등, 미학에 관한 독자적 철학을 발전시켰다.</p>
+<h4 id="무지한-스승">무지한 스승</h4>
+<p>『무지한 스승』(Le Maitre ignorant, 1987)은 조제프 자코토(Joseph Jacotot)의 이야기를 통해 <strong>지적 평등(egalite des intelligences)</strong>의 원리에 기반한 급진적 교육학을 발전시킨다. 자코토는 플라망어를 모르면서도 플라망어 학생들에게 프랑스어를 가르쳤다. 랑시에르는 '우둔화(abetissement)' -- 배움이 아는 자의 설명을 필요로 한다는 가정 -- 를 '해방(emancipation)' -- 평등한 지성의 가정 -- 에 대립시킨다.</p>
+<h4 id="불화la-mesentente">불화(La Mesentente)</h4>
+<p>랑시에르의 핵심 정치 철학 저작 『불화』(La Mesentente, 1995)는 <strong>정치(la politique)</strong>와 <strong>치안(la police)</strong>을 구분한다:</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>정치 vs. 치안</strong><p><strong>치안(police)</strong>: (단순한 법 집행이 아니라) 공동체 안에서 위치, 역할, 몫을 배당하는 질서. 누가 말하는 존재이고 누가 단순히 소음을 내는 존재인지를 결정하는 감각적 배분.  <strong>정치(politique)</strong>: 몫 없는 자들(les sans-part) -- 공동체의 셈에서 배제된 자들 -- 이 자신의 평등을 주장함으로써 이 질서를 교란하는 활동. 정치는 기존 질서의 관리가 아니라, 그 질서에 대한 불화이다.</p></div></div>
+<h4 id="감각적인-것의-분배le-partage-du-sensible">감각적인 것의 분배(Le Partage du sensible)</h4>
+<p>랑시에르의 중심 미학적 개념: 누가 가시적이고 청취 가능한(정치적으로 현전하는) 자이며 누가 그렇지 않은지를 결정하는 감각적 증거의 체계. 정치와 미학은 동일한 구조를 공유한다 -- 양자 모두 이전에 보이지 않거나 들리지 않던 부분을 가시적이고 청취 가능하게 만드는 <strong>감각적인 것의 재분배</strong>를 수반한다.</p>
+<p>랑시에르의 분석은 현대 민주주의 운동, 탈식민 정치, 예술 교육에 광범위하게 적용되고 있다.</p>
+<hr>
+<h3 id="93-메이야수-사변적-실재론">9.3 메이야수: 사변적 실재론</h3>
+<p><strong>캉탱 메이야수(Quentin Meillassoux, 1967-)</strong>는 에콜 노르말에서 바디우의 학생이었으며, <strong>사변적 실재론(realisme speculatif)</strong>의 가장 저명한 인물이 되었다.</p>
+<h4 id="유한성-이후">유한성 이후</h4>
+<p>메이야수의 첫 저서 『유한성 이후: 우연성의 필연성에 대한 시론』(Apres la finitude, 2006, 바디우의 서문 수록)은 <strong>상관주의(correlationnisme)</strong> 개념을 도입한다.</p>
+<div class="callout callout-concept"><div class="callout-icon">💡</div><div class="callout-content"><strong>상관주의(Correlationnisme)</strong><p>칸트 이래의 지배적 철학적 가정으로, 우리는 사유와 존재의 상관관계에만 접근할 수 있지, 어느 한 항에 독립적으로는 접근할 수 없다는 입장. 메이야수는 이것이 의식 이전의 세계(지구의 형성, 생명의 출현)에 대한 과학적 데이터 -- <strong>고(古)화석(arche-fossile)</strong> -- 을 설명할 수 없다고 주장한다.</p></div></div>
+<h4 id="사실성의-원리principe-de-factualite">사실성의 원리(Principe de factualite)</h4>
+<p>메이야수는 순진한 전-칸트적 실재론으로의 복귀가 아니라 사변적 합리주의를 제안한다: 유일한 절대적인 것은 <strong>우연성(contingence)</strong> -- 사물이 아무 이유 없이 달리 있을 수 있다는 사실 -- 이다. 이것이 사실성의 원리 또는 절대적 우연성이며, 메이야수가 <strong>초-혼돈(hyper-Chaos)</strong>이라 부르는 것이다. 자연법칙 자체가 우연적이며 언제든 변할 수 있다 -- 모순율만을 제외하고.</p>
+<h4 id="사변적-실재론의-내부-분열">사변적 실재론의 내부 분열</h4>
+<p>2007년 런던 골드스미스 대학 학술대회에서 '사변적 실재론'이라는 명칭이 만들어졌으며, 메이야수, 레이 브라시에(Ray Brassier), 이안 해밀턴 그랜트(Iain Hamilton Grant), 그레이엄 하먼(Graham Harman)이 참여했다. 그러나 이 네 사상가는 반-상관주의적 입장을 공유할 뿐, 실질적 형이상학적 문제에서는 날카롭게 갈라진다:</p>
+<ul>
+  <li>하먼의 객체지향 존재론(Object-Oriented Ontology, OOO)은 모든 객체가 서로에게서 철수한다고 주장하며, 메이야수에 의해 객체-간 관계 수준에서의 상관주의를 영속시킨다는 비판을 받는다.</li>
+  <li>브라시에의 제거적 유물론(materialisme eliminatif)은 하먼의 반-제거주의와 양립 불가능하다.</li>
+  <li>운동의 통일성은 대체로 소급적이다.</li>
+</ul>
+<p>이 운동은 프랑스 철학을 영미 형이상학 및 과학철학과의 대화로 이례적으로 개방했다.</p>
+<hr>
+<h3 id="94-말라부-라투르-스티글레르-새로운-유물론">9.4 말라부, 라투르, 스티글레르: 새로운 유물론</h3>
+<p>동시대 프랑스 철학의 중요한 흐름은 새로운 유물론적 사유를 발전시키는 사상가들이다.</p>
+<p><strong>카트린 말라부(Catherine Malabou, 1959-)</strong>: 헤겔 철학과 신경과학에서 가져온 <strong>가소성(plasticite)</strong> 개념을 발전시켜, 뇌의 자기-변형 능력을 진지하게 받아들이는 새로운 유물론을 제안한다. 주요 저작: 『헤겔의 미래』(L'Avenir de Hegel, 1996), 『우리의 뇌를 가지고 무엇을 할 것인가?』(Que faire de notre cerveau?, 2004).</p>
+<p><strong>브뤼노 라투르(Bruno Latour, 1947-2022)</strong>: 미셸 칼롱(Michel Callon), 존 로(John Law)와 함께 발전시킨 <strong>행위자-네트워크 이론(theorie de l'acteur-reseau, ANT)</strong>은 사회적 사실의 구성에서 인간 행위자와 비인간 행위자 사이의 구분을 해소한다. 주요 저작: 『실험실의 생활』(Laboratory Life, 1979), 『우리는 결코 근대적이었던 적이 없다』(Nous n'avons jamais ete modernes, 1991). 라투르는 2022년에 사망했다.</p>
+<p><strong>베르나르 스티글레르(Bernard Stiegler, 1952-2020)</strong>: 『기술과 시간』(La Technique et le temps, 3권, 1994-2001)은 기술을 <strong>3차 파지(retention tertiaire)</strong> -- 후설적 1차(현재적 인상) 및 2차(기억) 파지에 이은, 문화적 전승과 인간 시간 경험의 구성적 조건으로서의 기술적 기억 -- 로 개념화하는 기술철학을 발전시켰다. 스티글레르는 2020년에 사망했다.</p>
+<hr>
+<h3 id="95-장-뤽-낭시와-라뤼엘">9.5 장-뤽 낭시와 라뤼엘</h3>
+<p><strong>장-뤽 낭시(Jean-Luc Nancy, 1940-2021)</strong>: 데리다와의 대화 속에서 기독교의 해체(deconstruction du christianisme), '함께 있음(etre-avec)'의 존재론, 공동체 이론 등을 발전시켰다. 『무위의 공동체』(La Communaute desoeuvree, 1986)는 공동체를 본질이나 정체성이 아닌 '특이적 복수적 존재(etre singulier pluriel)'로 사유한다. 코로나19 팬데믹 시기 낭시와 바디우의 대응은 한국 지식인들과의 실시간 대화를 보여주는 사례이기도 하다.</p>
+<p><strong>프랑수아 라뤼엘(Francois Laruelle, 1937-)</strong>: <strong>비-철학(non-philosophie)</strong> -- '충분한 철학의 원리(principe de philosophie suffisante)'(철학이 실재를 적절히 기술하고 사유할 수 있다는 가정)에 대한 급진적 비판을 수행하며, 모든 철학적 결정에 앞서는 급진적 내재성에서의 '일자 안의 시야(vision-en-Un)'를 제안한다.</p>
+<hr>
+<h3 id="96-복습-문제와-더-읽을거리">9.6 복습 문제와 더 읽을거리</h3>
+<p><strong>복습 문제</strong></p>
+<ol>
+  <li>바디우의 "수학은 존재론이다"라는 테제의 의미를 설명하시오. 사건(evenement)이란 무엇이며, 진리는 어떻게 생산되는가?</li>
+</ol>
+<ol>
+  <li>랑시에르의 정치(politique)와 치안(police)의 구분을 설명하시오. '감각적인 것의 분배'란 무엇인가?</li>
+</ol>
+<ol>
+  <li>메이야수의 '상관주의(correlationnisme)' 비판을 설명하시오. '고화석(arche-fossile)' 논증이란 무엇인가?</li>
+</ol>
+<ol>
+  <li>사변적 실재론 운동의 내부 분열을 설명하시오. 메이야수, 하먼, 브라시에는 어떤 점에서 갈라지는가?</li>
+</ol>
+<ol>
+  <li>바디우-들뢰즈 논쟁의 핵심 쟁점을 요약하시오.</li>
+</ol>
+<p><strong>더 읽을거리</strong></p>
+<ul>
+  <li>메이야수, 캉탱. 『유한성 이후』 (Apres la finitude, 2006). 사변적 실재론의 출발점.</li>
+  <li>랑시에르, 자크. 『무지한 스승』 (Le Maitre ignorant, 1987). 교육 철학의 급진적 텍스트.</li>
+  <li>Watkin, Christopher. <em>French Philosophy Today: New Figures of the Human in Badiou, Meillassoux, Malabou, Serres and Latour</em>. Edinburgh University Press. 동시대 프랑스 철학 입문에 추천.</li>
+  <li>Stanford Encyclopedia of Philosophy, "Alain Badiou" 항목.</li>
+</ul>
+<hr>
+<h2 id="제10장-결론-프랑스-철학의-유산과-미래">제10장. 결론: 프랑스 철학의 유산과 미래</h2>
+<h3 id="학습-목표">학습 목표</h3>
+<p>이 장을 마치면 다음을 할 수 있어야 한다:</p>
+<ol>
+  <li>20세기 프랑스 철학의 학제간 영향을 종합적으로 평가할 수 있다.</li>
+  <li>'프렌치 이론'의 미국 수용과 그 변형을 설명할 수 있다.</li>
+  <li>한국에서의 프랑스 철학 수용의 역사와 현재를 이해할 수 있다.</li>
+  <li>분석-대륙 철학 분열의 현재와 화해 가능성을 평가할 수 있다.</li>
+  <li>프랑스 철학의 미래 전망을 다각적으로 논의할 수 있다.</li>
+</ol>
+<hr>
+<h3 id="101-프랑스-철학의-학제간-영향">10.1 프랑스 철학의 학제간 영향</h3>
+<p>20세기 프랑스 철학은 국제적으로 가장 영향력 있는 학제간 인문학 연구 방법론의 원천이었다. 그 영향은 다음 분야에 걸쳐 있다:</p>
+<ul>
+  <li><strong>문학 이론</strong>: 해체(데리다), 상호텍스트성(크리스테바), 여성적 글쓰기(식수), 저자의 죽음(바르트)</li>
+  <li><strong>정치 이론</strong>: 생명정치와 통치성(푸코), 평등의 정치(랑시에르), 이데올로기와 호명(알튀세르), 사건의 정치(바디우)</li>
+  <li><strong>사회학</strong>: 부르디외(아비투스, 장, 문화 자본, 상징적 폭력)는 구조주의와 직접 관련되는 사회학적 철학을 발전시켰다</li>
+  <li><strong>정신분석학</strong>: 라캉의 구조적 정신분석학과 그 영화 이론, 문학 비평, 페미니즘에의 적용</li>
+  <li><strong>인류학</strong>: 레비-스트로스의 구조 인류학</li>
+  <li><strong>영화 연구</strong>: 들뢰즈의 영화 철학(운동-이미지, 시간-이미지)</li>
+  <li><strong>젠더와 섹슈얼리티 연구</strong>: 보부아르, 이리가라이, 크리스테바, 식수, 푸코의 작업은 젠더 연구와 퀴어 이론의 기초</li>
+  <li><strong>탈식민 연구</strong>: 파농의 실존주의적-정신분석적 반식민주의</li>
+  <li><strong>과학학(STS)</strong>: 바슐라르-캉길렘-푸코의 역사적 인식론, 라투르의 행위자-네트워크 이론</li>
+  <li><strong>건축</strong>: 데리다의 해체에서 영감을 받은 해체주의 건축(츠슈미, 아이젠만, 게리, 하디드)</li>
+</ul>
+<hr>
+<h3 id="102-프렌치-이론과-미국-학계의-수용">10.2 "프렌치 이론"과 미국 학계의 수용</h3>
+<p>프랑수아 뀌세(Francois Cusset)의 『프렌치 이론』(French Theory, 2003년 프랑스어 원판, 2008년 영어 번역)이 상세히 기록했듯이, 1970년대부터 미국 인문학 학과에서 '프렌치 이론(French Theory)'이라는 이름 아래 푸코, 데리다, 들뢰즈, 라캉, 크리스테바, 이리가라이, 부르디외가 묶여 수용되었다.</p>
+<p>이 수용은 종종 프랑스 내에서 이 사상가들이 이해되는 방식과 상당히 달랐다. 미국에서 프랑스 철학은 주로 문학(영문학, 비교문학), 예술사, 문화 연구 학과를 통해 유입되었으며, 분석 철학이 지배적인 철학과에서는 주변화되었다.</p>
+<p>오늘날 프랑스 자체에서는 미국에서 '워크(woke)' 문화라고 불리는 것에 대한 반발이 일어나고 있다. 마크롱(Macron) 대통령은 "미국 대학에서 전적으로 수입된 특정 사회과학 이론들"에 대해 경고했고, 교육부 장관 블랑케르(Blanquer)는 "미국 대학의 지적 매트릭스에 대한 전투"를 언급했다. 많은 프랑스 지식인들은 미국인들이 '워크 이론'이라고 부르는 것이 실은 프랑스적 사상을 원래 저자들이 인지하지 못할 방식으로 변형시킨 것이라고 주장한다.</p>
+<hr>
+<h3 id="103-한국에서의-프랑스-철학-수용">10.3 한국에서의 프랑스 철학 수용</h3>
+<p>프랑스 철학은 해방 이후 한국 지적 생활에서 중요한 흐름을 형성해 왔다.</p>
+<ul>
+  <li><strong>1980년대 민주화 운동 시기</strong>: 사르트르의 실존주의는 자유와 저항의 프레임으로, 푸코와 알튀세르는 국가 권력 분석의 도구로 활용되었다.</li>
+</ul>
+<ul>
+  <li><strong>21세기</strong>: 한국 학자들은 단순한 번역과 수용을 넘어 프랑스 철학에 대한 독창적 연구를 생산하고 있다. 진태원은 알튀세르와 동시대 프랑스 철학의 주도적 한국 학자이며, 이정우는 대륙 철학에 관한 다수의 번역과 저술을 생산했고, 홍준기는 라캉의 한국어 번역에서 중요한 인물이다.</li>
+</ul>
+<ul>
+  <li><strong>번역의 문제</strong>: 한 연구(강원대학교 인문과학연구소, 인문과학연구 게재)는 프랑스 철학 개념이 종종 일본어(메이지 시대 번역)를 경유하여 한국어로 번역되었으며, 이는 원래 의미에 대한 충실성 문제를 야기한다고 분석했다. KCI(한국학술지인용색인)에서는 푸코의 <em>dispositif</em>, 데리다의 <em>trace</em>, 들뢰즈의 <em>agencement</em> 등의 적절한 한국어 번역에 대한 학술적 논의가 계속되고 있다.</li>
+</ul>
+<ul>
+  <li><strong>실시간 대화</strong>: 2022년 KCI 게재 연구는 코로나19에 대한 바디우와 낭시의 응답, 그리고 그에 대한 한국 지식인들의 참여를 분석하여, 프랑스 철학과 한국 지적 생활 사이의 지속적인 실시간 대화를 보여주었다.</li>
+</ul>
+<ul>
+  <li><strong>제도적 지원</strong>: 주한 프랑스 대사관(France en Coree)은 데리다 등 동시대 프랑스 철학자들의 한국어 번역본 출판을 지원하고 있다.</li>
+</ul>
+<hr>
+<h3 id="104-분석-대륙-철학의-화해-가능성">10.4 분석-대륙 철학의 화해 가능성</h3>
+<p>분석 철학과 대륙 철학 사이의 분열은 전문 철학의 가장 논쟁적인 구조적 특징이다. 분석 철학자들은 프랑스 대륙 철학이 모호하고, 논증을 회피하며, 경험적 반증에 저항한다고 비판한다. 대륙 철학자들은 분석 철학이 인위적으로 철학의 물음의 범위를 좁히고, 역사를 무시하며, 형식적 정밀성을 실질보다 우선시한다고 반론한다.</p>
+<p>그러나 2024년 <em>International Journal of Philosophical Studies</em> 논문이 지적하듯, 이 분열은 완화되는 추세에 있다:</p>
+<ul>
+  <li><strong>심리철학과 의식 연구</strong>: 메를로-퐁티, 후설, 레비나스가 점점 더 많이 등장.</li>
+  <li><strong>메타윤리학</strong>: 보부아르의 상황 지어진 윤리와 레비나스의 타자성이 분석적 관심을 끌고 있다.</li>
+  <li><strong>사변적 실재론</strong>: 분석-대륙 전통을 명시적으로 연결.</li>
+  <li><strong>사회정치 철학</strong>: 랑시에르, 바디우, 심지어 푸코가 분석적 장(場)에 등장.</li>
+</ul>
+<hr>
+<h3 id="105-프랑스-철학의-미래-전망">10.5 프랑스 철학의 미래 전망</h3>
+<p>몇 가지 열린 문제와 경향:</p>
+<ol>
+  <li><strong>주체의 지위</strong>: 구조주의의 '주체의 죽음'과 후기구조주의의 탈중심화된 주체 이후, 바디우의 충실성의 주체, 랑시에르의 불화의 주체, 말라부의 가소적 주체, 레비나스와 마리옹의 현상학적 주체 등이 주체성을 재사유하는 다양한 시도를 대표한다.</li>
+</ol>
+<ol>
+  <li><strong>유물론과 자연과학</strong>: 메이야수의 사변적 실재론과 말라부의 새로운 유물론은 수학 및 자연과학과의 철학적 관여를 재개하려 한다.</li>
+</ol>
+<ol>
+  <li><strong>기술과 미디어</strong>: 스티글레르, 데리다(『아카이브 열병』, 1995), 보드리야르의 작업을 잇는 디지털 기술, 소셜 미디어, 인공지능의 철학적 함의에 대한 연구가 성장하고 있다.</li>
+</ol>
+<ol>
+  <li><strong>탈식민적 비판</strong>: 파농에서 시작하여, 프랑스 보편주의에 대한 탈식민적 비판(상고르의 네그리튀드, 글리상의 크레올화)이 계속되는 연구 영역이다.</li>
+</ol>
+<ol>
+  <li><strong>후기구조주의 이후의 윤리학</strong>: 레비나스의 타자성의 윤리학, 리쾨르의 해석학적 윤리학, 바디우의 진리의 윤리학, 랑시에르의 평등의 정치적 윤리학이 모두 이 과제에 대한 상이한 응답을 대표한다.</li>
+</ol>
+<hr>
+<h2 id="부록-a-용어-사전">부록 A. 용어 사전</h2>
+<div class="table-wrapper"><table>
+  <tr class="header-row">
+    <th>용어 (원어)</th>
+    <th>한국어 번역</th>
+    <th>정의</th>
+  </tr>
+  <tr>
+    <td>Absurde (L')</td>
+    <td>부조리</td>
+    <td>카뮈: 의미에 대한 인간적 욕구와 세계의 침묵 사이의 대면</td>
+  </tr>
+  <tr>
+    <td>Abjection</td>
+    <td>비체</td>
+    <td>크리스테바: 자아와 비-자아의 경계를 위협하는 것의 배출에서 야기되는 공포</td>
+  </tr>
+  <tr>
+    <td>Arche-ecriture</td>
+    <td>원-글쓰기</td>
+    <td>데리다: 모든 의미화의 가능 조건으로서의 차이, 지연, 흔적의 구조</td>
+  </tr>
+  <tr>
+    <td>Arche-fossile</td>
+    <td>고화석</td>
+    <td>메이야수: 의식 이전의 세계에 대한 과학적 데이터</td>
+  </tr>
+  <tr>
+    <td>Assemblage (Agencement)</td>
+    <td>배치/아상블라주</td>
+    <td>들뢰즈-가타리: 신체, 정동, 진술, 욕망의 이질적 구성</td>
+  </tr>
+  <tr>
+    <td>Biopouvoir / Biopolitique</td>
+    <td>생명권력 / 생명정치</td>
+    <td>푸코: 인구와 신체에 대한 근대 권력의 작동</td>
+  </tr>
+  <tr>
+    <td>Bricolage</td>
+    <td>브리콜라주</td>
+    <td>레비-스트로스: 이미 가용한 재료들로부터 새로운 구성물을 만드는 사유 방식</td>
+  </tr>
+  <tr>
+    <td>Chora</td>
+    <td>코라</td>
+    <td>크리스테바(플라톤에서 차용): 기호계적 충동이 흐르는 모성적 전-상징적 공간</td>
+  </tr>
+  <tr>
+    <td>Correlationnisme</td>
+    <td>상관주의</td>
+    <td>메이야수: 사유와 존재의 상관관계에만 접근 가능하다는 후-칸트적 가정</td>
+  </tr>
+  <tr>
+    <td>Corps propre</td>
+    <td>고유한 신체/살아 있는 신체</td>
+    <td>메를로-퐁티: 내부에서 체험되는 신체, 순수 주체도 순수 대상도 아닌 것</td>
+  </tr>
+  <tr>
+    <td>Corps sans organes (CsO)</td>
+    <td>기관 없는 신체</td>
+    <td>들뢰즈-가타리: 조직화의 권력에 저항하는 비분화된 강도의 평면</td>
+  </tr>
+  <tr>
+    <td>Coupure epistemologique</td>
+    <td>인식론적 단절</td>
+    <td>바슐라르/알튀세르: 전과학적 사고와 과학적 사고 사이의 급진적 불연속성</td>
+  </tr>
+  <tr>
+    <td>Deconstruction</td>
+    <td>해체</td>
+    <td>데리다: 텍스트의 내적 모순과 이항대립의 불안정성을 드러내는 독해 실천</td>
+  </tr>
+  <tr>
+    <td>Desir</td>
+    <td>욕망</td>
+    <td>라캉: 항상 타자의 욕망; 결여에 의해 구성되며 결코 완전히 충족되지 않음</td>
+  </tr>
+  <tr>
+    <td>Differance</td>
+    <td>디페랑스</td>
+    <td>데리다: '다르다'와 '지연하다'를 결합한 신조어; 의미의 항상적 비-현전</td>
+  </tr>
+  <tr>
+    <td>Differend (Le)</td>
+    <td>쟁론</td>
+    <td>리오타르: 공통의 판단 규칙이 없는 분쟁</td>
+  </tr>
+  <tr>
+    <td>Dispositif</td>
+    <td>장치/디스포지티프</td>
+    <td>푸코: 담론적, 비담론적 요소들의 이질적 네트워크</td>
+  </tr>
+  <tr>
+    <td>Duree</td>
+    <td>지속</td>
+    <td>베르그송: 의식이 체험하는 질적, 이질적, 연속적 시간</td>
+  </tr>
+  <tr>
+    <td>Ecriture feminine</td>
+    <td>여성적 글쓰기</td>
+    <td>식수: 신체로부터 흘러나오며 가부장적 언어를 교란하는 글쓰기 양식</td>
+  </tr>
+  <tr>
+    <td>Elan vital</td>
+    <td>생의 약동</td>
+    <td>베르그송: 생물학적 진화를 추동하는 비기계적 창조력</td>
+  </tr>
+  <tr>
+    <td>En-soi / Pour-soi</td>
+    <td>즉자존재 / 대자존재</td>
+    <td>사르트르: 불활성 사물의 존재 / 의식적 인간 존재(무화, 자유)</td>
+  </tr>
+  <tr>
+    <td>Episteme</td>
+    <td>에피스테메</td>
+    <td>푸코: 주어진 역사적 시기에 사유 가능한 것을 결정하는 지식의 심층 구조</td>
+  </tr>
+  <tr>
+    <td>Evenement</td>
+    <td>사건</td>
+    <td>바디우: 상황의 규칙을 초과하는 균열; 진리 절차의 가능성을 여는 것</td>
+  </tr>
+  <tr>
+    <td>Genealogie</td>
+    <td>계보학</td>
+    <td>푸코(니체에서): 보편적이고 자연적인 것으로 여겨지는 것의 우연적, 권력-적재된 기원 추적</td>
+  </tr>
+  <tr>
+    <td>Gouvernementalite</td>
+    <td>통치성</td>
+    <td>푸코: 통치의 합리성과 기술</td>
+  </tr>
+  <tr>
+    <td>Hyperrealite</td>
+    <td>하이퍼리얼리티</td>
+    <td>보드리야르: 시뮬라시옹이 실재보다 더 실재적인 상태</td>
+  </tr>
+  <tr>
+    <td>Identite narrative</td>
+    <td>서사적 정체성</td>
+    <td>리쾨르: 삶의 서사적 통합을 통해 구성되는 자기</td>
+  </tr>
+  <tr>
+    <td>Imaginaire / Symbolique / Reel</td>
+    <td>상상계 / 상징계 / 실재계</td>
+    <td>라캉의 세 질서: 이미지와 동일시 / 언어, 법, 무의식 / 상징화에 저항하는 것</td>
+  </tr>
+  <tr>
+    <td>Interpellation</td>
+    <td>호명</td>
+    <td>알튀세르: 이데올로기가 개인을 주체로 구성하는 메커니즘</td>
+  </tr>
+  <tr>
+    <td>Intertextualite</td>
+    <td>상호텍스트성</td>
+    <td>크리스테바: 모든 텍스트가 다른 텍스트들의 인용과 변형의 모자이크인 속성</td>
+  </tr>
+  <tr>
+    <td>Intuition</td>
+    <td>직관</td>
+    <td>베르그송: 실재를 내부에서 파악하는 비개념적 철학적 인식 방법</td>
+  </tr>
+  <tr>
+    <td>Logocentrisme</td>
+    <td>로고스중심주의</td>
+    <td>데리다: 서양 철학의 자기-현전적 로고스에 대한 특권화</td>
+  </tr>
+  <tr>
+    <td>Mauvaise foi</td>
+    <td>자기기만</td>
+    <td>사르트르: 자신의 급진적 자유를 부인하는 자기 기만</td>
+  </tr>
+  <tr>
+    <td>Metanarrative (Grand recit)</td>
+    <td>거대서사</td>
+    <td>리오타르: 전체화하는 정당화 서사(진보, 해방, 마르크스주의 등)</td>
+  </tr>
+  <tr>
+    <td>Multiplicite</td>
+    <td>다양체</td>
+    <td>베르그송/들뢰즈: 양적-이산적 다양체와 질적-연속적 다양체의 구분</td>
+  </tr>
+  <tr>
+    <td>Objet petit a</td>
+    <td>대상 소문자 a</td>
+    <td>라캉: 욕망의 부분 대상-원인; 항상 놓치는 것</td>
+  </tr>
+  <tr>
+    <td>Panoptique</td>
+    <td>파놉티콘</td>
+    <td>푸코: 벤담의 감옥 설계; 근대 감시/규율 사회의 모델</td>
+  </tr>
+  <tr>
+    <td>Parler femme</td>
+    <td>여성으로 말하기</td>
+    <td>이리가라이: 남성적 담론과 다른 여성 고유의 언어 탐색</td>
+  </tr>
+  <tr>
+    <td>Partage du sensible</td>
+    <td>감각적인 것의 분배</td>
+    <td>랑시에르: 가시적/청취 가능한 것과 그렇지 않은 것을 결정하는 체계</td>
+  </tr>
+  <tr>
+    <td>Pharmakon</td>
+    <td>파르마콘</td>
+    <td>데리다: 독이자 치료제; 해체의 비결정자</td>
+  </tr>
+  <tr>
+    <td>Pouvoir/Savoir</td>
+    <td>권력/지식</td>
+    <td>푸코: 권력과 지식의 상호 구성적 관계</td>
+  </tr>
+  <tr>
+    <td>Problematique</td>
+    <td>문제설정</td>
+    <td>알튀세르: 어떤 질문이 제기될 수 있는지를 결정하는 이론적 틀</td>
+  </tr>
+  <tr>
+    <td>Rhizome</td>
+    <td>리좀</td>
+    <td>들뢰즈-가타리: 비위계적, 비선형적, 탈중심화된 사유/문화의 모델</td>
+  </tr>
+  <tr>
+    <td>Semiotique / Symbolique</td>
+    <td>기호계 / 상징계</td>
+    <td>크리스테바: 전언어적 모성적 에너지 / 부성적 문법 및 사회법 질서</td>
+  </tr>
+  <tr>
+    <td>Simulacre</td>
+    <td>시뮬라크르</td>
+    <td>보드리야르: 원본 없는 복제; 실재에 선행하고 실재를 생성하는 모델</td>
+  </tr>
+  <tr>
+    <td>Stade du miroir</td>
+    <td>거울 단계</td>
+    <td>라캉: 영아가 거울 이미지와 동일시하여 자아를 형성하는 오인의 과정</td>
+  </tr>
+  <tr>
+    <td>Supplement</td>
+    <td>보충</td>
+    <td>데리다: 첨가이자 대체; 파생적이라 여겨지나 실은 구성적인 것</td>
+  </tr>
+  <tr>
+    <td>Surdetermination</td>
+    <td>과잉결정</td>
+    <td>알튀세르: 부분적으로 자율적인 다수의 수준들 사이의 모순들의 복합적 구조</td>
+  </tr>
+  <tr>
+    <td>Trace</td>
+    <td>흔적</td>
+    <td>데리다: 모든 기호가 지닌, 자신이 아닌 것의 자국</td>
+  </tr>
+  <tr>
+    <td>Visage</td>
+    <td>얼굴</td>
+    <td>레비나스: 타자의 윤리적 요구; "살인하지 말라"의 부름</td>
+  </tr>
+  <tr>
+    <td>Virtuel / Actuel</td>
+    <td>잠재적 / 현행적</td>
+    <td>들뢰즈(베르그송에서): 실재적이되 현행적이지 않은 존재 양태 / 그것의 현실화</td>
+  </tr>
+</table></div>
+<hr>
+<h2 id="부록-b-주요-연표">부록 B. 주요 연표</h2>
+<div class="table-wrapper"><table>
+  <tr class="header-row">
+    <th>연도</th>
+    <th>사건</th>
+  </tr>
+  <tr>
+    <td>1859</td>
+    <td>앙리 베르그송 출생</td>
+  </tr>
+  <tr>
+    <td>1889</td>
+    <td>베르그송, 『시간과 자유의지에 대한 시론』 출판</td>
+  </tr>
+  <tr>
+    <td>1896</td>
+    <td>베르그송, 『물질과 기억』 출판</td>
+  </tr>
+  <tr>
+    <td>1900</td>
+    <td>베르그송, 콜레주 드 프랑스 교수 취임</td>
+  </tr>
+  <tr>
+    <td>1907</td>
+    <td>베르그송, 『창조적 진화』 출판 -- 국제적 센세이션</td>
+  </tr>
+  <tr>
+    <td>1916</td>
+    <td>소쉬르, 『일반 언어학 강의』 사후 출판</td>
+  </tr>
+  <tr>
+    <td>1927</td>
+    <td>베르그송, 노벨문학상 수상</td>
+  </tr>
+  <tr>
+    <td>1930</td>
+    <td>레비나스, 『후설 현상학에서의 직관 이론』 출판</td>
+  </tr>
+  <tr>
+    <td>1931</td>
+    <td>레비나스와 페퍼, 후설 『데카르트적 성찰』 프랑스어 번역 출판</td>
+  </tr>
+  <tr>
+    <td>1932</td>
+    <td>베르그송, 『도덕과 종교의 두 원천』 출판</td>
+  </tr>
+  <tr>
+    <td>1933-1939</td>
+    <td>코제브, 파리에서 헤겔 세미나 진행</td>
+  </tr>
+  <tr>
+    <td>1938</td>
+    <td>사르트르, 『구토』 출판</td>
+  </tr>
+  <tr>
+    <td>1941</td>
+    <td>베르그송 사망</td>
+  </tr>
+  <tr>
+    <td>1942</td>
+    <td>카뮈, 『이방인』 및 『시지프 신화』 출판</td>
+  </tr>
+  <tr>
+    <td>1943</td>
+    <td>사르트르, 『존재와 무』 출판</td>
+  </tr>
+  <tr>
+    <td>1945</td>
+    <td>메를로-퐁티, 『지각의 현상학』 출판</td>
+  </tr>
+  <tr>
+    <td>1945</td>
+    <td>사르트르, 「실존주의는 휴머니즘이다」 강연 (10월 29일; 1946년 출판)</td>
+  </tr>
+  <tr>
+    <td>1945</td>
+    <td>사르트르, 보부아르, 메를로-퐁티, 『레 탕 모데른』 창간</td>
+  </tr>
+  <tr>
+    <td>1947</td>
+    <td>보부아르, 『모호성의 윤리학』 출판</td>
+  </tr>
+  <tr>
+    <td>1949</td>
+    <td>보부아르, 『제2의 성』 출판</td>
+  </tr>
+  <tr>
+    <td>1949</td>
+    <td>레비-스트로스, 『친족의 기본 구조』 출판</td>
+  </tr>
+  <tr>
+    <td>1952</td>
+    <td>파농, 『검은 피부, 하얀 가면』 출판</td>
+  </tr>
+  <tr>
+    <td>1952</td>
+    <td>사르트르-카뮈 공개 결별</td>
+  </tr>
+  <tr>
+    <td>1955</td>
+    <td>레비-스트로스, 『슬픈 열대』 출판</td>
+  </tr>
+  <tr>
+    <td>1957</td>
+    <td>바르트, 『신화론』 출판</td>
+  </tr>
+  <tr>
+    <td>1957</td>
+    <td>카뮈, 노벨문학상 수상</td>
+  </tr>
+  <tr>
+    <td>1960</td>
+    <td>카뮈, 자동차 사고로 사망</td>
+  </tr>
+  <tr>
+    <td>1961</td>
+    <td>메를로-퐁티 사망; 『전체성과 무한』(레비나스) 및 『광기의 역사』(푸코) 출판</td>
+  </tr>
+  <tr>
+    <td>1961</td>
+    <td>파농, 『대지의 저주받은 자들』 출판 (사르트르 서문)</td>
+  </tr>
+  <tr>
+    <td>1962</td>
+    <td>레비-스트로스, 『야생의 사고』 출판 -- 사르트르 공격</td>
+  </tr>
+  <tr>
+    <td>1964</td>
+    <td>메를로-퐁티, 『보이는 것과 보이지 않는 것』 사후 출판 (르포르 편집)</td>
+  </tr>
+  <tr>
+    <td>1964</td>
+    <td>레비-스트로스, 『날것과 익힌 것』 출판 (『신화학』 제1권)</td>
+  </tr>
+  <tr>
+    <td>1964</td>
+    <td>사르트르, 노벨문학상 거부</td>
+  </tr>
+  <tr>
+    <td>1965</td>
+    <td>알튀세르, 『마르크스를 위하여』 및 『자본을 읽자』 출판</td>
+  </tr>
+  <tr>
+    <td>1965 (12월)</td>
+    <td>크리스테바, 파리 도착</td>
+  </tr>
+  <tr>
+    <td>1966</td>
+    <td>푸코, 『말과 사물』 출판; 라캉, 『에크리』 출판; 데리다, 존스 홉킨스 강연</td>
+  </tr>
+  <tr>
+    <td>1967</td>
+    <td>데리다, 세 권 동시 출판: 『그라마톨로지에 대하여』, 『쓰기와 차이』, 『목소리와 현상』</td>
+  </tr>
+  <tr>
+    <td>1968 (5월)</td>
+    <td>파리 학생-노동자 봉기</td>
+  </tr>
+  <tr>
+    <td>1968</td>
+    <td>들뢰즈, 『차이와 반복』 출판</td>
+  </tr>
+  <tr>
+    <td>1970</td>
+    <td>알튀세르, 「이데올로기와 이데올로기적 국가장치」</td>
+  </tr>
+  <tr>
+    <td>1972</td>
+    <td>들뢰즈와 가타리, 『안티 오이디푸스』 출판</td>
+  </tr>
+  <tr>
+    <td>1974</td>
+    <td>이리가라이, 『타자의 여성의 거울』 출판 -- 라캉 학파 및 뱅센느에서 축출</td>
+  </tr>
+  <tr>
+    <td>1974</td>
+    <td>크리스테바, 『시적 언어의 혁명』 출판</td>
+  </tr>
+  <tr>
+    <td>1974</td>
+    <td>레비나스, 『존재와 달리, 또는 본질 너머』 출판</td>
+  </tr>
+  <tr>
+    <td>1975</td>
+    <td>푸코, 『감시와 처벌』 출판</td>
+  </tr>
+  <tr>
+    <td>1975</td>
+    <td>식수, 「메두사의 웃음」 출판</td>
+  </tr>
+  <tr>
+    <td>1976</td>
+    <td>푸코, 『성의 역사 제1권: 앎의 의지』 출판</td>
+  </tr>
+  <tr>
+    <td>1979</td>
+    <td>리오타르, 『포스트모던의 조건』 출판</td>
+  </tr>
+  <tr>
+    <td>1980</td>
+    <td>들뢰즈와 가타리, 『천 개의 고원』 출판</td>
+  </tr>
+  <tr>
+    <td>1980</td>
+    <td>사르트르 사망; 바르트 사망</td>
+  </tr>
+  <tr>
+    <td>1980 (11월 16일)</td>
+    <td>알튀세르, 아내 엘렌 리트만 교살</td>
+  </tr>
+  <tr>
+    <td>1981</td>
+    <td>보드리야르, 『시뮬라크르와 시뮬라시옹』 출판; 라캉 사망</td>
+  </tr>
+  <tr>
+    <td>1983</td>
+    <td>리오타르, 『쟁론』 출판</td>
+  </tr>
+  <tr>
+    <td>1983-1985</td>
+    <td>리쾨르, 『시간과 이야기』 (3권) 출판</td>
+  </tr>
+  <tr>
+    <td>1984</td>
+    <td>푸코, AIDS 합병증으로 사망</td>
+  </tr>
+  <tr>
+    <td>1986</td>
+    <td>보부아르 사망</td>
+  </tr>
+  <tr>
+    <td>1987</td>
+    <td>랑시에르, 『무지한 스승』 출판</td>
+  </tr>
+  <tr>
+    <td>1988</td>
+    <td>바디우, 『존재와 사건』 출판</td>
+  </tr>
+  <tr>
+    <td>1990</td>
+    <td>리쾨르, 『타자로서의 자기 자신』 출판; 알튀세르 사망</td>
+  </tr>
+  <tr>
+    <td>1993</td>
+    <td>데리다, 『마르크스의 유령들』 출판</td>
+  </tr>
+  <tr>
+    <td>1995</td>
+    <td>랑시에르, 『불화』 출판; 들뢰즈 자살로 사망; 레비나스 사망</td>
+  </tr>
+  <tr>
+    <td>1996</td>
+    <td>소칼 사건</td>
+  </tr>
+  <tr>
+    <td>1998</td>
+    <td>리오타르 사망</td>
+  </tr>
+  <tr>
+    <td>2004</td>
+    <td>데리다, 췌장암으로 사망</td>
+  </tr>
+  <tr>
+    <td>2005</td>
+    <td>리쾨르 사망</td>
+  </tr>
+  <tr>
+    <td>2006</td>
+    <td>바디우, 『세계의 논리학』; 메이야수, 『유한성 이후』 출판</td>
+  </tr>
+  <tr>
+    <td>2007</td>
+    <td>보드리야르 사망; 골드스미스 대학 사변적 실재론 학술대회</td>
+  </tr>
+  <tr>
+    <td>2009</td>
+    <td>레비-스트로스 사망 (100세)</td>
+  </tr>
+  <tr>
+    <td>2018</td>
+    <td>푸코, 『성의 역사 제4권: 육체의 고백』 사후 출판</td>
+  </tr>
+  <tr>
+    <td>2020</td>
+    <td>스티글레르 사망</td>
+  </tr>
+  <tr>
+    <td>2022</td>
+    <td>라투르 사망</td>
+  </tr>
+</table></div>
+<hr>
+<h2 id="부록-c-참고문헌">부록 C. 참고문헌</h2>
+<h3 id="1차-문헌-출판-연도순">1차 문헌 (출판 연도순)</h3>
+<ul>
+  <li>Bergson, Henri. <em>Essai sur les donnees immediates de la conscience</em> (1889). 영역: <em>Time and Free Will</em> (1910).</li>
+  <li>Bergson, Henri. <em>Matiere et memoire</em> (1896). 영역: <em>Matter and Memory</em> (1911).</li>
+  <li>Bergson, Henri. <em>L'Evolution creatrice</em> (1907). 영역: <em>Creative Evolution</em> (1911).</li>
+  <li>Bergson, Henri. <em>Les Deux Sources de la morale et de la religion</em> (1932). 영역: <em>The Two Sources of Morality and Religion</em> (1935).</li>
+  <li>Sartre, Jean-Paul. <em>L'Etre et le Neant</em> (1943). 영역: <em>Being and Nothingness</em> (1958).</li>
+  <li>Merleau-Ponty, Maurice. <em>Phenomenologie de la perception</em> (1945). 영역: <em>Phenomenology of Perception</em> (1962/2012).</li>
+  <li>Beauvoir, Simone de. <em>Pour une morale de l'ambiguite</em> (1947). 영역: <em>The Ethics of Ambiguity</em> (1948).</li>
+  <li>Beauvoir, Simone de. <em>Le Deuxieme Sexe</em> (1949). 영역: <em>The Second Sex</em> (1953/2010).</li>
+  <li>Fanon, Frantz. <em>Peau noire, masques blancs</em> (1952). 영역: <em>Black Skin, White Masks</em> (1967).</li>
+  <li>Levi-Strauss, Claude. <em>Les Structures elementaires de la parente</em> (1949). 영역: <em>The Elementary Structures of Kinship</em> (1969).</li>
+  <li>Levinas, Emmanuel. <em>Totalite et Infini</em> (1961). 영역: <em>Totality and Infinity</em> (1969).</li>
+  <li>Fanon, Frantz. <em>Les Damnes de la terre</em> (1961). 영역: <em>The Wretched of the Earth</em> (1963).</li>
+  <li>Merleau-Ponty, Maurice. <em>Le Visible et l'invisible</em> (1964, 사후). 영역: <em>The Visible and the Invisible</em> (1968).</li>
+  <li>Althusser, Louis. <em>Pour Marx</em> (1965). 영역: <em>For Marx</em> (1969).</li>
+  <li>Foucault, Michel. <em>Les Mots et les choses</em> (1966). 영역: <em>The Order of Things</em> (1970).</li>
+  <li>Lacan, Jacques. <em>Ecrits</em> (1966). 영역: <em>Ecrits: A Selection</em> (1977); 완역 (2006).</li>
+  <li>Derrida, Jacques. <em>De la grammatologie</em> (1967). 영역: <em>Of Grammatology</em> (1976).</li>
+  <li>Derrida, Jacques. <em>L'Ecriture et la difference</em> (1967). 영역: <em>Writing and Difference</em> (1978).</li>
+  <li>Deleuze, Gilles. <em>Difference et repetition</em> (1968). 영역: <em>Difference and Repetition</em> (1994).</li>
+  <li>Deleuze, Gilles, et Felix Guattari. <em>L'Anti-Oedipe</em> (1972). 영역: <em>Anti-Oedipus</em> (1977).</li>
+  <li>Irigaray, Luce. <em>Speculum de l'autre femme</em> (1974). 영역: <em>Speculum of the Other Woman</em> (1985).</li>
+  <li>Kristeva, Julia. <em>La Revolution du langage poetique</em> (1974). 영역: <em>Revolution in Poetic Language</em> (1984).</li>
+  <li>Levinas, Emmanuel. <em>Autrement qu'etre ou au-dela de l'essence</em> (1974). 영역: <em>Otherwise than Being or Beyond Essence</em> (1981).</li>
+  <li>Foucault, Michel. <em>Surveiller et punir</em> (1975). 영역: <em>Discipline and Punish</em> (1977).</li>
+  <li>Foucault, Michel. <em>Histoire de la sexualite, Vol. 1: La Volonte de savoir</em> (1976). 영역: <em>The History of Sexuality, Vol. 1</em> (1978).</li>
+  <li>Lyotard, Jean-Francois. <em>La Condition postmoderne</em> (1979). 영역: <em>The Postmodern Condition</em> (1984).</li>
+  <li>Deleuze, Gilles, et Felix Guattari. <em>Mille Plateaux</em> (1980). 영역: <em>A Thousand Plateaus</em> (1987).</li>
+  <li>Baudrillard, Jean. <em>Simulacres et simulation</em> (1981). 영역: <em>Simulacra and Simulation</em> (1994).</li>
+  <li>Lyotard, Jean-Francois. <em>Le Differend</em> (1983). 영역: <em>The Differend</em> (1988).</li>
+  <li>Ricoeur, Paul. <em>Temps et recit</em> (3 vols., 1983-1985). 영역: <em>Time and Narrative</em> (1984-1988).</li>
+  <li>Badiou, Alain. <em>L'Etre et l'evenement</em> (1988). 영역: <em>Being and Event</em> (2005).</li>
+  <li>Ricoeur, Paul. <em>Soi-meme comme un autre</em> (1990). 영역: <em>Oneself as Another</em> (1992).</li>
+  <li>Ranciere, Jacques. <em>La Mesentente</em> (1995). 영역: <em>Disagreement</em> (1999).</li>
+  <li>Meillassoux, Quentin. <em>Apres la finitude</em> (2006). 영역: <em>After Finitude</em> (2008).</li>
+  <li>Badiou, Alain. <em>Logiques des mondes</em> (2006). 영역: <em>Logics of Worlds</em> (2009).</li>
+  <li>Foucault, Michel. <em>Les Aveux de la chair</em> (2018, 사후).</li>
+</ul>
+<h3 id="2차-문헌">2차 문헌</h3>
+<ul>
+  <li>Gutting, Gary. <em>French Philosophy in the Twentieth Century</em>. Cambridge University Press, 2001.</li>
+  <li>Schrift, Alan D. <em>Twentieth-Century French Philosophy: Key Themes and Thinkers</em>. Blackwell, 2006.</li>
+  <li>Cusset, Francois. <em>French Theory</em>. University of Minnesota Press, 2008.</li>
+  <li>Gaukroger, Stephen, and Knox Peden. <em>French Philosophy: A Very Short Introduction</em>. Oxford University Press, 2020.</li>
+  <li>Dosse, Francois. <em>History of Structuralism</em> (2 vols., 1991-92). University of Minnesota Press, 1997.</li>
+  <li>Janicaud, Dominique. <em>Phenomenology and the "Theological Turn": The French Debate</em>. Fordham University Press, 2000.</li>
+  <li>Dews, Peter. <em>Logics of Disintegration</em>. Verso, 1987.</li>
+  <li>Watkin, Christopher. <em>French Philosophy Today</em>. Edinburgh University Press.</li>
+  <li>Sokal, Alan, and Jean Bricmont. <em>Fashionable Nonsense</em>. Picador, 1998.</li>
+  <li>Butler, Judith. <em>Gender Trouble</em>. Routledge, 1990.</li>
+  <li>Moi, Toril. <em>Simone de Beauvoir: The Making of an Intellectual Woman</em>. Oxford University Press.</li>
+  <li>Culler, Jonathan. <em>On Deconstruction</em>. Cornell University Press.</li>
+  <li>May, Todd. <em>The Philosophy of Foucault</em>. Acumen.</li>
+  <li>Colebrook, Claire. <em>Gilles Deleuze</em>. Routledge.</li>
+</ul>
+<hr>
+<h2 id="부록-d-추가-학습-자료">부록 D. 추가 학습 자료</h2>
+<h3 id="온라인-학술-자료-무료">온라인 학술 자료 (무료)</h3>
+<ul>
+  <li><strong>Stanford Encyclopedia of Philosophy (SEP)</strong> (https://plato.stanford.edu/): 모든 주요 프랑스 철학자에 대한 무료, 동료 평가, 권위 있는 항목. 학술 연구의 최우선 출발점.</li>
+  <li><strong>Internet Encyclopedia of Philosophy (IEP)</strong> (https://iep.utm.edu/): SEP에 대한 보완적 자원, 더 입문적 수준의 항목 포함.</li>
+  <li><strong>PhilPapers.org</strong>: 철학 논문의 종합 서지 및 오픈 액세스 아카이브.</li>
+</ul>
+<h3 id="유튜브-채널">유튜브 채널</h3>
+<ul>
+  <li><strong>European Graduate School (EGS)</strong>: 1,000개 이상의 강의, 데리다, 아감벤, 바디우 등의 인터뷰 포함.</li>
+  <li><strong>Gregory Sadler's ReasonIO</strong>: 사르트르, 메를로-퐁티 등에 대한 광범위한 강의 시리즈.</li>
+</ul>
+<h3 id="팟캐스트">팟캐스트</h3>
+<ul>
+  <li><em>Philosophize This!</em> (Stephen West): 주요 프랑스 철학자들에 대한 접근하기 쉬운 입문.</li>
+  <li><em>The Partially Examined Life</em>: 학술적 품질의 1차 텍스트 토론; 사르트르, 푸코, 데리다, 들뢰즈, 보부아르 광범위 다룸.</li>
+  <li><em>Why Theory</em> (Todd McGowan and Ryan Engley): 라캉적 정신분석과 대륙 철학의 문화적 적용.</li>
+</ul>
+<h3 id="한국어-자료">한국어 자료</h3>
+<ul>
+  <li>진태원: 알튀세르와 동시대 프랑스 철학의 선도적 한국 학자. 번역과 해설서.</li>
+  <li>이정우: 대륙 철학에 관한 다수의 한국어 저술과 번역의 표준 참조.</li>
+  <li>홍준기: 라캉의 한국어 번역자. 한국 라캉 연구의 중요 인물.</li>
+  <li>KCI(한국학술지인용색인) 데이터베이스: 프랑스 철학 관련 한국어 학술 논문 검색.</li>
+  <li>France en Coree(주한 프랑스 대사관): 동시대 프랑스 철학자들의 한국어 번역본 지원.</li>
+</ul>
+<hr>
+<p><em>이 교과서의 모든 사실적 주장은 다섯 개의 독립적 연구 보고서와 교차 검증 보고서에 기반하며, 스탠퍼드 철학 백과사전(SEP), 인터넷 철학 백과사전(IEP), 브리태니커(Britannica), 노벨상 공식 사이트(NobelPrize.org) 등 권위 있는 참조 자원을 통해 검증되었다.</em></p>
+    </main>
+
+    <!-- 검색 모달 -->
+    <div id="search-overlay" class="search-overlay">
+        <div class="search-modal">
+            <div class="search-input-wrap">
+                <span class="search-icon">&#128269;</span>
+                <input id="search-input" class="search-input" type="text"
+                       placeholder="교과서 내용 검색..." autocomplete="off" spellcheck="false">
+            </div>
+            <div id="search-meta" class="search-meta">
+                <span class="search-count"></span>
+                <span><kbd>&#8593;&#8595;</kbd> 이동 &nbsp;<kbd>Enter</kbd> 선택 &nbsp;<kbd>Esc</kbd> 닫기 &nbsp;<kbd>F3</kbd> 다음</span>
+            </div>
+            <div id="search-results" class="search-results"></div>
+        </div>
+    </div>
+
+    <button class="search-btn" onclick="Search.open()" aria-label="검색">&#128269;</button>
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="맨 위로">&#8593;</button>
+    <button class="theme-toggle" onclick="toggleTheme()">&#127769;</button>
+    <script>
+/* ============================================================
+   1. 목차 토글
+   ============================================================ */
+function toggleToc() {
+    document.getElementById('toc').classList.toggle('collapsed');
+    document.querySelector('.content').classList.toggle('expanded');
+    document.querySelector('.progress-bar').classList.toggle('expanded');
+}
+function toggleMobileToc() {
+    document.getElementById('toc').classList.toggle('open');
+}
+
+/* ============================================================
+   2. 스크롤: 진행 바 + 맨위 버튼 + 활성 목차
+   ============================================================ */
+window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    document.querySelector('.progress-bar-fill').style.width = (y / max * 100) + '%';
+    document.querySelector('.back-to-top').classList.toggle('visible', y > 400);
+    highlightToc();
+});
+
+function highlightToc() {
+    let cur = '';
+    document.querySelectorAll('h2[id], h3[id]').forEach(h => {
+        if (h.getBoundingClientRect().top < 120) cur = h.id;
+    });
+    document.querySelectorAll('.toc a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+}
+
+function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.toc a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 900) document.getElementById('toc').classList.remove('open');
+        });
+    });
+    initTheme();
+});
+
+/* ============================================================
+   3. 다크 / 라이트 모드
+   ============================================================ */
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    applyTheme(saved || 'light');
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const btn = document.querySelector('.theme-toggle');
+    if (btn) btn.textContent = theme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+}
+
+function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+}
+
+/* ============================================================
+   4. 검색 엔진
+   ============================================================ */
+const Search = (() => {
+    let overlay, input, resultsEl, metaEl;
+    let results = [];
+    let selectedIdx = -1;
+    let hlMarks = [];          // 본문 하이라이트 <mark> 목록
+    let activeHlIdx = -1;
+
+    /* --- 색인 구축 (블록 단위) --- */
+    let blocks = null;         // [{el, heading, text}]
+    function buildIndex() {
+        if (blocks) return;
+        blocks = [];
+        const content = document.querySelector('.content');
+        let heading = '';
+        const walk = (node) => {
+            for (const child of node.children) {
+                const tag = child.tagName;
+                if (/^H[1-4]$/.test(tag)) {
+                    heading = child.textContent;
+                    blocks.push({ el: child, heading, text: child.textContent });
+                } else if (['P','LI','TD','TH','BLOCKQUOTE','PRE','CODE'].includes(tag) ||
+                           child.classList.contains('callout')) {
+                    blocks.push({ el: child, heading, text: child.textContent });
+                } else if (child.children.length) {
+                    walk(child);
+                }
+            }
+        };
+        walk(content);
+    }
+
+    /* --- 모달 열기/닫기 --- */
+    function open() {
+        buildIndex();
+        overlay.classList.add('open');
+        input.value = '';
+        input.focus();
+        renderEmpty('검색어를 입력하세요');
+        metaEl.querySelector('.search-count').textContent = '';
+    }
+
+    function close() {
+        overlay.classList.remove('open');
+        clearHighlights();
+    }
+
+    /* --- 검색 수행 --- */
+    function search(query) {
+        clearHighlights();
+        query = query.trim();
+        if (!query) { renderEmpty('검색어를 입력하세요'); metaEl.querySelector('.search-count').textContent = ''; return; }
+
+        const lower = query.toLowerCase();
+        results = [];
+        for (const b of blocks) {
+            const idx = b.text.toLowerCase().indexOf(lower);
+            if (idx === -1) continue;
+            // 컨텍스트 추출
+            const start = Math.max(0, idx - 30);
+            const end = Math.min(b.text.length, idx + query.length + 60);
+            let ctx = (start > 0 ? '...' : '') + b.text.slice(start, end) + (end < b.text.length ? '...' : '');
+            // 하이라이트
+            ctx = ctx.replace(new RegExp(escRe(query), 'gi'), m => '<mark>' + m + '</mark>');
+            results.push({ el: b.el, heading: b.heading, context: ctx });
+        }
+        selectedIdx = -1;
+        metaEl.querySelector('.search-count').textContent = results.length + '건';
+        if (!results.length) { renderEmpty('"' + escH(query) + '" 검색 결과 없음'); return; }
+        renderResults();
+    }
+
+    function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    function escH(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function renderEmpty(msg) {
+        resultsEl.innerHTML = '<div class="search-empty">' + msg + '</div>';
+    }
+
+    function renderResults() {
+        resultsEl.innerHTML = results.map((r, i) =>
+            '<div class="search-result-item" data-idx="' + i + '">' +
+            '<div class="result-title">' + escH(r.heading) + '</div>' +
+            '<div class="result-context">' + r.context + '</div>' +
+            '</div>'
+        ).join('');
+    }
+
+    /* --- 결과 선택 → 본문 이동 & 하이라이트 --- */
+    function selectResult(idx) {
+        if (idx < 0 || idx >= results.length) return;
+        selectedIdx = idx;
+        // UI 선택 표시
+        resultsEl.querySelectorAll('.search-result-item').forEach((el, i) => {
+            el.classList.toggle('selected', i === idx);
+        });
+        // 스크롤 선택 항목 보이게
+        const selEl = resultsEl.querySelector('.selected');
+        if (selEl) selEl.scrollIntoView({ block: 'nearest' });
+    }
+
+    function goToResult(idx) {
+        if (idx < 0 || idx >= results.length) return;
+        const r = results[idx];
+        close();
+        // 본문 하이라이트
+        highlightInContent(input.value.trim(), r.el);
+    }
+
+    /* --- 본문 하이라이트 --- */
+    function highlightInContent(query, targetEl) {
+        clearHighlights();
+        if (!query) return;
+        const content = document.querySelector('.content');
+        const lower = query.toLowerCase();
+        const tw = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        while (tw.nextNode()) textNodes.push(tw.currentNode);
+
+        for (const tn of textNodes) {
+            const val = tn.nodeValue;
+            const idx = val.toLowerCase().indexOf(lower);
+            if (idx === -1) continue;
+            // 분할
+            const before = val.slice(0, idx);
+            const match = val.slice(idx, idx + query.length);
+            const after = val.slice(idx + query.length);
+            const mark = document.createElement('mark');
+            mark.className = 'search-hl';
+            mark.textContent = match;
+            const parent = tn.parentNode;
+            if (before) parent.insertBefore(document.createTextNode(before), tn);
+            parent.insertBefore(mark, tn);
+            if (after) parent.insertBefore(document.createTextNode(after), tn);
+            parent.removeChild(tn);
+            hlMarks.push(mark);
+        }
+
+        // 타겟 근처 첫 하이라이트로 이동
+        if (hlMarks.length) {
+            let best = 0;
+            if (targetEl) {
+                const tRect = targetEl.getBoundingClientRect();
+                let minDist = Infinity;
+                hlMarks.forEach((m, i) => {
+                    const d = Math.abs(m.getBoundingClientRect().top - tRect.top);
+                    if (d < minDist) { minDist = d; best = i; }
+                });
+            }
+            jumpToMark(best);
+        }
+    }
+
+    function jumpToMark(idx) {
+        if (!hlMarks.length) return;
+        activeHlIdx = ((idx % hlMarks.length) + hlMarks.length) % hlMarks.length;
+        hlMarks.forEach((m, i) => m.classList.toggle('active', i === activeHlIdx));
+        hlMarks[activeHlIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearHighlights() {
+        hlMarks.forEach(mark => {
+            const parent = mark.parentNode;
+            parent.replaceChild(document.createTextNode(mark.textContent), mark);
+            parent.normalize();
+        });
+        hlMarks = [];
+        activeHlIdx = -1;
+    }
+
+    /* --- 키보드 --- */
+    function onKeydown(e) {
+        if (e.key === 'Escape') { close(); return; }
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectResult(Math.min(selectedIdx + 1, results.length - 1));
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectResult(Math.max(selectedIdx - 1, 0));
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (selectedIdx >= 0) goToResult(selectedIdx);
+            else if (results.length) { selectResult(0); goToResult(0); }
+        }
+    }
+
+    /* --- 본문 하이라이트 네비게이션 (F3 / Shift+F3) --- */
+    document.addEventListener('keydown', e => {
+        if (e.key === 'F3' && hlMarks.length) {
+            e.preventDefault();
+            jumpToMark(activeHlIdx + (e.shiftKey ? -1 : 1));
+        }
+    });
+
+    /* --- 초기화 --- */
+    function init() {
+        overlay = document.getElementById('search-overlay');
+        input = document.getElementById('search-input');
+        resultsEl = document.getElementById('search-results');
+        metaEl = document.getElementById('search-meta');
+
+        // 입력 디바운스
+        let timer;
+        input.addEventListener('input', () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => search(input.value), 150);
+        });
+
+        input.addEventListener('keydown', onKeydown);
+
+        // 결과 클릭
+        resultsEl.addEventListener('click', e => {
+            const item = e.target.closest('.search-result-item');
+            if (!item) return;
+            goToResult(parseInt(item.dataset.idx));
+        });
+
+        // 오버레이 배경 클릭으로 닫기
+        overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+
+        // 전역 단축키: Ctrl/Cmd + K
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                overlay.classList.contains('open') ? close() : open();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+    return { open };
+})();
+</script>
+</body>
+</html>
